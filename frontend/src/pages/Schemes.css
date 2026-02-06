@@ -1,0 +1,226 @@
+.schemes-page {
+  padding: 20px;
+}
+
+.schemes-header {
+  margin-bottom: 24px;
+}
+
+.schemes-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+  font-size: 28px;
+  margin: 0 0 8px 0;
+}
+
+.schemes-header p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Category Filter */
+.category-filter {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  background: var(--card-bg);
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: #FF8C00;
+  color: #FF8C00;
+  background: #FFE4CC;
+}
+
+[data-theme="dark"] .filter-btn:hover {
+  background: #3D2415;
+  border-color: #FF8C00;
+  color: #FFB347;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #FF8C00 0%, #FFA500 100%);
+  border-color: #FF8C00;
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+}
+
+/* Schemes Grid */
+.schemes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.scheme-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Light mode cards */
+[data-theme="light"] .scheme-card,
+:root .scheme-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF8F0 100%);
+  border-color: #D4A574;
+}
+
+/* Dark mode cards */
+[data-theme="dark"] .scheme-card {
+  background: linear-gradient(135deg, #2A1A0A 0%, #3D2415 100%);
+  border-color: #5D3A22;
+}
+
+.scheme-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 140, 0, 0.15);
+}
+
+[data-theme="dark"] .scheme-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.scheme-card.eligible {
+  border-left: 4px solid #FF8C00;
+}
+
+.scheme-card.eligible::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, transparent 50%, rgba(255, 140, 0, 0.1) 50%);
+}
+
+.scheme-card.not-eligible {
+  border-left: 4px solid var(--text-muted);
+  opacity: 0.85;
+}
+
+[data-theme="dark"] .scheme-card.not-eligible {
+  opacity: 0.7;
+}
+
+.scheme-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.scheme-header h3 {
+  color: var(--text-primary);
+  font-size: 18px;
+  margin: 0;
+  flex: 1;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-badge.eligible {
+  background: rgba(255, 140, 0, 0.15);
+  color: #FF8C00;
+}
+
+.status-badge.not-eligible {
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+}
+
+.scheme-description {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+
+.scheme-details {
+  margin-bottom: 20px;
+}
+
+.detail-section {
+  margin-bottom: 12px;
+}
+
+.detail-section h4 {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.detail-section p {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+.detail-section ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.detail-section li {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.apply-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scheme-card.eligible .apply-btn {
+  background: linear-gradient(135deg, #FF8C00 0%, #FFA500 100%);
+  color: white;
+}
+
+.scheme-card.eligible .apply-btn:hover {
+  background: linear-gradient(135deg, #E67E00 0%, #FF8C00 100%);
+}
+
+.scheme-card.not-eligible .apply-btn {
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .schemes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

@@ -299,6 +299,13 @@ def get_module_lessons(module_id: int, user_id: int, language: str = "en", db: S
             LearningProgress.lesson_id == lesson.id
         ).first()
 
+        # Count available podcast languages for this lesson
+        from app.models.database import LessonPodcast
+        podcast_count = db.query(LessonPodcast).filter(
+            LessonPodcast.lesson_id == lesson.id,
+            LessonPodcast.status == "ready"
+        ).count()
+
         result.append({
             "lesson_id": lesson.id,
             "title": lesson.title_hi if language == "hi" else lesson.title_en,
@@ -308,7 +315,9 @@ def get_module_lessons(module_id: int, user_id: int, language: str = "en", db: S
             "xp_reward": lesson.xp_reward,
             "has_scenario": lesson.scenario_en is not None,
             "has_tool": lesson.tool_suggestion is not None,
-            "tool_name": lesson.tool_suggestion
+            "tool_name": lesson.tool_suggestion,
+            "has_podcast": podcast_count > 0,
+            "podcast_languages": podcast_count,
         })
 
     return {
@@ -355,17 +364,35 @@ def get_lesson_content(lesson_id: int, user_id: int, language: str = "en", db: S
     ).first()
 
     personalized_story = None
+    # personalized_content stores JSON: {"en": "...", "hi": "..."} 
+    cached = None
     if progress and progress.personalized_content:
-        personalized_story = progress.personalized_content
-    else:
-        # Generate personalized content
+        try:
+            cached = json.loads(progress.personalized_content)
+            if isinstance(cached, dict):
+                personalized_story = cached.get(language)
+            else:
+                # Legacy: plain string (old English-only cache) — treat as 'en'
+                cached = {"en": cached}
+                if language == "en":
+                    personalized_story = cached["en"]
+        except (json.JSONDecodeError, TypeError):
+            # Legacy plain text — treat as 'en'
+            cached = {"en": progress.personalized_content}
+            if language == "en":
+                personalized_story = cached["en"]
+
+    if not personalized_story:
+        # Generate personalized content for this language
         personalized_story = _personalize_lesson(lesson, user_ctx, language)
-        # Save it
         if not progress:
             progress = LearningProgress(user_id=user_id, lesson_id=lesson_id)
             db.add(progress)
         if personalized_story:
-            progress.personalized_content = personalized_story
+            if cached is None:
+                cached = {}
+            cached[language] = personalized_story
+            progress.personalized_content = json.dumps(cached, ensure_ascii=False)
         db.commit()
 
     # Parse scenario
@@ -376,6 +403,10 @@ def get_lesson_content(lesson_id: int, user_id: int, language: str = "en", db: S
             scenario = json.loads(scenario_raw)
         except:
             scenario = None
+
+    # Get available podcasts for this lesson
+    from app.services.podcast_service import get_lesson_podcasts
+    available_podcasts = get_lesson_podcasts(db, lesson_id)
 
     return {
         "lesson_id": lesson.id,
@@ -390,7 +421,9 @@ def get_lesson_content(lesson_id: int, user_id: int, language: str = "en", db: S
         "tool_suggestion": lesson.tool_suggestion,
         "xp_reward": lesson.xp_reward,
         "revision_warning": revision_warning,
-        "already_completed": progress.completed if progress else False
+        "already_completed": progress.completed if progress else False,
+        "podcasts": available_podcasts,
+        "podcast_hint": "🎧 Listen to this lesson as a podcast! Use /api/podcasts/generate to create audio in your language." if not available_podcasts else f"🎧 {len(available_podcasts)} podcast(s) available — tap to listen!"
     }
 
 

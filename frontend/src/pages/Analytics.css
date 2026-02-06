@@ -1,0 +1,343 @@
+.analytics-page {
+  padding: 20px;
+}
+
+.analytics-header {
+  margin-bottom: 30px;
+}
+
+.analytics-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+  font-size: 28px;
+  margin: 0 0 8px 0;
+}
+
+.analytics-header p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.analytics-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Light mode cards with subtle gradient */
+[data-theme="light"] .analytics-card,
+:root .analytics-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF8F0 100%);
+  border-color: #D4A574;
+}
+
+/* Dark mode cards with depth */
+[data-theme="dark"] .analytics-card {
+  background: linear-gradient(135deg, #2A1A0A 0%, #3D2415 100%);
+  border-color: #5D3A22;
+}
+
+.analytics-card h3 {
+  color: var(--text-primary);
+  font-size: 18px;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.analytics-card h3::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(180deg, #FF8C00 0%, #FFA500 100%);
+  border-radius: 2px;
+}
+
+/* Health Score Card */
+.health-score-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.health-score-circle {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.health-score-circle svg {
+  width: 100%;
+  height: 100%;
+}
+
+.health-score-circle .score-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  font-weight: 700;
+  color: #FF8C00;
+}
+
+.health-metrics {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.health-metrics .metric {
+  text-align: center;
+}
+
+.health-metrics .metric span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.health-metrics .metric strong {
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+/* Bar Chart */
+.bar-chart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 200px;
+  padding: 0 10px;
+  margin-bottom: 16px;
+}
+
+.chart-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.bars {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  height: 180px;
+}
+
+.bar {
+  width: 20px;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.bar:hover {
+  opacity: 0.8;
+}
+
+.income-bar {
+  background: linear-gradient(180deg, #FF8C00 0%, #FFA500 100%);
+}
+
+.expense-bar {
+  background: linear-gradient(180deg, #8B4513 0%, #D4A574 100%);
+}
+
+[data-theme="dark"] .income-bar {
+  background: linear-gradient(180deg, #FF8C00 0%, #FFB347 100%);
+}
+
+[data-theme="dark"] .expense-bar {
+  background: linear-gradient(180deg, #A0522D 0%, #D4A574 100%);
+}
+
+.bar-tooltip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.bar:hover .bar-tooltip {
+  display: block;
+}
+
+/* Category Spending */
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.category-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.category-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-name {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.category-amount {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.category-bar-wrapper {
+  height: 8px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.category-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.category-percentage {
+  color: var(--text-muted);
+  font-size: 13px;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* Quick Stats */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.stat-box {
+  background: var(--bg-secondary);
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.stat-box:hover {
+  border-color: #FF8C00;
+  background: #FFE4CC;
+}
+
+[data-theme="dark"] .stat-box {
+  background: #3D2415;
+}
+
+[data-theme="dark"] .stat-box:hover {
+  background: #4A2E1C;
+  border-color: #FF8C00;
+}
+
+/* Alternate stat box colors */
+.stat-box:nth-child(1) {
+  border-left: 3px solid #FF8C00;
+}
+
+.stat-box:nth-child(2) {
+  border-left: 3px solid #FFA500;
+}
+
+.stat-box:nth-child(3) {
+  border-left: 3px solid #8B4513;
+}
+
+.stat-box:nth-child(4) {
+  border-left: 3px solid #D4A574;
+}
+
+.stat-box .stat-label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.stat-box .stat-value {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.stat-box .stat-value.positive {
+  color: #FF8C00;
+}
+
+.chart-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.legend-item .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-item .dot.income {
+  background: #FF8C00;
+}
+
+.legend-item .dot.expense {
+  background: #8B4513;
+}
+
+@media (max-width: 768px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-stats {
+    grid-template-columns: 1fr;
+  }
+}

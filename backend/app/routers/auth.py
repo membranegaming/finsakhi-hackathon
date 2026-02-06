@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
+from typing import Optional
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
@@ -49,7 +50,7 @@ class SendOTPRequest(BaseModel):
 class VerifyOTPRequest(BaseModel):
     phone: str
     otp: str
-    name: str = None  # Optional, can be provided later
+    name: Optional[str] = None  # Optional, can be provided later
 
 def create_access_token(data: dict):
     to_encode = data.copy()

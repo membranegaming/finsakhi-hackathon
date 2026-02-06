@@ -1,0 +1,159 @@
+/* ========================================
+   GLOBAL THEME VARIABLES
+   Orange, Brown, White Color Scheme
+======================================== */
+
+:root {
+  /* Light Mode - Default */
+  --bg-main: #FFF8F0;
+  --bg-secondary: #FFF5EB;
+  --bg-tertiary: #FFEFE0;
+
+  --card-bg: #FFFFFF;
+  --card-secondary: #FFF8F0;
+  --card-accent: #FFE4CC;
+
+  --text-primary: #5D2E0C;
+  --text-secondary: #8B4513;
+  --text-muted: #A0522D;
+  --text-soft: #B8956E;
+
+  --accent-primary: #FF8C00;
+  --accent-secondary: #FFA500;
+  --accent-hover: #E67E00;
+  --accent-deep: #CC7000;
+
+  --accent-light: #FFB347;
+  --accent-light-2: #FFCC80;
+  --accent-light-3: #FFE0B2;
+  --accent-bg: #FFF3E0;
+
+  --border-color: #D4A574;
+  --border-subtle: #E8C9A8;
+
+  --brown-primary: #8B4513;
+  --brown-secondary: #A0522D;
+  --brown-light: #D4A574;
+  --brown-dark: #5D2E0C;
+
+  --shadow-sm: 0 1px 3px rgba(139, 69, 19, 0.08);
+  --shadow-md: 0 4px 6px rgba(139, 69, 19, 0.12);
+  --shadow-lg: 0 10px 25px rgba(139, 69, 19, 0.15);
+  --shadow-xl: 0 20px 40px rgba(139, 69, 19, 0.2);
+}
+
+[data-theme="dark"] {
+  /* Dark Mode */
+  --bg-main: #1A0F08;
+  --bg-secondary: #2A1A0A;
+  --bg-tertiary: #3D2415;
+  --bg-alt: #2A1A0A;
+  --bg-alt-2: #1A0F08;
+
+  --card-bg: #2A1A0A;
+  --card-secondary: #3D2415;
+  --card-elevated: #4A2E1C;
+  --card-surface: #5D3A22;
+  --card-panel: #4A2E1C;
+  --card-panel-2: #5D3A22;
+  --card-panel-3: #6B4528;
+  --card-panel-4: #7A502E;
+
+  --sidebar-bg: #1A0F08;
+  --sidebar-alt: #2A1A0A;
+  --sidebar-elevated: #3D2415;
+  --sidebar-accent: #5D3A22;
+  --sidebar-deep: #4A2E1C;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #FFE4CC;
+  --text-muted: #D4A574;
+  --text-soft: #B8956E;
+
+  --accent-primary: #FF8C00;
+  --accent-secondary: #FFA500;
+  --accent-hover: #FFB347;
+  --accent-active: #FFCC80;
+
+  --accent-light: #FFB347;
+  --accent-light-2: #FFCC80;
+  --accent-light-3: #FFE0B2;
+  --accent-light-4: #FFF3E0;
+
+  --accent-deep: #CC7000;
+  --accent-deep-2: #B36200;
+  --accent-deep-3: #995400;
+  --accent-deep-4: #804600;
+
+  --brown-primary: #8B4513;
+  --brown-secondary: #A0522D;
+  --brown-light: #D4A574;
+  --brown-dark: #5D2E0C;
+
+  --border-color: #5D3A22;
+  --border-subtle: #4A2E1C;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ========================================
+   GLOBAL RESETS & BASE STYLES
+======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+======================================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* ========================================
+   UTILITY CLASSES
+======================================== */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-soft { color: var(--text-soft); }
+
+.bg-main { background: var(--bg-main); }
+.bg-card { background: var(--card-bg); }
+.bg-accent { background: var(--accent-primary); }
+

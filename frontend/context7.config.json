@@ -1,0 +1,17 @@
+{
+  "sources": [
+    {
+      "name": "react",
+      "version": "18",
+      "type": "web",
+      "url": "https://react.dev/reference/react"
+    },
+    {
+      "name": "node",
+      "version": "20",
+      "type": "web",
+      "url": "https://nodejs.org/docs/latest/api/"
+    }
+  ]
+}
+

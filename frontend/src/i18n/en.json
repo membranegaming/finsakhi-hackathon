@@ -1,0 +1,77 @@
+{
+  "common": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "submit": "Submit",
+    "next": "Next",
+    "back": "Back",
+    "continue": "Continue",
+    "cancel": "Cancel",
+    "retry": "Retry"
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create Account",
+    "emailPlaceholder": "Email or Username",
+    "passwordPlaceholder": "Password",
+    "namePlaceholder": "Name",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "termsAgree": "I agree to all terms and Privacy Policy"
+  },
+  "assessment": {
+    "title": "Financial Assessment",
+    "questionOf": "Question {current} of {total}",
+    "complete": "Assessment Complete!",
+    "yourLevel": "Your Level",
+    "continueToDashboard": "Continue to Dashboard",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "descriptions": {
+      "beginner": "You're just starting your financial journey. Let's build a strong foundation!",
+      "intermediate": "You have solid financial knowledge. Time to level up!",
+      "advanced": "Impressive! You have advanced financial expertise."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to your financial learning dashboard!",
+    "learningProgress": "Learning Progress",
+    "investmentSimulator": "Investment Simulator",
+    "portfolio": "Portfolio",
+    "achievements": "Achievements"
+  },
+  "learning": {
+    "title": "Learning",
+    "modules": "Modules",
+    "lessons": "Lessons",
+    "complete": "Complete"
+  },
+  "investment": {
+    "title": "Investment Simulator",
+    "buy": "Buy",
+    "sell": "Sell",
+    "balance": "Balance",
+    "stocks": "Stocks"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "totalValue": "Total Value",
+    "holdings": "Holdings",
+    "performance": "Performance"
+  },
+  "personalDetails": {
+    "title": "Personal Details",
+    "subtitle": "Help us personalize your experience",
+    "loading": "Loading questions...",
+    "submitting": "Submitting...",
+    "error": "Failed to load questions. Please try again.",
+    "submitError": "Failed to submit. Please try again."
+  }
+}
+

@@ -1,0 +1,77 @@
+{
+  "common": {
+    "login": "लॉगिन",
+    "signup": "साइन अप",
+    "logout": "लॉगआउट",
+    "submit": "जमा करें",
+    "next": "अगला",
+    "back": "पीछे",
+    "continue": "जारी रखें",
+    "cancel": "रद्द करें",
+    "retry": "पुनः प्रयास करें"
+  },
+  "auth": {
+    "welcomeBack": "वापसी पर स्वागत है",
+    "createAccount": "खाता बनाएं",
+    "emailPlaceholder": "ईमेल या उपयोगकर्ता नाम",
+    "passwordPlaceholder": "पासवर्ड",
+    "namePlaceholder": "नाम",
+    "forgotPassword": "पासवर्ड भूल गए?",
+    "noAccount": "खाता नहीं है?",
+    "hasAccount": "पहले से खाता है?",
+    "termsAgree": "मैं सभी शर्तों और गोपनीयता नीति से सहमत हूं"
+  },
+  "assessment": {
+    "title": "वित्तीय मूल्यांकन",
+    "questionOf": "प्रश्न {current} में से {total}",
+    "complete": "मूल्यांकन पूर्ण!",
+    "yourLevel": "आपका स्तर",
+    "continueToDashboard": "डैशबोर्ड पर जारी रखें",
+    "levels": {
+      "beginner": "शुरुआती",
+      "intermediate": "मध्यवर्ती",
+      "advanced": "उन्नत"
+    },
+    "descriptions": {
+      "beginner": "आप अपनी वित्तीय यात्रा शुरू कर रहे हैं। आइए एक मजबूत नींव बनाएं!",
+      "intermediate": "आपके पास ठोस वित्तीय ज्ञान है। अब आगे बढ़ने का समय है!",
+      "advanced": "प्रभावशाली! आपके पास उन्नत वित्तीय विशेषज्ञता है।"
+    }
+  },
+  "dashboard": {
+    "title": "डैशबोर्ड",
+    "welcome": "आपके वित्तीय शिक्षण डैशबोर्ड में आपका स्वागत है!",
+    "learningProgress": "सीखने की प्रगति",
+    "investmentSimulator": "निवेश सिम्युलेटर",
+    "portfolio": "पोर्टफोलियो",
+    "achievements": "उपलब्धियां"
+  },
+  "learning": {
+    "title": "सीखना",
+    "modules": "मॉड्यूल",
+    "lessons": "पाठ",
+    "complete": "पूर्ण"
+  },
+  "investment": {
+    "title": "निवेश सिम्युलेटर",
+    "buy": "खरीदें",
+    "sell": "बेचें",
+    "balance": "शेष राशि",
+    "stocks": "स्टॉक"
+  },
+  "portfolio": {
+    "title": "पोर्टफोलियो",
+    "totalValue": "कुल मूल्य",
+    "holdings": "होल्डिंग्स",
+    "performance": "प्रदर्शन"
+  },
+  "personalDetails": {
+    "title": "व्यक्तिगत विवरण",
+    "subtitle": "अपने अनुभव को वैयक्तिकृत करने में हमारी मदद करें",
+    "loading": "प्रश्न लोड हो रहे हैं...",
+    "submitting": "जमा किया जा रहा है...",
+    "error": "प्रश्न लोड करने में विफल। कृपया पुनः प्रयास करें।",
+    "submitError": "जमा करने में विफल। कृपया पुनः प्रयास करें।"
+  }
+}
+

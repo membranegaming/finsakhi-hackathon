@@ -1,0 +1,28 @@
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--card-secondary);
+  color: var(--accent-primary);
+  transform: rotate(20deg);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  background: var(--card-elevated);
+}
+
+.theme-toggle svg {
+  transition: transform 0.3s ease;
+}
+
