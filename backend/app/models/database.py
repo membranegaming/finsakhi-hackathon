@@ -292,6 +292,42 @@ class Goal(Base):
 
 
 # ============================================
+# FINGAME (RPG) MODELS
+# ============================================
+
+class GameSession(Base):
+    """Tracks a user's current state in the FinGame RPG"""
+    __tablename__ = "game_sessions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), unique=True, index=True)
+    current_path = Column(String(50), default="farming")
+    current_node_id = Column(String(100), default="start")
+    savings = Column(Integer, default=0)
+    debt = Column(Integer, default=0)
+    confidence = Column(Integer, default=50)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    history = relationship("GameHistoryLog", back_populates="session", cascade="all, delete-orphan")
+    user = relationship("User")
+
+
+class GameHistoryLog(Base):
+    """Logs each choice in FinGame for rollback support"""
+    __tablename__ = "game_history_logs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    session_id = Column(Integer, ForeignKey("game_sessions.id"))
+    node_id = Column(String(100))
+    choice_id = Column(String(100))
+    previous_stats = Column(Text, nullable=True)  # JSON snapshot for rollback
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    session = relationship("GameSession", back_populates="history")
+
+
+# ============================================
 # CREATE ALL TABLES
 # ============================================
 def init_db():

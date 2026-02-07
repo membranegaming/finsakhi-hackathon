@@ -3,6 +3,49 @@ import { useApp } from "../contexts/AppContext";
 import { learningAPI, podcastAPI } from "../services/api";
 import CandleLoader from "../components/ui/CandleLoader";
 
+// ── YouTube Video Mapping by lesson keyword ──
+// Each entry maps a keyword (found in lesson title) to a relevant YouTube video
+const LESSON_VIDEOS = {
+  // Savings — Beginner
+  "saving starts small":       { videoId: "jJAijGmFDng", label_en: "Why Saving Money is Important", label_hi: "बचत क्यों ज़रूरी है" },
+  "home vs bank":              { videoId: "yCOMnvIkVv0", label_en: "Bank Account vs Keeping Cash at Home", label_hi: "बैंक बनाम घर में नकदी" },
+  // Savings — Intermediate
+  "emergency fund":            { videoId: "RG2eKJdzJU4", label_en: "How to Build an Emergency Fund", label_hi: "इमरजेंसी फंड कैसे बनाएं" },
+  "50-30-20":                  { videoId: "HQzoZfc3GwQ", label_en: "50-30-20 Budget Rule Explained", label_hi: "50-30-20 बजट नियम" },
+  // Savings — Advanced
+  "ppf":                       { videoId: "S_mNsMlXpOo", label_en: "PPF Account — Tax Saving Investment", label_hi: "PPF खाता — कर बचत निवेश" },
+  // Credit — Beginner
+  "bank vs moneylender":       { videoId: "GlBTANjamfc", label_en: "Bank Loan vs Moneylender", label_hi: "बैंक ऋण बनाम साहूकार" },
+  "what is interest":          { videoId: "DaIzdef1oFc", label_en: "What is Interest? Simple Explanation", label_hi: "ब्याज क्या है?" },
+  // Credit — Intermediate
+  "emi":                       { videoId: "k7Dba4A2vHo", label_en: "EMI Explained — How Loans Work", label_hi: "EMI कैसे काम करता है" },
+  // Credit — Advanced
+  "credit score":              { videoId: "wHp1r2BKNGI", label_en: "Credit Score Explained — CIBIL Score", label_hi: "क्रेडिट स्कोर क्या है" },
+  // Investments — Beginner
+  "saving vs investing":       { videoId: "zV3u4Dq-rFA", label_en: "Saving vs Investing — Key Differences", label_hi: "बचत बनाम निवेश" },
+  "fixed deposit":             { videoId: "UfYJTCru3Q8", label_en: "Fixed Deposit Explained for Beginners", label_hi: "FD कैसे काम करता है" },
+  // Investments — Intermediate
+  "sip":                       { videoId: "tcNjBasd_e0", label_en: "SIP & Recurring Deposits Explained", label_hi: "SIP और RD समझें" },
+  // Investments — Advanced  
+  "all eggs":                  { videoId: "z4AqFKVPP60", label_en: "Diversification — Reduce Investment Risk", label_hi: "विविधीकरण — जोखिम कम करें" },
+  // Small Business — Beginner
+  "tea stall":                 { videoId: "aANQkKN_pRg", label_en: "Separate Business and Personal Money", label_hi: "व्यापार और व्यक्तिगत पैसे अलग रखें" },
+  // Small Business — Intermediate
+  "profit":                    { videoId: "TWT0LbLGxig", label_en: "Pricing & Profit Calculation", label_hi: "मूल्य निर्धारण और लाभ" },
+  // Small Business — Advanced
+  "cash flow":                 { videoId: "XxdGJLJdbHE", label_en: "Cash Flow Management for Small Business", label_hi: "कैश फ्लो प्रबंधन" },
+};
+
+/** Find the best matching video for a lesson title */
+function getVideoForLesson(title) {
+  if (!title) return null;
+  const lower = title.toLowerCase();
+  for (const [keyword, video] of Object.entries(LESSON_VIDEOS)) {
+    if (lower.includes(keyword)) return video;
+  }
+  return null;
+}
+
 export default function Learning({ userId }) {
   const { language } = useApp();
   const [modules, setModules] = useState([]);
@@ -149,6 +192,51 @@ export default function Learning({ userId }) {
             {lessonContent.story || lessonContent.original_story || lessonContent.content || (language === 'hi' ? 'सामग्री लोड हो रही है...' : 'Loading content...')}
           </div>
 
+          {/* YouTube Video Embed */}
+          {(() => {
+            const video = getVideoForLesson(lessonContent.title || '');
+            if (!video) return null;
+            return (
+              <div style={{
+                marginTop: '1.5rem',
+                background: 'var(--bg-secondary)',
+                borderRadius: '14px',
+                padding: '1.25rem',
+                border: '1px solid var(--border-subtle)',
+              }}>
+                <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span>🎬</span>
+                  <span>{language === 'hi' ? 'वीडियो से सीखें' : 'Watch & Learn'}</span>
+                </h3>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+                  {language === 'hi' ? video.label_hi : video.label_en}
+                </p>
+                <div style={{
+                  position: 'relative',
+                  width: '100%',
+                  paddingBottom: '56.25%', /* 16:9 */
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: '#000',
+                }}>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${video.videoId}?rel=0`}
+                    title={language === 'hi' ? video.label_hi : video.label_en}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{
+                      position: 'absolute',
+                      top: 0, left: 0,
+                      width: '100%', height: '100%',
+                      border: 'none',
+                      borderRadius: '12px',
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })()}
+
           {/* Key takeaway */}
           {lessonContent.takeaway && (
             <div style={{ marginTop: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '12px', padding: '1rem' }}>
@@ -288,6 +376,7 @@ export default function Learning({ userId }) {
                   {lesson.has_scenario && <span>🧩 Scenario</span>}
                   {lesson.has_podcast && <span>🎧 Podcast</span>}
                   {lesson.has_tool && <span>🔧 {lesson.tool_name || 'Tool'}</span>}
+                  {getVideoForLesson(lesson.title) && <span>🎬 Video</span>}
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

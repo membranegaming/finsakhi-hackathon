@@ -1,0 +1,352 @@
+{
+    "role": "system",
+    "objective": "Provide structured story data for a BitLife-style financial learning game with rollback-based progression.",
+    "global_rules": {
+        "rollback_depth": 3,
+        "risk_threshold": 3,
+        "max_debt": 8000
+    },
+    "characters": {
+        "raj": {
+            "name": { "english": "Raj", "hindi": "Raj" },
+            "role": { "english": "Farmer", "hindi": "किसान" },
+            "avatar": "👨‍🌾",
+            "description": { "english": "A young farmer trying to make ends meet", "hindi": "एक युवा किसान जो गुज़ारा करने की कोशिश कर रहा है" },
+            "personality": { "english": "Hardworking and cautious", "hindi": "मेहनती और सतर्क" }
+        },
+        "priya": {
+            "name": { "english": "Priya", "hindi": "Priya" },
+            "role": { "english": "Business Owner", "hindi": "व्यापारी" },
+            "avatar": "👩‍💼",
+            "description": { "english": "An ambitious entrepreneur running a small shop", "hindi": "एक महत्वाकांक्षी उद्यमी जो एक छोटी दुकान चलाती है" },
+            "personality": { "english": "Bold and strategic", "hindi": "साहसी और रणनीतिक" }
+        },
+        "amit": {
+            "name": { "english": "Amit", "hindi": "Amit" },
+            "role": { "english": "Daily Wage Worker", "hindi": "दिहाड़ी मज़दूर" },
+            "avatar": "👷",
+            "description": { "english": "A construction worker with big dreams", "hindi": "बड़े सपने देखने वाला एक निर्माण मज़दूर" },
+            "personality": { "english": "Optimistic and resilient", "hindi": "आशावादी और हिम्मती" }
+        },
+        "mentor": {
+            "name": { "english": "Sharma Ji", "hindi": "Sharma Ji" },
+            "role": { "english": "Financial Advisor", "hindi": "वित्तीय सलाहकार" },
+            "avatar": "👴",
+            "description": { "english": "A wise elder who gives financial advice", "hindi": "एक समझदार बुज़ुर्ग जो पैसों की सलाह देते हैं" },
+            "personality": { "english": "Wise and patient", "hindi": "बुद्धिमान और धैर्यवान" }
+        },
+        "friend": {
+            "name": { "english": "Rohan", "hindi": "Rohan" },
+            "role": { "english": "Friend", "hindi": "दोस्त" },
+            "avatar": "🧑",
+            "description": { "english": "Your childhood friend", "hindi": "तुम्हारा बचपन का दोस्त" },
+            "personality": { "english": "Supportive but sometimes impulsive", "hindi": "सहयोगी लेकिन कभी-कभी जल्दबाज़" }
+        },
+        "banker": {
+            "name": { "english": "Ms. Kapoor", "hindi": "Ms. Kapoor" },
+            "role": { "english": "Bank Officer", "hindi": "बैंक अधिकारी" },
+            "avatar": "👩‍💻",
+            "description": { "english": "A helpful bank officer", "hindi": "एक मददगार बैंक अधिकारी" },
+            "personality": { "english": "Professional and informative", "hindi": "पेशेवर और जानकार" }
+        },
+        "moneylender": {
+            "name": { "english": "Lala", "hindi": "Lala" },
+            "role": { "english": "Moneylender", "hindi": "साहूकार" },
+            "avatar": "😈",
+            "description": { "english": "A local moneylender with high interest rates", "hindi": "एक स्थानीय साहूकार जो ऊँचा ब्याज लेता है" },
+            "personality": { "english": "Cunning and opportunistic", "hindi": "चालाक और मौकापरस्त" }
+        }
+    },
+    "paths": [
+        {
+            "path_id": "farming",
+            "title": { "english": "Farming / Family Income", "hindi": "खेती / पारिवारिक आय" },
+            "description": { "english": "Seasonal income, family responsibility, uncertain future.", "hindi": "मौसमी आमदनी, पारिवारिक ज़िम्मेदारी, अनिश्चित भविष्य।" },
+            "protagonist": "raj",
+            "initial_state": { "age": 22, "income": 7000, "savings": 0, "debt": 0, "confidence": 1 },
+            "nodes": [
+                {
+                    "node_id": "farm_1", "sequence": 1, "checkpoint": true, "scene": "farm_field",
+                    "dialogue": [
+                        { "speaker": "raj", "position": "left", "text": { "english": "The harvest season is finally over! I just sold my crops at the market and received ₹7,000.", "hindi": "फसल का मौसम आखिरकार खत्म हो गया! मैंने अभी मंडी में अपनी फसल बेची और ₹7,000 मिले।" }, "emotion": "happy" },
+                        { "speaker": "raj", "position": "left", "text": { "english": "It's not much, but it's honest work. Now I need to decide what to do with this money.", "hindi": "ज़्यादा नहीं है, लेकिन ईमानदारी की कमाई है। अब मुझे सोचना है कि इन पैसों का क्या करूँ।" }, "emotion": "thoughtful" },
+                        { "speaker": "mentor", "position": "right", "text": { "english": "Raj beta, remember what I taught you. Always keep some money aside for emergencies.", "hindi": "राज बेटा, याद रखो मैंने क्या सिखाया था। हमेशा कुछ पैसे मुश्किल वक़्त के लिए बचाकर रखो।" }, "emotion": "wise" }
+                    ],
+                    "choices": [
+                        { "id": "farm_1_a", "text": { "english": "Save ₹1,000 for emergencies", "hindi": "₹1,000 मुश्किल वक़्त के लिए बचाओ" }, "impact": { "savings": 1000 }, "risk": 0,
+                          "feedback": { "isCorrect": true, "advice": { "english": "Excellent choice! Saving money for emergencies is the foundation of financial security. This emergency fund will protect you when unexpected situations arise.", "hindi": "बहुत अच्छा विकल्प! आपातकाल के लिए पैसे बचाना वित्तीय सुरक्षा की नींव है। यह आपातकालीन निधि अप्रत्याशित स्थितियों में आपकी रक्षा करेगी।" }, "nextScenario": { "english": "Peer Pressure - EMI Temptation", "hindi": "साथियों का दबाव - ईएमआई का प्रलोभन" } } },
+                        { "id": "farm_1_b", "text": { "english": "Spend it all on family needs", "hindi": "सारे पैसे घर के खर्चों में लगा दो" }, "impact": {}, "risk": 1,
+                          "feedback": { "isCorrect": false, "advice": { "english": "While family is important, you should always save some money for emergencies. Try to balance family needs with building an emergency fund.", "hindi": "जबकि परिवार महत्वपूर्ण है, आपको हमेशा आपातकाल के लिए कुछ पैसे बचाने चाहिए। पारिवारिक जरूरतों और आपातकालीन निधि बनाने के बीच संतुलन बनाने का प्रयास करें।" }, "nextScenario": { "english": "Peer Pressure - EMI Temptation", "hindi": "साथियों का दबाव - ईएमआई का प्रलोभन" } } }
+                    ]
+                },
+                {
+                    "node_id": "farm_2", "sequence": 2, "checkpoint": false, "scene": "village_home",
+                    "dialogue": [
+                        { "speaker": "friend", "position": "right", "text": { "english": "Hey Raj! Look at my new smartphone! I got it on EMI - only ₹500 per month!", "hindi": "अरे राज! देख मेरा नया स्मार्टफोन! EMI पर लिया है - बस ₹500 महीना!" }, "emotion": "excited" },
+                        { "speaker": "raj", "position": "left", "text": { "english": "Wow, that's nice! But EMI means debt, right?", "hindi": "वाह, अच्छा है! लेकिन EMI मतलब कर्ज़ है ना?" }, "emotion": "curious" },
+                        { "speaker": "friend", "position": "right", "text": { "english": "Don't worry about it! Everyone has one these days. You'll look outdated without it!", "hindi": "चिंता मत कर यार! आजकल सबके पास है। बिना इसके तू पुराने ज़माने का लगेगा!" }, "emotion": "persuasive" },
+                        { "speaker": "raj", "position": "left", "text": { "english": "Hmm... should I take the EMI deal or save up instead?", "hindi": "हम्म... क्या मुझे EMI वाला फोन ले लेना चाहिए या पहले पैसे जोड़ लूँ?" }, "emotion": "thoughtful" }
+                    ],
+                    "choices": [
+                        { "id": "farm_2_a", "text": { "english": "Take the EMI deal (₹3,000 total debt)", "hindi": "EMI वाला सौदा ले लो (₹3,000 कुल कर्ज़)" }, "impact": { "debt": 3000 }, "risk": 2,
+                          "feedback": { "isCorrect": false, "advice": { "english": "EMI creates debt! While it seems easy to pay small amounts monthly, you end up paying more due to interest. Save first, then buy. Avoid unnecessary debt.", "hindi": "ईएमआई कर्ज बनाता है! हालांकि मासिक छोटी राशि का भुगतान करना आसान लगता है, ब्याज के कारण आप अधिक भुगतान करते हैं। पहले बचत करें, फिर खरीदें। अनावश्यक कर्ज से बचें।" }, "nextScenario": { "english": "Medical Emergency", "hindi": "चिकित्सा आपातकाल" } } },
+                        { "id": "farm_2_b", "text": { "english": "Politely decline and save up instead", "hindi": "विनम्रता से मना करो और पहले पैसे जोड़ो" }, "impact": { "confidence": 1 }, "risk": 0,
+                          "feedback": { "isCorrect": true, "advice": { "english": "Great decision! Resisting peer pressure and avoiding debt shows financial maturity. Save money first, then buy what you need without paying extra interest.", "hindi": "बढ़िया निर्णय! साथियों के दबाव का विरोध करना और कर्ज से बचना वित्तीय परिपक्वता दर्शाता है। पहले पैसे बचाएं, फिर बिना अतिरिक्त ब्याज के जो चाहिए वह खरीदें।" }, "nextScenario": { "english": "Medical Emergency", "hindi": "चिकित्सा आपातकाल" } } }
+                    ]
+                },
+                {
+                    "node_id": "farm_3", "sequence": 3, "checkpoint": true, "scene": "village_home",
+                    "dialogue": [
+                        { "speaker": "raj", "position": "left", "text": { "english": "Oh no! My father fell ill suddenly. The doctor says he needs immediate treatment.", "hindi": "हे भगवान! पिताजी अचानक बीमार हो गए। डॉक्टर कह रहा है कि तुरंत इलाज चाहिए।" }, "emotion": "worried" },
+                        { "speaker": "banker", "position": "right", "text": { "english": "I'm sorry to hear that, Raj. The treatment will cost ₹3,000. Do you have savings?", "hindi": "यह सुनकर दुख हुआ, राज। इलाज का खर्चा ₹3,000 आएगा। क्या तुम्हारे पास बचत है?" }, "emotion": "concerned" },
+                        { "speaker": "raj", "position": "left", "text": { "english": "I need to arrange this money quickly. What should I do?", "hindi": "मुझे जल्दी से पैसों का इंतेज़ाम करना होगा। क्या करूँ?" }, "emotion": "anxious" }
+                    ],
+                    "choices": [
+                        { "id": "farm_3_a", "text": { "english": "Use my savings", "hindi": "अपनी बचत इस्तेमाल करो" }, "impact": { "savings": -3000 }, "risk": 0 },
+                        { "id": "farm_3_b", "text": { "english": "Borrow from Lala the moneylender", "hindi": "साहूकार लाला से उधार लो" }, "speaker_choice": "moneylender", "impact": { "debt": 3000 }, "risk": 3, "triggers_rollback": true, "learning_topic": "Emergency Fund" }
+                    ]
+                },
+                {
+                    "node_id": "farm_4", "sequence": 4, "checkpoint": false, "scene": "bank",
+                    "dialogue": [
+                        { "speaker": "banker", "position": "right", "text": { "english": "Good morning, Raj! I'm Ms. Kapoor from the bank. I have something important to discuss with you.", "hindi": "सुप्रभात, राज! मैं बैंक से Ms. Kapoor हूँ। मुझे तुमसे कुछ ज़रूरी बात करनी है।" }, "emotion": "professional" },
+                        { "speaker": "raj", "position": "left", "text": { "english": "Namaste, Ms. Kapoor. What is it about?", "hindi": "नमस्ते, Ms. Kapoor। क्या बात है?" }, "emotion": "curious" },
+                        { "speaker": "banker", "position": "right", "text": { "english": "We're offering crop insurance that protects you against bad weather and crop failure. It costs ₹500 per season but can save you thousands if something goes wrong.", "hindi": "हम फसल बीमा दे रहे हैं जो खराब मौसम और फसल बर्बाद होने से बचाता है। इसका खर्चा ₹500 प्रति सीज़न है, लेकिन अगर कुछ गलत हो तो हज़ारों रुपये बच सकते हैं।" }, "emotion": "helpful" },
+                        { "speaker": "raj", "position": "left", "text": { "english": "₹500 seems like a lot... but insurance could protect my family. What should I do?", "hindi": "₹500 तो बहुत लग रहे हैं... लेकिन बीमा मेरे परिवार की रक्षा कर सकता है। क्या करूँ?" }, "emotion": "thoughtful" }
+                    ],
+                    "choices": [
+                        { "id": "farm_4_a", "text": { "english": "Enroll in the insurance program", "hindi": "बीमा योजना में भर्ती हो जाओ" }, "impact": { "confidence": 2 }, "risk": 0 },
+                        { "id": "farm_4_b", "text": { "english": "Skip it for now, seems expensive", "hindi": "अभी छोड़ो, महँगा लग रहा है" }, "impact": {}, "risk": 1 }
+                    ]
+                },
+                {
+                    "node_id": "farm_5", "sequence": 5, "checkpoint": true, "scene": "mentor_house",
+                    "dialogue": [
+                        { "speaker": "mentor", "position": "right", "text": { "english": "Raj, beta, come sit. I need to talk to you about something important.", "hindi": "राज, बेटा, आ बैठ। मुझे तुझसे कुछ ज़रूरी बात करनी है।" }, "emotion": "serious" },
+                        { "speaker": "raj", "position": "left", "text": { "english": "What is it, Sharma Ji? You look concerned.", "hindi": "क्या बात है, शर्मा जी? आप चिंतित लग रहे हैं।" }, "emotion": "attentive" },
+                        { "speaker": "mentor", "position": "right", "text": { "english": "I've been watching the weather reports. The monsoon might be weak this year. You should plan your expenses carefully for the next season.", "hindi": "मैं मौसम की खबरें देख रहा था। इस बार मानसून कमज़ोर रह सकता है। अगले सीज़न के लिए खर्चों की अच्छे से योजना बना लो।" }, "emotion": "wise" },
+                        { "speaker": "raj", "position": "left", "text": { "english": "That's worrying. Should I create a budget or just hope for the best?", "hindi": "यह तो चिंता की बात है। क्या मुझे बजट बनाना चाहिए या बस अच्छे की उम्मीद रखूँ?" }, "emotion": "worried" }
+                    ],
+                    "choices": [
+                        { "id": "farm_5_a", "text": { "english": "Create a budget and stick to it", "hindi": "बजट बनाओ और उस पर टिके रहो" }, "next_node": "farm_end_good", "impact": { "confidence": 5, "savings": 500 }, "risk": 0 },
+                        { "id": "farm_5_b", "text": { "english": "Don't worry too much, things will work out", "hindi": "ज़्यादा चिंता मत करो, सब ठीक हो जाएगा" }, "next_node": "farm_end_okay", "impact": { "confidence": -3 }, "risk": 2 }
+                    ]
+                },
+                {
+                    "node_id": "farm_end_good", "sequence": 6, "checkpoint": false, "speaker": "raj",
+                    "narrative": {
+                        "english": "Six months later...\n\nI can't believe how much has changed! By creating a budget and tracking every rupee, I was able to save enough to buy better seeds and even a small irrigation pump. When the weak monsoon came, I was prepared.\n\nMy neighbors struggled, but I had planned ahead. I learned that financial planning isn't about being rich - it's about being smart with what you have. Today, my farm is thriving, and I'm teaching other farmers in my village about budgeting.\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Budget planning helps you prepare for uncertainties\n✓ Small savings add up to big opportunities\n✓ Financial literacy empowers entire communities\n✓ Planning beats luck every time",
+                        "hindi": "छह महीने बाद...\n\nमुझे विश्वास नहीं हो रहा कि कितना कुछ बदल गया! बजट बनाकर और हर रुपये का हिसाब रखकर, मैंने अच्छे बीज और एक छोटा सिंचाई पंप खरीदने लायक बचत कर ली। जब कमज़ोर मानसून आया, तो मैं तैयार था।\n\nमेरे पड़ोसियों को मुश्किल हुई, लेकिन मैंने पहले से योजना बना ली थी। मैंने सीखा कि आर्थिक योजना अमीर होने के बारे में नहीं है - यह अपने पास जो है उसे समझदारी से इस्तेमाल करने के बारे में है। आज मेरा खेत फल-फूल रहा है, और मैं अपने गाँव के दूसरे किसानों को बजट बनाना सिखा रहा हूँ।\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ बजट बनाना अनिश्चितताओं के लिए तैयार करता है\n✓ छोटी-छोटी बचत बड़े मौके बनाती है\n✓ आर्थिक समझ पूरे समुदाय को सशक्त बनाती है\n✓ योजना हमेशा किस्मत से बेहतर होती है"
+                    },
+                    "choices": [
+                        { "id": "farm_end_restart", "text": { "english": "🔄 Start a New Journey", "hindi": "🔄 नई यात्रा शुरू करो" }, "next_node": "farm_1", "impact": {}, "risk": 0 },
+                        { "id": "farm_end_explore", "text": { "english": "🌟 Try a Different Path", "hindi": "🌟 कोई और रास्ता आज़माओ" }, "next_node": null, "impact": {}, "risk": 0 }
+                    ]
+                },
+                {
+                    "node_id": "farm_end_okay", "sequence": 6, "checkpoint": false, "speaker": "raj",
+                    "narrative": {
+                        "english": "Six months later...\n\nThe weak monsoon hit harder than I expected. Without a proper budget, I spent money on things I didn't really need. When the crops failed, I had to take a small loan to survive.\n\nI'm managing, but I realize now that Sharma Ji was right - planning matters. I've started keeping track of my expenses now, even if it's late. It's a tough lesson, but an important one.\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Hope is not a financial strategy\n✓ Planning ahead prevents crisis later\n✓ It's never too late to start budgeting\n✓ Small mistakes teach big lessons",
+                        "hindi": "छह महीने बाद...\n\nकमज़ोर मानसून ने उम्मीद से ज़्यादा मार दी। बिना बजट के, मैंने ऐसी चीज़ों पर पैसे खर्च कर दिए जिनकी असल में ज़रूरत नहीं थी। जब फसल बर्बाद हो गई, तो गुज़ारे के लिए छोटा कर्ज़ लेना पड़ा।\n\nकाम चल रहा है, लेकिन अब समझ आ रहा है कि शर्मा जी सही कह रहे थे - योजना बनाना ज़रूरी है। मैंने अब अपने खर्चों का हिसाब रखना शुरू कर दिया है, भले ही देर से। कड़वा सबक है, लेकिन ज़रूरी है।\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ उम्मीद कोई आर्थिक रणनीति नहीं है\n✓ पहले से योजना बनाना बाद की मुसीबत रोकता है\n✓ बजट बनाने में कभी देर नहीं होती\n✓ छोटी गलतियाँ बड़े सबक सिखाती हैं"
+                    },
+                    "choices": [
+                        { "id": "farm_okay_restart", "text": { "english": "🔄 Try Again with Better Choices", "hindi": "🔄 बेहतर फ़ैसलों के साथ फिर से कोशिश करो" }, "next_node": "farm_1", "impact": {}, "risk": 0 },
+                        { "id": "farm_okay_explore", "text": { "english": "🌟 Explore a Different Life Path", "hindi": "🌟 ज़िंदगी का कोई और रास्ता अपनाओ" }, "next_node": null, "impact": {}, "risk": 0 }
+                    ]
+                }
+            ]
+        },
+        {
+            "path_id": "business",
+            "title": { "english": "Small Business / Self Employment", "hindi": "छोटा व्यापार / स्वरोज़गार" },
+            "description": { "english": "Managing income, loans, and growth opportunities.", "hindi": "आमदनी, कर्ज़ और बढ़ोतरी के मौकों का प्रबंधन।" },
+            "protagonist": "priya",
+            "initial_state": { "age": 30, "income": 6000, "savings": 4000, "debt": 0, "confidence": 2 },
+            "nodes": [
+                {
+                    "node_id": "biz_1", "sequence": 1, "checkpoint": true, "scene": "shop_interior",
+                    "dialogue": [
+                        { "speaker": "priya", "position": "left", "text": { "english": "My small grocery shop has been running for 2 years now. Business is steady!", "hindi": "मेरी छोटी किराना दुकान को 2 साल हो गए हैं। काम ठीक-ठाक चल रहा है!" }, "emotion": "happy" },
+                        { "speaker": "priya", "position": "left", "text": { "english": "I have ₹4,000 in savings. A customer just asked if I sell cooking oil in bulk. I don't stock it yet.", "hindi": "मेरे पास ₹4,000 की बचत है। एक ग्राहक ने अभी पूछा कि क्या मैं थोक में खाना पकाने का तेल बेचती हूँ। मेरे पास अभी नहीं है।" }, "emotion": "thoughtful" },
+                        { "speaker": "banker", "position": "right", "text": { "english": "Priya ji, I can offer you a business loan of ₹10,000 to expand your inventory. Quick approval!", "hindi": "प्रिया जी, मैं आपको अपना स्टॉक बढ़ाने के लिए ₹10,000 का बिज़नेस लोन दे सकती हूँ। जल्दी मंज़ूरी मिल जाएगी!" }, "emotion": "professional" },
+                        { "speaker": "priya", "position": "left", "text": { "english": "Should I take the loan to stock more items, or wait and expand slowly with my savings?", "hindi": "क्या मुझे ज़्यादा सामान भरने के लिए लोन लेना चाहिए, या अपनी बचत से धीरे-धीरे बढ़ाना चाहिए?" }, "emotion": "thoughtful" }
+                    ],
+                    "choices": [
+                        { "id": "biz_1_a", "text": { "english": "Wait and save ₹1,000 more first", "hindi": "रुको और पहले ₹1,000 और बचाओ" }, "impact": { "savings": 1000, "confidence": 1 }, "risk": 0 },
+                        { "id": "biz_1_b", "text": { "english": "Take the ₹10,000 loan to expand now", "hindi": "अभी बढ़ोतरी के लिए ₹10,000 का लोन ले लो" }, "impact": { "debt": 10000 }, "risk": 2 }
+                    ]
+                },
+                {
+                    "node_id": "biz_2", "sequence": 2, "checkpoint": false, "scene": "shop_interior",
+                    "dialogue": [
+                        { "speaker": "priya", "position": "left", "text": { "english": "A big wedding order! They want ₹5,000 worth of groceries delivered tomorrow!", "hindi": "एक बड़ा शादी का ऑर्डर! उन्हें कल तक ₹5,000 का किराना सामान चाहिए!" }, "emotion": "excited" },
+                        { "speaker": "priya", "position": "left", "text": { "english": "But I don't have enough stock. I need to buy inventory from the wholesale market today.", "hindi": "लेकिन मेरे पास इतना सामान नहीं है। मुझे आज ही थोक बाज़ार से सामान लाना होगा।" }, "emotion": "worried" },
+                        { "speaker": "friend", "position": "right", "text": { "english": "Priya! I know a supplier who gives goods on credit. You can pay him after you get paid by the customer!", "hindi": "प्रिया! मैं एक सप्लायर को जानता हूँ जो उधार पर सामान देता है। ग्राहक से पैसे आने के बाद उसे दे देना!" }, "emotion": "helpful" },
+                        { "speaker": "priya", "position": "left", "text": { "english": "Credit sounds risky... but this is a big opportunity. What should I do?", "hindi": "उधार लेना जोखिम भरा लगता है... लेकिन यह बड़ा मौका है। क्या करूँ?" }, "emotion": "thoughtful" }
+                    ],
+                    "choices": [
+                        { "id": "biz_2_a", "text": { "english": "Use my savings to buy inventory (₹3,000)", "hindi": "अपनी बचत से सामान खरीदो (₹3,000)" }, "impact": { "savings": -3000, "confidence": 2 }, "risk": 0 },
+                        { "id": "biz_2_b", "text": { "english": "Take goods on credit from supplier", "hindi": "सप्लायर से उधार पर सामान ले लो" }, "impact": { "debt": 3000 }, "risk": 2 }
+                    ]
+                },
+                {
+                    "node_id": "biz_3", "sequence": 3, "checkpoint": true, "scene": "shop_exterior",
+                    "dialogue": [
+                        { "speaker": "priya", "position": "left", "text": { "english": "Oh no! A new supermarket just opened two streets away. They have lower prices!", "hindi": "अरे नहीं! दो गलियों दूर एक नया सुपरमार्केट खुल गया है। उनके दाम कम हैं!" }, "emotion": "worried" },
+                        { "speaker": "friend", "position": "right", "text": { "english": "Priya, many customers are going there. You need to do something to compete!", "hindi": "प्रिया, बहुत से ग्राहक वहाँ जा रहे हैं। तुम्हें कुछ करना होगा मुकाबले के लिए!" }, "emotion": "concerned" },
+                        { "speaker": "mentor", "position": "right", "text": { "english": "Beta, don't panic. Big stores have low prices, but you have something they don't - personal relationships with customers.", "hindi": "बेटा, घबराओ मत। बड़ी दुकानों के दाम कम हैं, लेकिन तुम्हारे पास वो है जो उनके पास नहीं - ग्राहकों से अपनापन।" }, "emotion": "wise" },
+                        { "speaker": "priya", "position": "left", "text": { "english": "Should I lower my prices to match them, or focus on better service?", "hindi": "क्या मुझे अपने दाम कम करने चाहिए, या बेहतर सेवा पर ध्यान देना चाहिए?" }, "emotion": "thoughtful" }
+                    ],
+                    "choices": [
+                        { "id": "biz_3_a", "text": { "english": "Lower prices (reduce profit margin)", "hindi": "दाम कम करो (मुनाफ़ा कम होगा)" }, "impact": { "confidence": -1 }, "risk": 2 },
+                        { "id": "biz_3_b", "text": { "english": "Offer home delivery and credit to loyal customers", "hindi": "पुराने ग्राहकों को होम डिलीवरी और उधार की सुविधा दो" }, "impact": { "confidence": 3, "savings": 500 }, "risk": 0 }
+                    ]
+                },
+                {
+                    "node_id": "biz_4", "sequence": 4, "checkpoint": false, "scene": "shop_interior",
+                    "dialogue": [
+                        { "speaker": "priya", "position": "left", "text": { "english": "Tax season is here. I need to file my business taxes.", "hindi": "टैक्स भरने का समय आ गया। मुझे अपने व्यापार का टैक्स जमा करना है।" }, "emotion": "worried" },
+                        { "speaker": "banker", "position": "right", "text": { "english": "Priya ji, do you maintain proper account books? Sales register, purchase register, expense records?", "hindi": "प्रिया जी, क्या आप सही हिसाब-किताब रखती हैं? बिक्री रजिस्टर, खरीद रजिस्टर, खर्चे का रिकॉर्ड?" }, "emotion": "professional" },
+                        { "speaker": "priya", "position": "left", "text": { "english": "I... I just keep receipts in a box. I never learned proper bookkeeping.", "hindi": "मैं... मैं बस रसीदें एक डिब्बे में रखती हूँ। मैंने कभी सही हिसाब-किताब रखना नहीं सीखा।" }, "emotion": "embarrassed" },
+                        { "speaker": "banker", "position": "right", "text": { "english": "Without records, you might pay more tax than needed, or face penalties. I can recommend a simple accounting course.", "hindi": "बिना रिकॉर्ड के, आप ज़रूरत से ज़्यादा टैक्स दे सकती हैं, या जुर्माना लग सकता है। मैं एक आसान अकाउंटिंग कोर्स बता सकती हूँ।" }, "emotion": "helpful" }
+                    ],
+                    "choices": [
+                        { "id": "biz_4_a", "text": { "english": "Hire an accountant (₹1,500/month)", "hindi": "एक अकाउंटेंट रखो (₹1,500/महीना)" }, "impact": { "savings": -1500, "confidence": 2 }, "risk": 0 },
+                        { "id": "biz_4_b", "text": { "english": "Learn basic bookkeeping myself (free)", "hindi": "ख़ुद बुनियादी हिसाब-किताब सीखो (मुफ़्त)" }, "impact": { "confidence": 3 }, "risk": 0 }
+                    ]
+                },
+                {
+                    "node_id": "biz_5", "sequence": 5, "checkpoint": true, "scene": "shop_interior",
+                    "dialogue": [
+                        { "speaker": "priya", "position": "left", "text": { "english": "Six months have passed. My shop is stable, but I'm not growing.", "hindi": "छह महीने बीत गए। दुकान चल तो रही है, लेकिन बढ़ नहीं रही।" }, "emotion": "thoughtful" },
+                        { "speaker": "mentor", "position": "right", "text": { "english": "Priya beta, successful businesses track three things: what comes in, what goes out, and what stays.", "hindi": "प्रिया बेटा, कामयाब व्यापार तीन चीज़ें ट्रैक करते हैं: क्या आया, क्या गया, और क्या बचा।" }, "emotion": "wise" },
+                        { "speaker": "priya", "position": "left", "text": { "english": "I work 12 hours a day, but I don't know my actual profit. I just know I'm surviving.", "hindi": "मैं दिन में 12 घंटे काम करती हूँ, लेकिन मुझे अपना असली मुनाफ़ा नहीं पता। बस इतना पता है कि गुज़ारा हो रहा है।" }, "emotion": "tired" },
+                        { "speaker": "mentor", "position": "right", "text": { "english": "That's the problem! Without knowing your numbers, you can't make smart decisions. Will you start tracking?", "hindi": "यही तो दिक्कत है! बिना अपने आँकड़ों को जाने, तुम समझदारी से फ़ैसले नहीं ले सकतीं। क्या तुम हिसाब रखना शुरू करोगी?" }, "emotion": "encouraging" }
+                    ],
+                    "choices": [
+                        { "id": "biz_5_a", "text": { "english": "Yes! Start maintaining daily accounts", "hindi": "हाँ! रोज़ का हिसाब रखना शुरू करो" }, "next_node": "biz_end_success", "impact": { "confidence": 5, "savings": 1000 }, "risk": 0 },
+                        { "id": "biz_5_b", "text": { "english": "I'm too busy running the shop", "hindi": "मुझे दुकान चलाने से फ़ुर्सत नहीं है" }, "next_node": "biz_end_struggle", "impact": { "confidence": -3 }, "risk": 1 }
+                    ]
+                },
+                {
+                    "node_id": "biz_end_success", "sequence": 6, "checkpoint": false, "speaker": "priya",
+                    "narrative": {
+                        "english": "One year later...\n\nMy shop has grown beyond my wildest dreams! By tracking every expense and income, I discovered I was losing money on items that weren't selling. I adjusted my inventory, negotiated better deals with suppliers, and even opened a second location!\n\nThe financial discipline I learned didn't just help my business - it changed my entire life. I now help other women entrepreneurs in my community start their own businesses. Knowledge truly is power!\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Track every rupee - knowledge is profit\n✓ Financial records reveal hidden opportunities\n✓ Discipline today creates freedom tomorrow\n✓ Success is built on smart decisions, not luck\n✓ Empowering others multiplies your impact",
+                        "hindi": "एक साल बाद...\n\nमेरी दुकान ने सोच से भी ज़्यादा तरक्की की! हर खर्चे और आमदनी का हिसाब रखकर, मुझे पता चला कि जो सामान बिक नहीं रहा था उसमें मेरा पैसा डूब रहा था। मैंने अपना स्टॉक ठीक किया, सप्लायरों से बेहतर सौदे किए, और एक दूसरी दुकान भी खोल ली!\n\nमैंने जो आर्थिक अनुशासन सीखा, उसने सिर्फ़ मेरे व्यापार में ही नहीं - मेरी पूरी ज़िंदगी बदल दी। अब मैं अपने समुदाय की दूसरी महिला उद्यमियों को अपना कारोबार शुरू करने में मदद करती हूँ। ज्ञान सच में शक्ति है!\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ हर रुपये का हिसाब रखो - जानकारी ही मुनाफ़ा है\n✓ आर्थिक रिकॉर्ड छिपे हुए मौके दिखाते हैं\n✓ आज का अनुशासन कल की आज़ादी बनाता है\n✓ कामयाबी समझदारी से बनती है, किस्मत से नहीं\n✓ दूसरों को सशक्त करना आपके प्रभाव को बढ़ाता है"
+                    },
+                    "choices": [
+                        { "id": "biz_success_restart", "text": { "english": "🔄 Start a New Business Journey", "hindi": "🔄 नई व्यापार यात्रा शुरू करो" }, "next_node": "biz_1", "impact": {}, "risk": 0 },
+                        { "id": "biz_success_explore", "text": { "english": "🌟 Experience a Different Life", "hindi": "🌟 एक अलग ज़िंदगी का अनुभव करो" }, "next_node": null, "impact": {}, "risk": 0 }
+                    ]
+                },
+                {
+                    "node_id": "biz_end_struggle", "sequence": 6, "checkpoint": false, "speaker": "priya",
+                    "narrative": {
+                        "english": "One year later...\n\nMy business is still running, but it's been a struggle. Without proper records, I couldn't figure out why I was always short on cash. I missed tax deadlines, paid penalties, and lost track of who owed me money.\n\nI had to take a small loan just to keep the doors open. I'm learning the hard way that being busy isn't the same as being successful. I've finally started keeping proper books - I just wish I'd listened to Sharma Ji earlier.\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Being busy doesn't mean being profitable\n✓ Financial records are not optional for business\n✓ Small oversights lead to big problems\n✓ It's never too late to start doing things right\n✓ Pride can be expensive - ask for help",
+                        "hindi": "एक साल बाद...\n\nमेरा व्यापार चल तो रहा है, लेकिन मुश्किल से। बिना सही हिसाब-किताब के, मुझे समझ नहीं आया कि पैसों की तंगी क्यों रहती थी। टैक्स की तारीख़ निकल गई, जुर्माना भरना पड़ा, और किसका कितना उधार बाकी है यह भी याद नहीं रहा।\n\nदुकान चालू रखने के लिए मुझे छोटा लोन लेना पड़ा। मुझे कठिन तरीके से सीखना पड़ रहा है कि व्यस्त होना कामयाब होने जैसा नहीं है। मैंने आखिरकार सही हिसाब रखना शुरू कर दिया - काश शर्मा जी की बात पहले मान ली होती।\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ व्यस्त होने का मतलब मुनाफ़ा होना नहीं है\n✓ व्यापार में हिसाब-किताब रखना वैकल्पिक नहीं है\n✓ छोटी-छोटी अनदेखी बड़ी समस्या बनती है\n✓ सही काम शुरू करने में कभी देर नहीं होती\n✓ घमंड महँगा पड़ता है - मदद माँगने में शर्म मत करो"
+                    },
+                    "choices": [
+                        { "id": "biz_struggle_restart", "text": { "english": "🔄 Start Over with Better Habits", "hindi": "🔄 बेहतर आदतों के साथ नए सिरे से शुरू करो" }, "next_node": "biz_1", "impact": {}, "risk": 0 },
+                        { "id": "biz_struggle_explore", "text": { "english": "🌟 Try a Different Career Path", "hindi": "🌟 कोई और करियर आज़माओ" }, "next_node": null, "impact": {}, "risk": 0 }
+                    ]
+                }
+            ]
+        },
+        {
+            "path_id": "wage",
+            "title": { "english": "Daily Wage / Job", "hindi": "दिहाड़ी मज़दूरी / नौकरी" },
+            "description": { "english": "Irregular income and daily expense pressure.", "hindi": "अनियमित आमदनी और रोज़ाना खर्चों का दबाव।" },
+            "protagonist": "amit",
+            "initial_state": { "age": 26, "income": 12000, "savings": 0, "debt": 0, "confidence": 1 },
+            "nodes": [
+                {
+                    "node_id": "wage_1", "sequence": 1, "checkpoint": true, "scene": "construction_site",
+                    "dialogue": [
+                        { "speaker": "amit", "position": "left", "text": { "english": "Another day at the construction site. I earn ₹500 per day when there's work.", "hindi": "कंस्ट्रक्शन साइट पर एक और दिन। जब काम होता है तो ₹500 रोज़ मिलते हैं।" }, "emotion": "tired" },
+                        { "speaker": "amit", "position": "left", "text": { "english": "This month I worked 24 days - that's ₹12,000! After rent and food, I have ₹3,000 left.", "hindi": "इस महीने 24 दिन काम किया - यानी ₹12,000! किराया और खाने के बाद ₹3,000 बचे हैं।" }, "emotion": "happy" },
+                        { "speaker": "friend", "position": "right", "text": { "english": "Amit bhai! Let's celebrate! We worked hard this month. Let's go out and enjoy!", "hindi": "अमित भाई! चलो मनाते हैं! इस महीने बहुत मेहनत की है। चलो बाहर घूमकर आते हैं!" }, "emotion": "excited" },
+                        { "speaker": "amit", "position": "left", "text": { "english": "But what if there's no work next month? Monsoon is coming, construction stops during rain...", "hindi": "लेकिन अगर अगले महीने काम नहीं मिला तो? बारिश का मौसम आ रहा है, बरसात में काम बंद हो जाता है..." }, "emotion": "worried" }
+                    ],
+                    "choices": [
+                        { "id": "wage_1_a", "text": { "english": "Save ₹2,000 for monsoon season", "hindi": "बारिश के मौसम के लिए ₹2,000 बचाओ" }, "impact": { "savings": 2000, "confidence": 2 }, "risk": 0 },
+                        { "id": "wage_1_b", "text": { "english": "Spend ₹1,500 celebrating, save ₹1,500", "hindi": "₹1,500 मस्ती में खर्च करो, ₹1,500 बचाओ" }, "impact": { "savings": 1500 }, "risk": 1 }
+                    ]
+                },
+                {
+                    "node_id": "wage_2", "sequence": 2, "checkpoint": false, "scene": "labor_chowk",
+                    "dialogue": [
+                        { "speaker": "amit", "position": "left", "text": { "english": "It's been raining for 5 days straight. No construction work. No income.", "hindi": "लगातार 5 दिन से बारिश हो रही है। कोई काम नहीं। कोई कमाई नहीं।" }, "emotion": "worried" },
+                        { "speaker": "friend", "position": "right", "text": { "english": "Amit, I heard the factory nearby is hiring temporary workers. ₹400 per day, but it's indoor work!", "hindi": "अमित, मुझे पता चला कि पास की फ़ैक्ट्री में अस्थायी मज़दूर रख रहे हैं। ₹400 रोज़, लेकिन अंदर का काम है!" }, "emotion": "helpful" },
+                        { "speaker": "amit", "position": "left", "text": { "english": "₹400 is less than my usual ₹500, but at least it's steady work during monsoon.", "hindi": "₹400 मेरे हमेशा के ₹500 से कम है, लेकिन कम से कम बारिश में भी काम तो मिलेगा।" }, "emotion": "thoughtful" },
+                        { "speaker": "friend", "position": "right", "text": { "english": "Or you could wait for construction to resume. Rain won't last forever!", "hindi": "या फिर रुक जा जब तक कंस्ट्रक्शन का काम दोबारा शुरू न हो। बारिश तो हमेशा नहीं रहेगी!" }, "emotion": "casual" }
+                    ],
+                    "choices": [
+                        { "id": "wage_2_a", "text": { "english": "Take factory job (₹400/day, steady)", "hindi": "फ़ैक्ट्री की नौकरी ले लो (₹400/दिन, पक्की)" }, "impact": { "savings": 1200, "confidence": 2 }, "risk": 0 },
+                        { "id": "wage_2_b", "text": { "english": "Wait for construction work (₹500/day, uncertain)", "hindi": "कंस्ट्रक्शन का काम शुरू होने तक रुको (₹500/दिन, अनिश्चित)" }, "impact": { "savings": -1000 }, "risk": 2 }
+                    ]
+                },
+                {
+                    "node_id": "wage_3", "sequence": 3, "checkpoint": true, "scene": "labor_chowk",
+                    "dialogue": [
+                        { "speaker": "mentor", "position": "right", "text": { "english": "Amit beta, I see you at the labor chowk every morning. Have you thought about learning a skill?", "hindi": "अमित बेटा, मैं तुम्हें हर सुबह लेबर चौक पर देखता हूँ। क्या तुमने कोई हुनर सीखने के बारे में सोचा है?" }, "emotion": "wise" },
+                        { "speaker": "amit", "position": "left", "text": { "english": "Skills? Like what, Sharma Ji?", "hindi": "हुनर? जैसे क्या, शर्मा जी?" }, "emotion": "curious" },
+                        { "speaker": "mentor", "position": "right", "text": { "english": "Plumbing, electrical work, welding. Skilled workers earn ₹800-1,000 per day! There's a free government training center nearby.", "hindi": "प्लंबिंग, बिजली का काम, वेल्डिंग। हुनरमंद कारीगर ₹800-1,000 रोज़ कमाते हैं! पास में एक मुफ़्त सरकारी ट्रेनिंग सेंटर है।" }, "emotion": "encouraging" },
+                        { "speaker": "amit", "position": "left", "text": { "english": "But training takes 3 months. I'll lose income during that time. I have rent to pay...", "hindi": "लेकिन ट्रेनिंग में 3 महीने लगेंगे। उस दौरान कमाई बंद हो जाएगी। किराया भी देना है..." }, "emotion": "worried" }
+                    ],
+                    "choices": [
+                        { "id": "wage_3_a", "text": { "english": "Join training, use savings for expenses", "hindi": "ट्रेनिंग में भर्ती हो जाओ, खर्चों के लिए बचत इस्तेमाल करो" }, "impact": { "savings": -2000, "confidence": 5 }, "risk": 0 },
+                        { "id": "wage_3_b", "text": { "english": "Continue daily wage work, no training", "hindi": "दिहाड़ी का काम जारी रखो, ट्रेनिंग नहीं" }, "impact": { "confidence": -1 }, "risk": 1 }
+                    ]
+                },
+                {
+                    "node_id": "wage_4", "sequence": 4, "checkpoint": false, "scene": "construction_site",
+                    "dialogue": [
+                        { "speaker": "amit", "position": "left", "text": { "english": "The contractor hasn't paid us for 2 weeks! He keeps saying 'next week, next week'.", "hindi": "ठेकेदार ने 2 हफ़्ते से पैसे नहीं दिए! बस कहता रहता है 'अगले हफ़्ते, अगले हफ़्ते'।" }, "emotion": "angry" },
+                        { "speaker": "friend", "position": "right", "text": { "english": "This happens all the time. We have no written contract, no proof of work.", "hindi": "यह तो हमेशा होता है। न कोई लिखित अनुबंध, न काम का कोई सबूत।" }, "emotion": "frustrated" },
+                        { "speaker": "banker", "position": "right", "text": { "english": "Amit, you should open a bank account. Ask for payment by bank transfer. It creates a record.", "hindi": "अमित, तुम्हें बैंक अकाउंट खुलवाना चाहिए। बैंक ट्रांसफ़र से पैसे माँगो। इससे रिकॉर्ड बन जाता है।" }, "emotion": "professional" },
+                        { "speaker": "amit", "position": "left", "text": { "english": "But the contractor says he only pays cash. If I insist on bank transfer, he might not hire me...", "hindi": "लेकिन ठेकेदार कहता है कि वो सिर्फ़ नकद देता है। अगर मैं बैंक ट्रांसफ़र की ज़िद करूँ, तो शायद काम ही न दे..." }, "emotion": "worried" }
+                    ],
+                    "choices": [
+                        { "id": "wage_4_a", "text": { "english": "Insist on bank transfer for future work", "hindi": "आगे के काम के लिए बैंक ट्रांसफ़र पर अड़े रहो" }, "impact": { "confidence": 3, "savings": 500 }, "risk": 0 },
+                        { "id": "wage_4_b", "text": { "english": "Accept cash to keep the job", "hindi": "नौकरी बचाने के लिए नकद स्वीकार करो" }, "impact": { "confidence": -1 }, "risk": 2 }
+                    ]
+                },
+                {
+                    "node_id": "wage_5", "sequence": 5, "checkpoint": true, "scene": "training_center",
+                    "dialogue": [
+                        { "speaker": "amit", "position": "left", "text": { "english": "Six months have passed. I'm still doing daily wage work.", "hindi": "छह महीने बीत गए। मैं अभी भी दिहाड़ी का काम कर रहा हूँ।" }, "emotion": "tired" },
+                        { "speaker": "mentor", "position": "right", "text": { "english": "Amit, you work hard, but you're stuck in the same place. Have you thought about your future?", "hindi": "अमित, तुम मेहनत बहुत करते हो, लेकिन वहीं के वहीं हो। क्या तुमने अपने भविष्य के बारे में सोचा है?" }, "emotion": "concerned" },
+                        { "speaker": "amit", "position": "left", "text": { "english": "I think about it every day, Sharma Ji. But I don't know how to break this cycle.", "hindi": "हर दिन सोचता हूँ, शर्मा जी। लेकिन समझ नहीं आता कि इस चक्र को कैसे तोड़ूँ।" }, "emotion": "sad" },
+                        { "speaker": "mentor", "position": "right", "text": { "english": "Start small. Track your money. Know where it goes. Then you can make a plan to save and grow.", "hindi": "छोटी शुरुआत करो। अपने पैसों पर नज़र रखो। जानो कि कहाँ जा रहे हैं। फिर बचत और तरक्की का प्लान बना सकते हो।" }, "emotion": "wise" }
+                    ],
+                    "choices": [
+                        { "id": "wage_5_a", "text": { "english": "Start tracking expenses and making a plan", "hindi": "खर्चों का हिसाब रखना और योजना बनाना शुरू करो" }, "next_node": "wage_end_growth", "impact": { "confidence": 5, "savings": 1000 }, "risk": 0 },
+                        { "id": "wage_5_b", "text": { "english": "Continue as before, hope for the best", "hindi": "पहले जैसे चलते रहो, अच्छे की उम्मीद रखो" }, "next_node": "wage_end_cycle", "impact": { "confidence": -3 }, "risk": 1 }
+                    ]
+                },
+                {
+                    "node_id": "wage_end_growth", "sequence": 6, "checkpoint": false, "speaker": "amit",
+                    "narrative": {
+                        "english": "Eight months later...\n\nCreating that budget was the best decision I ever made! I realized I was spending ₹500 every month on things I didn't need. I cut those expenses and started saving consistently.\n\nWith my savings, I enrolled in a skill development course. Now I'm a certified electrician, earning double what I made before! I even started a small emergency fund. My family feels secure for the first time.\n\nHard work is important, but smart planning makes hard work pay off. I'm teaching my younger brother about budgeting now - I want him to learn this earlier than I did!\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Budget reveals where your money really goes\n✓ Small savings enable big opportunities\n✓ Skills + Planning = Financial growth\n✓ Emergency funds provide peace of mind\n✓ Financial literacy breaks poverty cycles",
+                        "hindi": "आठ महीने बाद...\n\nबजट बनाना मेरी ज़िंदगी का सबसे अच्छा फ़ैसला था! मुझे पता चला कि मैं हर महीने ₹500 ऐसी चीज़ों पर खर्च कर रहा था जिनकी ज़रूरत नहीं थी। मैंने वो खर्चे काटे और लगातार बचत शुरू की।\n\nअपनी बचत से, मैंने स्किल डेवलपमेंट कोर्स में दाख़िला लिया। अब मैं सर्टिफ़ाइड इलेक्ट्रीशियन हूँ, पहले से दोगुनी कमाई कर रहा हूँ! मैंने एक छोटा इमरजेंसी फ़ंड भी बनाया है। मेरा परिवार पहली बार सुरक्षित महसूस कर रहा है।\n\nमेहनत ज़रूरी है, लेकिन समझदारी से योजना बनाना मेहनत को सफल बनाता है। अब मैं अपने छोटे भाई को बजट बनाना सिखा रहा हूँ - मैं चाहता हूँ कि वो यह मुझसे पहले सीख जाए!\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ बजट बताता है कि पैसा असल में कहाँ जाता है\n✓ छोटी बचत बड़े मौके देती है\n✓ हुनर + योजना = आर्थिक तरक्की\n✓ इमरजेंसी फ़ंड मन की शांति देता है\n✓ आर्थिक समझ गरीबी के चक्र को तोड़ती है"
+                    },
+                    "choices": [
+                        { "id": "wage_growth_restart", "text": { "english": "🔄 Begin Another Journey", "hindi": "🔄 एक और यात्रा शुरू करो" }, "next_node": "wage_1", "impact": {}, "risk": 0 },
+                        { "id": "wage_growth_explore", "text": { "english": "🌟 Explore Other Life Paths", "hindi": "🌟 ज़िंदगी के और रास्ते खोजो" }, "next_node": null, "impact": {}, "risk": 0 }
+                    ]
+                },
+                {
+                    "node_id": "wage_end_cycle", "sequence": 6, "checkpoint": false, "speaker": "amit",
+                    "narrative": {
+                        "english": "Eight months later...\n\nI'm still working the same job, earning the same wages. Every month feels like a struggle - I work hard, but somehow I'm always short on money by the end of the month.\n\nI had to borrow from friends twice this year for emergencies. I feel stuck in a cycle. I know Sharma Ji was right about planning, but I kept putting it off, thinking I was too busy.\n\nNow I realize - I wasn't too busy to plan, I was too busy NOT to plan. I'm starting now, even though I wish I'd started earlier. Better late than never, right?\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ 'Too busy' is often an excuse, not a reason\n✓ Without planning, hard work alone isn't enough\n✓ Financial stress affects every part of life\n✓ It's never too late to start planning\n✓ Small changes today prevent big problems tomorrow",
+                        "hindi": "आठ महीने बाद...\n\nमैं अभी भी वही काम कर रहा हूँ, वही मज़दूरी कमा रहा हूँ। हर महीना संघर्ष जैसा लगता है - मेहनत बहुत करता हूँ, लेकिन महीने के आख़िर में पैसे कम पड़ ही जाते हैं।\n\nइस साल दो बार दोस्तों से मुश्किल में पैसे उधार लेने पड़े। लगता है जैसे एक चक्र में फँसा हुआ हूँ। मुझे पता है शर्मा जी योजना बनाने के बारे में सही कह रहे थे, लेकिन मैं टालता रहा, सोचता रहा कि फ़ुर्सत नहीं है।\n\nअब समझ आ रहा है - मुझे योजना बनाने की फ़ुर्सत नहीं थी ऐसा नहीं था, बल्कि योजना न बनाना ही सबसे बड़ी गलती थी। अब शुरू कर रहा हूँ, भले ही काश पहले शुरू किया होता। देर आए दुरुस्त आए, है ना?\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ 'फ़ुर्सत नहीं है' अक्सर बहाना होता है, कारण नहीं\n✓ बिना योजना के सिर्फ़ मेहनत काफ़ी नहीं\n✓ पैसों की चिंता ज़िंदगी के हर हिस्से को प्रभावित करती है\n✓ योजना बनाने में कभी देर नहीं होती\n✓ आज के छोटे बदलाव कल की बड़ी मुसीबतें रोकते हैं"
+                    },
+                    "choices": [
+                        { "id": "wage_cycle_restart", "text": { "english": "🔄 Try Again with Better Planning", "hindi": "🔄 बेहतर योजना के साथ फिर से कोशिश करो" }, "next_node": "wage_1", "impact": {}, "risk": 0 },
+                        { "id": "wage_cycle_explore", "text": { "english": "🌟 Experience a Different Story", "hindi": "🌟 एक अलग कहानी का अनुभव करो" }, "next_node": null, "impact": {}, "risk": 0 }
+                    ]
+                }
+            ]
+        }
+    ]
+}

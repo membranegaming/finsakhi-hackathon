@@ -3,7 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 from app.routers import auth, assessment, learning, investments, chatbot, recommendations
-from app.routers import podcast, portfolio, goals
+from app.routers import podcast, portfolio, goals, game
+from app.services.story_engine import StoryEngine
+from app.models.database import Base, engine
 
 app = FastAPI(
     title="FinSakhi API",
@@ -35,6 +37,13 @@ app.include_router(recommendations.router)
 app.include_router(podcast.router)
 app.include_router(portfolio.router)
 app.include_router(goals.router)
+app.include_router(game.router)
+
+# Load FinGame story data
+StoryEngine.load_stories()
+
+# Create any missing DB tables (safe no-op for existing ones)
+Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def read_root():

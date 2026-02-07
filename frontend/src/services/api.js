@@ -181,6 +181,24 @@ export const podcastAPI = {
     get('/podcasts/languages'),
 };
 
+// ─── FinGame (RPG) ────────────────────────────────────────
+export const gameAPI = {
+  getPaths: (language = 'english') =>
+    get(`/game/paths?language=${language}`),
+
+  setPath: (userId, pathId, language = 'english') =>
+    post('/game/set-path', { user_id: userId, path_id: pathId, language }),
+
+  getCurrent: (userId, language = 'english') =>
+    get(`/game/current?user_id=${userId}&language=${language}`),
+
+  choose: (userId, choiceId, language = 'english') =>
+    post('/game/choose', { user_id: userId, choice_id: choiceId, language }),
+
+  rollback: (userId) =>
+    post('/game/rollback', { user_id: userId }),
+};
+
 export default {
   auth: authAPI,
   assessment: assessmentAPI,
@@ -191,5 +209,6 @@ export default {
   chat: chatAPI,
   recommendations: recommendationsAPI,
   podcast: podcastAPI,
+  game: gameAPI,
 };
 

@@ -10,6 +10,7 @@ import Schemes from "./Schemes";
 import Learning from "./Learning";
 import Investment from "./Investment";
 import Portfolio from "./Portfolio";
+import FinGame from "./FinGame";
 import "./Dashboard.css";
 
 export default function Dashboard({ onLogout, initialSection }) {
@@ -55,6 +56,7 @@ export default function Dashboard({ onLogout, initialSection }) {
       case 'learning': return <Learning userId={userId} />;
       case 'investments': return <Investment userId={userId} />;
       case 'portfolio': return <Portfolio userId={userId} />;
+      case 'fingame': return <FinGame userId={userId} onNavigate={handleNavigate} />;
       case 'dashboard':
       default:
         return renderDashboard();
