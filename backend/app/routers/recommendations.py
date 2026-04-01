@@ -22,10 +22,10 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if GROQ_API_KEY:
     groq_client = Groq(api_key=GROQ_API_KEY)
-    print("✅ Groq API configured for recommendations")
+    print(" Groq API configured for recommendations")
 else:
     groq_client = None
-    print("⚠️ GROQ_API_KEY not set — recommendations will use fallback data")
+    print(" GROQ_API_KEY not set — recommendations will use fallback data")
 
 router = APIRouter(prefix="/api/recommendations", tags=["Recommendations"])
 
@@ -568,7 +568,7 @@ Return ONLY a JSON array — no explanation, no markdown.
                             item_copy[f] = tr[f]
                     result[batch_start + i] = item_copy
         except Exception as e:
-            print(f"⚠️ Hindi translation batch failed: {e}")
+            print(f" Hindi translation batch failed: {e}")
             # Keep originals for this batch
 
     return result
@@ -607,7 +607,7 @@ In 3-4 simple sentences, explain which card is BEST for this user and why. Keep 
         )
         return resp.choices[0].message.content.strip()
     except Exception as e:
-        print(f"⚠️ LLM credit card summary failed: {e}")
+        print(f" LLM credit card summary failed: {e}")
         return None
 
 
@@ -641,7 +641,7 @@ In 4-5 simple sentences, tell the user the TOP 3 schemes they should apply for f
         )
         return resp.choices[0].message.content.strip()
     except Exception as e:
-        print(f"⚠️ LLM scheme summary failed: {e}")
+        print(f" LLM scheme summary failed: {e}")
         return None
 
 

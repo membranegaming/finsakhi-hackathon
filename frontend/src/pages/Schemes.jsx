@@ -65,18 +65,18 @@ export default function Schemes({ userId: propUserId }) {
       <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem' }}>
         <button onClick={() => setTab('schemes')}
           className={`filter-btn ${tab === 'schemes' ? 'active' : ''}`}>
-          🏛️ {language === 'hi' ? 'सरकारी योजनाएँ' : 'Govt Schemes'}
+          {language === 'hi' ? 'सरकारी योजनाएँ' : 'Govt Schemes'}
         </button>
         <button onClick={() => setTab('cards')}
           className={`filter-btn ${tab === 'cards' ? 'active' : ''}`}>
-          💳 {language === 'hi' ? 'क्रेडिट कार्ड' : 'Credit Cards'}
+          {language === 'hi' ? 'क्रेडिट कार्ड' : 'Credit Cards'}
         </button>
       </div>
 
       {/* AI Summary */}
       {aiSummary && (
         <div style={{ background: 'var(--card-bg)', borderRadius: '12px', padding: '1rem', marginBottom: '1.25rem', border: '1px solid var(--border-subtle)' }}>
-          <h3 style={{ fontSize: '0.9rem', marginBottom: '0.5rem' }}>🤖 {language === 'hi' ? 'AI सारांश' : 'AI Summary'}</h3>
+          <h3 style={{ fontSize: '0.9rem', marginBottom: '0.5rem' }}>{language === 'hi' ? 'AI सारांश' : 'AI Summary'}</h3>
           <p style={{ fontSize: '0.85rem', lineHeight: 1.7, whiteSpace: 'pre-wrap', color: 'var(--text-secondary)' }}>{aiSummary}</p>
         </div>
       )}
@@ -118,7 +118,7 @@ export default function Schemes({ userId: propUserId }) {
               </div>
               {scheme.apply_url && (
                 <a href={scheme.apply_url} target="_blank" rel="noopener noreferrer" className="apply-btn" style={{ display: 'inline-block', textDecoration: 'none', textAlign: 'center' }}>
-                  {language === 'hi' ? 'अभी आवेदन करें' : 'Apply Now'} ↗
+                  {language === 'hi' ? 'अभी आवेदन करें' : 'Apply Now'} 
                 </a>
               )}
             </div>
@@ -159,7 +159,7 @@ export default function Schemes({ userId: propUserId }) {
               </div>
               {card.apply_url && (
                 <a href={card.apply_url} target="_blank" rel="noopener noreferrer" className="apply-btn" style={{ display: 'inline-block', textDecoration: 'none', textAlign: 'center' }}>
-                  {language === 'hi' ? 'अभी आवेदन करें' : 'Apply Now'} ↗
+                  {language === 'hi' ? 'अभी आवेदन करें' : 'Apply Now'} 
                 </a>
               )}
             </div>

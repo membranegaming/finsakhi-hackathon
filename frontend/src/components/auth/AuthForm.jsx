@@ -118,7 +118,7 @@ export default function AuthForm({ onLogin, initialMode = "login" }) {
                       <label className="input-label">{language === 'hi' ? 'मोबाइल नंबर' : 'Mobile Number'}</label>
                       <div className="phone-input-wrapper">
                         <span className="phone-prefix">
-                          <span className="phone-flag">🇮🇳</span>
+                          <span className="phone-flag"></span>
                           <span className="phone-code">+91</span>
                         </span>
                         <input

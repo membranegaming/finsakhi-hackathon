@@ -79,9 +79,9 @@ for ($i = 1; $i -le 8; $i++) {
     
     if ($currentQuestion.is_correct -ne $null) {
         if ($currentQuestion.is_correct) {
-            Write-Host "✅ Correct!" -ForegroundColor Green
+            Write-Host " Correct!" -ForegroundColor Green
         } else {
-            Write-Host "❌ Wrong. Correct answer was: $($currentQuestion.correct_answer_index)" -ForegroundColor Red
+            Write-Host " Wrong. Correct answer was: $($currentQuestion.correct_answer_index)" -ForegroundColor Red
         }
         Write-Host "Score so far: $($currentQuestion.score_so_far)" -ForegroundColor Cyan
     }
@@ -95,7 +95,7 @@ Write-Host "`n=== Step 6: Get Full Results ===" -ForegroundColor Cyan
 $results = Invoke-RestMethod -Uri "$baseUrl/api/assessment/result/$sessionId" -Method Get
 $results | ConvertTo-Json -Depth 5
 
-Write-Host "`n✅ Assessment test complete!" -ForegroundColor Green
+Write-Host "`n Assessment test complete!" -ForegroundColor Green
 Write-Host "Session ID: $sessionId" -ForegroundColor White
 Write-Host "Score: $($results.total_score)/$($results.total_questions) ($($results.percentage)%)" -ForegroundColor White
 Write-Host "Literacy Level: $($results.literacy_level)" -ForegroundColor White

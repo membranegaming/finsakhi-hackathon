@@ -22,10 +22,10 @@ router = APIRouter(prefix="/api/assessment", tags=["Assessment"])
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if GROQ_API_KEY:
     groq_client = Groq(api_key=GROQ_API_KEY)
-    print("✅ Groq API configured")
+    print(" Groq API configured")
 else:
     groq_client = None
-    print("⚠️ GROQ_API_KEY not set - assessment will use fallback questions")
+    print(" GROQ_API_KEY not set - assessment will use fallback questions")
 
 # ============================================
 # Pydantic Schemas
@@ -255,7 +255,7 @@ Where correct_answer is the 0-based index (0, 1, 2, or 3) of the correct option.
         return question_data
 
     except Exception as e:
-        print(f"⚠️ Gemini error: {e}, using fallback question")
+        print(f" Gemini error: {e}, using fallback question")
         idx = min(question_number - 1, len(FALLBACK_QUESTIONS) - 1)
         return FALLBACK_QUESTIONS[idx]
 

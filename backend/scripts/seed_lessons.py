@@ -339,7 +339,7 @@ def seed():
             db.add(lesson)
 
     db.commit()
-    print(f"✅ Seeded {len(modules_data)} modules with lessons!")
+    print(f" Seeded {len(modules_data)} modules with lessons!")
     db.close()
 
 if __name__ == "__main__":

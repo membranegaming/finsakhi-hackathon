@@ -10,3 +10,36 @@ html, body {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Premium Hackathon UI Tweaks */
+.card, [style*="border-radius: 16px"], [style*="border-radius: 12px"], button, .nav-item {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+[style*="border-radius: 16px"]:hover, [style*="border-radius: 12px"]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -10px rgba(255, 140, 0, 0.2) !important;
+  border-color: rgba(255, 140, 0, 0.4) !important;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -8px rgba(255, 140, 0, 0.4) !important;
+}
+
+.sidebar, .navbar, .assessment-controls-bar {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="dark"] .sidebar, [data-theme="dark"] .navbar, [data-theme="dark"] .assessment-controls-bar {
+  background: rgba(26, 15, 8, 0.7) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.xp-text, .portfolio-value, [style*="color: var(--accent-primary)"] {
+  text-shadow: 0 0 15px rgba(255, 140, 0, 0.4) !important;
+  letter-spacing: -0.3px;
+}
+

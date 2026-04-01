@@ -26,10 +26,10 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if GROQ_API_KEY:
     groq_client = Groq(api_key=GROQ_API_KEY)
-    print("✅ Groq API configured for investment recommendations")
+    print(" Groq API configured for investment recommendations")
 else:
     groq_client = None
-    print("⚠️ GROQ_API_KEY not set — investment recommendations will use fallback")
+    print(" GROQ_API_KEY not set — investment recommendations will use fallback")
 
 router = APIRouter(prefix="/api/investments", tags=["Investments"])
 
@@ -53,8 +53,8 @@ class AskInvestmentRequest(BaseModel):
 
 # yfinance tickers for commodities (prices in USD)
 COMMODITY_TICKERS = {
-    "gold": {"ticker": "GC=F", "name": "Gold", "name_hi": "सोना", "unit": "per oz"},
-    "silver": {"ticker": "SI=F", "name": "Silver", "name_hi": "चाँदी", "unit": "per oz"},
+    "gold": {"ticker": "GC=F", "name": "Gold", "name_hi": "सोना", "unit": "per gram"},
+    "silver": {"ticker": "SI=F", "name": "Silver", "name_hi": "चाँदी", "unit": "per gram"},
     "crude_oil": {"ticker": "CL=F", "name": "Crude Oil", "name_hi": "कच्चा तेल", "unit": "per barrel"},
 }
 
@@ -90,7 +90,7 @@ TRADINGVIEW_SYMBOLS = {
 # ============================================
 
 _price_cache = {}
-_CACHE_TTL = 300  # 5 minutes
+_CACHE_TTL = 0  # Always fetch fresh — no caching
 
 
 def _get_cached(key: str):
@@ -109,14 +109,17 @@ def _set_cached(key: str, data):
 # HELPERS
 # ============================================
 
-def _get_usd_inr_rate() -> float:
+def _get_usd_inr_rate(force_refresh: bool = False) -> float:
     """Get current USD to INR exchange rate."""
-    cached = _get_cached("usd_inr")
-    if cached:
-        return cached
+    if not force_refresh:
+        cached = _get_cached("usd_inr")
+        if cached:
+            return cached
     try:
         ticker = yf.Ticker(USD_INR_TICKER)
-        hist = ticker.history(period="1d")
+        hist = ticker.history(period="1d", interval="1m")
+        if hist.empty:
+            hist = ticker.history(period="1d")
         if hist.empty:
             return 83.0  # fallback
         rate = float(hist["Close"].iloc[-1])
@@ -126,11 +129,12 @@ def _get_usd_inr_rate() -> float:
         return 83.0  # fallback
 
 
-def _fetch_commodity_price(commodity_key: str) -> dict:
-    """Fetch live commodity price from yfinance."""
-    cached = _get_cached(f"commodity_{commodity_key}")
-    if cached:
-        return cached
+def _fetch_commodity_price(commodity_key: str, force_refresh: bool = False) -> dict:
+    """Fetch latest available commodity price from yfinance."""
+    if not force_refresh:
+        cached = _get_cached(f"commodity_{commodity_key}")
+        if cached:
+            return cached
 
     info = COMMODITY_TICKERS.get(commodity_key)
     if not info:
@@ -138,15 +142,33 @@ def _fetch_commodity_price(commodity_key: str) -> dict:
 
     try:
         ticker = yf.Ticker(info["ticker"])
-        hist = ticker.history(period="5d")
-        if hist.empty:
+        intraday_hist = ticker.history(period="1d", interval="1m")
+        if intraday_hist.empty:
+            intraday_hist = ticker.history(period="5d")
+        if intraday_hist.empty:
             return None
 
-        usd_inr = _get_usd_inr_rate()
-        price_usd = float(hist["Close"].iloc[-1])
-        prev_close_usd = float(hist["Close"].iloc[-2]) if len(hist) >= 2 else price_usd
+        daily_hist = ticker.history(period="2d", interval="1d")
+
+        usd_inr = _get_usd_inr_rate(force_refresh=force_refresh)
+        price_usd = float(intraday_hist["Close"].iloc[-1])
+        if len(daily_hist) >= 2:
+            prev_close_usd = float(daily_hist["Close"].iloc[-2])
+        elif len(intraday_hist) >= 2:
+            prev_close_usd = float(intraday_hist["Close"].iloc[-2])
+        else:
+            prev_close_usd = price_usd
+
+        if info["unit"] == "per gram":
+            # Convert Troy Oz to Grams
+            price_usd /= 31.1034768
+            prev_close_usd /= 31.1034768
+
         change_usd = price_usd - prev_close_usd
         change_pct = (change_usd / prev_close_usd * 100) if prev_close_usd else 0
+
+        market_ts = intraday_hist.index[-1]
+        market_timestamp = market_ts.isoformat() if hasattr(market_ts, "isoformat") else str(market_ts)
 
         result = {
             "commodity": commodity_key,
@@ -159,12 +181,13 @@ def _fetch_commodity_price(commodity_key: str) -> dict:
             "change_pct": round(change_pct, 2),
             "direction": "up" if change_usd >= 0 else "down",
             "usd_inr_rate": round(usd_inr, 2),
-            "last_updated": hist.index[-1].strftime("%Y-%m-%d"),
+            "last_updated": market_timestamp,
+            "fetched_at": datetime.utcnow().isoformat() + "Z",
         }
         _set_cached(f"commodity_{commodity_key}", result)
         return result
     except Exception as e:
-        print(f"⚠️ Failed to fetch {commodity_key}: {e}")
+        print(f" Failed to fetch {commodity_key}: {e}")
         return None
 
 
@@ -209,7 +232,7 @@ def _fetch_mf_nav(scheme_code: int) -> dict:
         _set_cached(f"mf_{scheme_code}", result)
         return result
     except Exception as e:
-        print(f"⚠️ Failed to fetch MF {scheme_code}: {e}")
+        print(f" Failed to fetch MF {scheme_code}: {e}")
         return None
 
 
@@ -218,14 +241,16 @@ def _fetch_mf_nav(scheme_code: int) -> dict:
 # ============================================
 
 @router.get("/commodities")
-def get_all_commodity_prices():
+def get_all_commodity_prices(
+    live: bool = Query(False, description="If true, bypass cache and fetch latest available data")
+):
     """
-    Get live prices for gold, silver, and crude oil.
-    Prices in both USD and INR. Cached for 5 minutes.
+    Get latest available prices for gold, silver, and crude oil.
+    Prices in both USD and INR.
     """
     results = []
     for key in COMMODITY_TICKERS:
-        data = _fetch_commodity_price(key)
+        data = _fetch_commodity_price(key, force_refresh=live)
         if data:
             results.append(data)
 
@@ -233,12 +258,20 @@ def get_all_commodity_prices():
         "commodities": results,
         "source": "Yahoo Finance (yfinance)",
         "cache_ttl_seconds": _CACHE_TTL,
-        "note": "Prices may be delayed by 15-20 minutes"
+        "cache_bypassed": live,
+        "note": (
+            "Live refresh requested. Source may still have exchange delay."
+            if live else
+            "Set live=true to bypass server cache. Source may have exchange delay."
+        ),
     }
 
 
 @router.get("/commodities/{commodity}")
-def get_commodity_price(commodity: str):
+def get_commodity_price(
+    commodity: str,
+    live: bool = Query(False, description="If true, bypass cache and fetch latest available data")
+):
     """
     Get live price for a specific commodity.
     Valid values: gold, silver, crude_oil
@@ -249,7 +282,7 @@ def get_commodity_price(commodity: str):
             detail=f"Invalid commodity. Choose from: {', '.join(COMMODITY_TICKERS.keys())}"
         )
 
-    data = _fetch_commodity_price(commodity)
+    data = _fetch_commodity_price(commodity, force_refresh=live)
     if not data:
         raise HTTPException(status_code=503, detail=f"Unable to fetch {commodity} price right now")
 
@@ -285,10 +318,14 @@ def get_commodity_history(
 
         prices = []
         for idx, row in hist.iterrows():
+            close_price = float(row["Close"])
+            if COMMODITY_TICKERS[commodity]["unit"] == "per gram":
+                close_price /= 31.1034768
+
             prices.append({
                 "date": idx.strftime("%Y-%m-%d"),
-                "price_usd": round(float(row["Close"]), 2),
-                "price_inr": round(float(row["Close"]) * usd_inr, 2),
+                "price_usd": round(close_price, 2),
+                "price_inr": round(close_price * usd_inr, 2),
                 "volume": int(row["Volume"]) if row["Volume"] else 0,
             })
 
@@ -485,7 +522,10 @@ def get_chart_embed_config():
 # ============================================
 
 @router.get("/dashboard")
-def get_investment_dashboard(language: str = "en"):
+def get_investment_dashboard(
+    language: str = "en",
+    live: bool = Query(False, description="If true, bypass commodity cache for latest available quotes")
+):
     """
     One-call dashboard: all commodities + popular MFs + chart config.
     Ideal for the frontend home/investment screen.
@@ -493,7 +533,7 @@ def get_investment_dashboard(language: str = "en"):
     # Fetch all commodities
     commodities = []
     for key in COMMODITY_TICKERS:
-        data = _fetch_commodity_price(key)
+        data = _fetch_commodity_price(key, force_refresh=live)
         if data:
             commodities.append(data)
 
@@ -518,10 +558,11 @@ def get_investment_dashboard(language: str = "en"):
             "Never invest money you might need in 6 months" if language == "en" else "6 महीने में चाहिए वो पैसा कभी निवेश न करें",
         ],
         "data_sources": {
-            "commodities": "Yahoo Finance (free, 15-min delay)",
+            "commodities": "Yahoo Finance (free, usually delayed feed)",
             "mutual_funds": "mfapi.in / AMFI India (free, daily NAV)",
             "charts": "TradingView (free embeddable widgets)",
-        }
+        },
+        "cache_bypassed": live,
     }
 
 
@@ -636,7 +677,7 @@ def _get_live_market_summary() -> dict:
     """
     commodities = []
     for key in COMMODITY_TICKERS:
-        data = _fetch_commodity_price(key)
+        data = _fetch_commodity_price(key, force_refresh=True)
         if data:
             commodities.append({
                 "name": data["name"],
@@ -864,7 +905,7 @@ RESPOND IN THIS EXACT JSON FORMAT (no markdown, no extra text):
         return result
 
     except Exception as e:
-        print(f"⚠️ Groq recommendation error: {e}, using fallback")
+        print(f" Groq recommendation error: {e}, using fallback")
         return _generate_fallback_recommendations(user_context)
 
 
@@ -879,7 +920,7 @@ async def get_personalized_recommendations(
     db: Session = Depends(get_db),
 ):
     """
-    🧠 AI-powered personalized investment recommendations.
+     AI-powered personalized investment recommendations.
 
     Pulls the user's financial profile, assessment results, and learning progress,
     combines with live market data, and asks Groq LLM to recommend
@@ -925,7 +966,7 @@ async def ask_investment_question(
     db: Session = Depends(get_db),
 ):
     """
-    💬 Ask a follow-up investment question.
+     Ask a follow-up investment question.
 
     The LLM answers the user's specific question in the context of their
     financial profile AND current market conditions.
@@ -977,7 +1018,7 @@ async def get_quick_recommendations(
     db: Session = Depends(get_db),
 ):
     """
-    ⚡ Quick recommendations without calling the LLM.
+     Quick recommendations without calling the LLM.
     Uses rule-based logic based on user's profile.
     Fast, no API dependency — good fallback for offline/low-latency needs.
     """

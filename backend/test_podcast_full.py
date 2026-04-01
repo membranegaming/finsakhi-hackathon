@@ -17,30 +17,30 @@ def test(name, method, path, body=None):
         with urllib.request.urlopen(req, timeout=60) as resp:
             code = resp.status
             result = json.loads(resp.read().decode())
-            print(f"  ✅ {name} — {code}")
+            print(f"   {name} — {code}")
             passed += 1
             return result
     except urllib.error.HTTPError as e:
         body_text = e.read().decode() if e.fp else ""
-        print(f"  ❌ {name} — HTTP {e.code}: {body_text[:200]}")
+        print(f"   {name} — HTTP {e.code}: {body_text[:200]}")
         failed += 1
         return None
     except Exception as e:
-        print(f"  ❌ {name} — {e}")
+        print(f"   {name} — {e}")
         failed += 1
         return None
 
 print("=" * 60)
-print("🎙️  FinSakhi Podcast API — Integration Test")
+print("  FinSakhi Podcast API — Integration Test")
 print("=" * 60)
 
 # --- Basic health ---
-print("\n📡 Server Health:")
+print("\n Server Health:")
 test("Root", "GET", "/")
 test("Health", "GET", "/health")
 
 # --- Podcast endpoints (read-only) ---
-print("\n🎧 Podcast Read Endpoints:")
+print("\n Podcast Read Endpoints:")
 r = test("List languages", "GET", "/api/podcasts/languages")
 if r:
     assert r["total"] == 10, f"Expected 10 languages, got {r['total']}"
@@ -55,7 +55,7 @@ if r:
     print(f"     → {r['total_languages']} podcast(s) available for lesson 1")
 
 # --- Generate podcast (English) ---
-print("\n🔊 Podcast Generation (English):")
+print("\n Podcast Generation (English):")
 r = test("Generate EN for lesson 1", "POST", "/api/podcasts/generate", {"lesson_id": 1, "language": "en"})
 if r:
     print(f"     → status={r.get('status')}, duration={r.get('duration_seconds')}s")
@@ -71,13 +71,13 @@ if r:
                 content_type = resp.headers.get("Content-Type", "")
                 size = len(resp.read())
                 if "audio" in content_type or size > 1000:
-                    print(f"  ✅ Audio stream — {content_type}, {size} bytes")
+                    print(f"   Audio stream — {content_type}, {size} bytes")
                     passed += 1
                 else:
-                    print(f"  ❌ Audio stream — unexpected: {content_type}, {size} bytes")
+                    print(f"   Audio stream — unexpected: {content_type}, {size} bytes")
                     failed += 1
         except Exception as e:
-            print(f"  ❌ Audio stream — {e}")
+            print(f"   Audio stream — {e}")
             failed += 1
 
     # Test script endpoint
@@ -85,21 +85,21 @@ if r:
         test("Get script", "GET", f"/api/podcasts/script/{en_podcast_id}")
 
 # --- Generate podcast (Hindi) ---
-print("\n🔊 Podcast Generation (Hindi):")
+print("\n Podcast Generation (Hindi):")
 r = test("Generate HI for lesson 1", "POST", "/api/podcasts/generate", {"lesson_id": 1, "language": "hi"})
 if r:
     print(f"     → status={r.get('status')}, duration={r.get('duration_seconds')}s")
 
 # --- Re-check lesson podcasts ---
-print("\n🔁 Re-check after generation:")
+print("\n Re-check after generation:")
 r = test("Lesson 1 podcasts (after)", "GET", "/api/podcasts/lesson/1")
 if r:
     print(f"     → {r['total_languages']} podcast(s) now available")
     for p in r.get("available_podcasts", []):
-        print(f"       🎧 {p['language_name']}: {p['duration_seconds']}s")
+        print(f"        {p['language_name']}: {p['duration_seconds']}s")
 
 # --- Check learning endpoint integration ---
-print("\n📚 Learning endpoint integration:")
+print("\n Learning endpoint integration:")
 r = test("Lesson content w/ podcasts", "GET", "/api/learning/lesson/1?user_id=1&language=en")
 if r:
     podcasts = r.get("podcasts", [])
@@ -108,7 +108,7 @@ if r:
     print(f"     → hint: {hint}")
 
 # --- Overview after generation ---
-print("\n📊 Final Overview:")
+print("\n Final Overview:")
 r = test("Overview (after gen)", "GET", "/api/podcasts/overview")
 if r:
     print(f"     → {r['total_podcasts_ready']} podcasts ready, {r['total_duration_minutes']} min total")
@@ -119,8 +119,8 @@ print("\n" + "=" * 60)
 total = passed + failed
 print(f"Results: {passed}/{total} passed, {failed} failed")
 if failed == 0:
-    print("🎉 ALL TESTS PASSED!")
+    print(" ALL TESTS PASSED!")
 else:
-    print(f"⚠️  {failed} test(s) failed")
+    print(f"  {failed} test(s) failed")
 print("=" * 60)
 sys.exit(0 if failed == 0 else 1)

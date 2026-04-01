@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinSakhi – Idea Overview | Hackathon 2026</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --gold: #F59E0B;
+      --amber: #D97706;
+      --green: #059669;
+      --deep: #1E293B;
+      --muted: #64748B;
+      --paper: #FFFBF2;
+      --white: #FFFFFF;
+      --cyan: #06B6D4;
+      --purple: #7C3AED;
+    }
+
+    /* ── Fixed A3-landscape canvas, no scrolling ── */
+    html,
+    body {
+      width: 1400px;
+      height: 980px;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      background: var(--paper);
+      color: var(--deep);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ════════════════════════ BANNER ════════════════════════ */
+    .banner {
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 55%, #134E4A 100%);
+      display: grid;
+      grid-template-columns: 160px 1fr 230px;
+      height: 96px;
+    }
+
+    .b-logo {
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    .b-logo .icon {
+      font-size: 32px;
+    }
+
+    .b-logo .name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #0F172A;
+      text-align: center;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    .b-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .b-center .title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 44px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      line-height: 1;
+      text-shadow: 0 2px 20px rgba(245, 158, 11, .4);
+    }
+
+    .b-center .title span {
+      color: var(--gold);
+    }
+
+    .b-center .sub {
+      font-size: 10.5px;
+      color: #94A3B8;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .b-right {
+      background: rgba(255, 255, 255, .06);
+      border-left: 1px solid rgba(255, 255, 255, .1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 10px 14px;
+    }
+
+    .badge {
+      background: var(--gold);
+      color: #0F172A;
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 12px;
+      border-radius: 20px;
+    }
+
+    .dtag {
+      font-size: 10.5px;
+      color: #CBD5E1;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .dtag strong {
+      color: var(--gold);
+      display: block;
+      font-size: 12px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, .12);
+      color: #E2E8F0;
+      font-size: 8.5px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 9px;
+      border: 1px solid rgba(255, 255, 255, .18);
+    }
+
+    /* ════════════════════════ BODY ════════════════════════ */
+    .body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 215px 1fr 235px;
+      min-height: 0;
+      /* crucial — allows children to shrink */
+    }
+
+    /* ─── shared helpers ─── */
+    .box {
+      background: var(--white);
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, .06);
+    }
+
+    .htitle {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      color: var(--deep);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot.gr {
+      background: var(--green);
+    }
+
+    .dot.pu {
+      background: var(--purple);
+    }
+
+    /* ════ LEFT ════ */
+    .col-l {
+      background: #1E293B;
+      padding: 10px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      overflow: hidden;
+    }
+
+    .lcard {
+      padding: 9px 10px;
+      border-radius: 9px;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, .05);
+    }
+
+    /* Future Scope + Domain Relevance share leftover space equally */
+    .lcard.grn,
+    .lcard.cyn {
+      flex: 1;
+      flex-shrink: 1;
+      min-height: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lcard.grn .bl,
+    .lcard.cyn .bl {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .lcard.gol {
+      border: 1px solid rgba(245, 158, 11, .4);
+    }
+
+    .lcard.red {
+      border: 1px solid rgba(239, 68, 68, .35);
+    }
+
+    .lcard.grn {
+      border: 1px solid rgba(5, 150, 105, .4);
+    }
+
+    .lcard.cyn {
+      border: 1px solid rgba(6, 182, 212, .35);
+    }
+
+    .ltitle {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .ltitle.g {
+      color: var(--gold);
+    }
+
+    .ltitle.r {
+      color: #F87171;
+    }
+
+    .ltitle.n {
+      color: #34D399;
+    }
+
+    .ltitle.c {
+      color: var(--cyan);
+    }
+
+    .lbody {
+      font-size: 9px;
+      line-height: 1.65;
+      color: #94A3B8;
+    }
+
+    .lbody b,
+    strong {
+      color: #CBD5E1;
+    }
+
+    .spills {
+      display: flex;
+      gap: 5px;
+      margin-top: 7px;
+    }
+
+    .sp {
+      border-radius: 8px;
+      padding: 5px 7px;
+      text-align: center;
+      flex: 1;
+    }
+
+    .sp .n {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .sp .l {
+      font-size: 7px;
+      margin-top: 2px;
+      line-height: 1.3;
+    }
+
+    .sp.r {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+    }
+
+    .sp.r .n {
+      color: #B91C1C;
+    }
+
+    .sp.r .l {
+      color: #7F1D1D;
+    }
+
+    .sp.a {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+    }
+
+    .sp.a .n {
+      color: #92400E;
+    }
+
+    .sp.a .l {
+      color: #78350F;
+    }
+
+    .sp.b {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+    }
+
+    .sp.b .n {
+      color: #1D4ED8;
+    }
+
+    .sp.b .l {
+      color: #1E3A8A;
+    }
+
+    .bl {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .bl li {
+      font-size: 9px;
+      color: #94A3B8;
+      line-height: 1.5;
+      padding-left: 13px;
+      position: relative;
+    }
+
+    .bl li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 8px;
+    }
+
+    .bl li b {
+      color: #CBD5E1;
+    }
+
+    /* ════ CENTER ════ */
+    .col-c {
+      padding: 10px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      overflow: hidden;
+    }
+
+    /* Objective */
+    .obj {
+      background: linear-gradient(135deg, #064E3B, #065F46);
+      border-radius: 11px;
+      padding: 12px 16px;
+      flex-shrink: 0;
+      border: 1px solid rgba(52, 211, 153, .2);
+    }
+
+    .obj-t {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      margin-bottom: 6px;
+    }
+
+    .obj-b {
+      font-size: 10px;
+      color: #A7F3D0;
+      line-height: 1.72;
+    }
+
+    /* 8 features */
+    .fgrid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      flex-shrink: 0;
+    }
+
+    .fcard {
+      background: var(--white);
+      border-radius: 9px;
+      padding: 9px 8px;
+      border: 1px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
+    }
+
+    .fi {
+      font-size: 17px;
+    }
+
+    .fn {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: var(--deep);
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+
+    .fd {
+      font-size: 8px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* bottom pair */
+    .brow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      flex-shrink: 0;
+    }
+
+    /* beneficiaries */
+    .ben {
+      padding: 10px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .chip {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #065F46;
+      font-size: 8px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 18px;
+    }
+
+    /* tech stack */
+    .tech-box {
+      background: linear-gradient(135deg, #1E1B4B, #312E81);
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(167, 139, 250, .2);
+    }
+
+    .tech-t {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #A78BFA;
+      margin-bottom: 7px;
+    }
+
+    .tg {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+
+    .ti {
+      background: rgba(255, 255, 255, .08);
+      border-radius: 7px;
+      padding: 5px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .tn {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #C4B5FD;
+    }
+
+    .tr {
+      font-size: 7px;
+      color: #7B7BAE;
+      margin-top: 1px;
+    }
+
+    /* UI screens */
+    .ui-box {
+      padding: 10px;
+      flex-shrink: 0;
+    }
+
+    .uscreens {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-top: 7px;
+    }
+
+    .uscr {
+      background: #F8FAFC;
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
+      overflow: hidden;
+    }
+
+    .uhdr {
+      padding: 5px 7px;
+      font-size: 8px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .ubody {
+      padding: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .urow {
+      background: var(--white);
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-size: 7.5px;
+      color: var(--muted);
+      border: 1px solid #F1F5F9;
+    }
+
+    .urow b {
+      color: var(--deep);
+    }
+
+    /* ════ RIGHT ════ */
+    .col-r {
+      background: #F1F5F9;
+      padding: 10px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-left: 1px solid #E2E8F0;
+      overflow: hidden;
+    }
+
+    .rtitle {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      margin-bottom: 3px;
+    }
+
+    .rtitle.dk {
+      color: var(--deep);
+    }
+
+    .rtitle.go {
+      color: var(--amber);
+    }
+
+    /* SDG */
+    .sdgbox {
+      background: var(--white);
+      border-radius: 11px;
+      padding: 10px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+      flex-shrink: 0;
+    }
+
+    .sdgw {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+      margin: 7px 0;
+    }
+
+    .st {
+      border-radius: 4px;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .st .sn {
+      font-size: 6px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, .9);
+      margin-top: 1px;
+    }
+
+    .sdghl {
+      background: linear-gradient(135deg, #1E40AF, #3B82F6);
+      border-radius: 9px;
+      padding: 8px 9px;
+    }
+
+    .sdgi {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .sdgem {
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .sdglb {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .sdgsb {
+      font-size: 7px;
+      color: rgba(255, 255, 255, .65);
+    }
+
+    /* Impact */
+    .impbox {
+      background: linear-gradient(135deg, #7C3AED, #5B21B6);
+      border-radius: 11px;
+      padding: 10px;
+      border: 1px solid rgba(167, 139, 250, .3);
+      flex-shrink: 0;
+    }
+
+    .impg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    .impm {
+      background: rgba(255, 255, 255, .11);
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .impv {
+      font-family: 'Poppins', sans-serif;
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .impl {
+      font-size: 7.5px;
+      color: rgba(255, 255, 255, .7);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* Characteristics */
+    .charbox {
+      background: var(--white);
+      border-radius: 11px;
+      padding: 10px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, .05);
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chrl {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 7px;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .chri {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      font-size: 9px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .chric {
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    /* ════════════════════════ FOOTER ════════════════════════ */
+    .footer {
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #0F172A, #1E3A5F);
+      padding: 5px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ft {
+      font-size: 8px;
+      color: #64748B;
+      letter-spacing: .8px;
+    }
+
+    .ft span {
+      color: var(--gold);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="b-logo">
+      <div class="icon"></div>
+      <div class="name">FinSakhi</div>
+    </div>
+    <div class="b-center">
+      <div class="title">Fin<span>Sakhi</span></div>
+      <div class="sub">Financial Literacy for Every Indian · AI-Powered · Multilingual · Inclusive</div>
+    </div>
+    <div class="b-right">
+      <span class="badge"> Hackathon 2026</span>
+      <div class="dtag"><strong>FinTech · EdTech · Social Impact</strong>AI-Driven Financial Inclusion<br />for Rural
+        Bharat</div>
+      <div class="pills">
+        <span class="pill">FastAPI</span><span class="pill">React</span>
+        <span class="pill">Groq LLM</span><span class="pill">SQLite</span>
+        <span class="pill">TTS Audio</span><span class="pill">Multilingual</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- LEFT -->
+    <div class="col-l">
+
+      <div class="lcard gol">
+        <div class="ltitle g"> What Is It?</div>
+        <div class="lbody"><strong>FinSakhi (फिनसखी)</strong> is a full-stack AI-powered financial literacy platform
+          bridging India's knowledge gap. It combines adaptive assessments, personalized e-learning, an LLM chatbot,
+          investment tracking, government scheme discovery, AI audio podcasts, and a gamified RPG — in <strong>Hindi &
+            English</strong>.</div>
+      </div>
+
+      <div class="lcard red">
+        <div class="ltitle r"> Problem Statement</div>
+        <div class="lbody"><strong>780 million Indians</strong> lack basic financial literacy. Rural communities face
+          language barriers, complex jargon, and zero personalized guidance — leading to informal moneylenders, missed
+          govt. benefits, and poor decisions.</div>
+        <div class="spills">
+          <div class="sp r">
+            <div class="n">76%</div>
+            <div class="l">Adults financially illiterate (NCFE 2023)</div>
+          </div>
+          <div class="sp a">
+            <div class="n">₹2.9L Cr</div>
+            <div class="l">Unclaimed govt. benefits/yr</div>
+          </div>
+          <div class="sp b">
+            <div class="n">65%</div>
+            <div class="l">Rural borrowers on informal credit</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lcard grn">
+        <div class="ltitle n"> Future Scope</div>
+        <ul class="bl">
+          <li><b>WhatsApp Bot</b> for zero-app rural access</li>
+          <li><b>Regional Languages</b> — Tamil, Telugu, Marathi</li>
+          <li><b>Voice Interface</b> for low-literacy users</li>
+          <li><b>Micro-credit Connect</b> via SHGs & MFIs</li>
+          <li><b>ONDC Integration</b> for marketplace discovery</li>
+          <li><b>Offline PWA Mode</b> for 2G regions</li>
+        </ul>
+      </div>
+
+      <div class="lcard cyn">
+        <div class="ltitle c"> Domain Relevance</div>
+        <ul class="bl">
+          <li><b>FinTech:</b> Democratizing investment & banking tools</li>
+          <li><b>EdTech:</b> Gamified, AI-personalized finance education</li>
+          <li><b>GovTech:</b> PM-KISAN, Jan Dhan, Sukanya schemes</li>
+          <li><b>Rural Tech:</b> Hindi-first, offline-ready, low-data</li>
+          <li><b>AI/ML:</b> Adaptive MCQs, LLM chatbot, TTS audio</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- CENTER -->
+    <div class="col-c">
+
+      <div class="obj">
+        <div class="obj-t"> Our Objective & Proposed Solution</div>
+        <div class="obj-b">To design a <strong>one-stop, AI-native financial companion</strong> that meets rural and
+          semi-urban Indians exactly where they are — on their phone, in their language — with tools that teach, guide,
+          and empower. FinSakhi adapts to each user's income, occupation, and literacy level, turning complex financial
+          concepts into everyday stories, interactive quizzes, podcasts, and practical action steps. Rather than a
+          generic app, FinSakhi is a <strong>personalized Sakhi (friend)</strong> who walks alongside the user on their
+          entire financial journey.</div>
+      </div>
+
+      <div class="fgrid">
+        <div class="fcard">
+          <div class="fi"></div>
+          <div class="fn">AI Assessment</div>
+          <div class="fd">Adaptive 8-MCQ literacy test via Groq Llama 3.3 — personalized to income, family & occupation.
+          </div>
+        </div>
+        <div class="fcard">
+          <div class="fi"></div>
+          <div class="fn">FinLearning</div>
+          <div class="fd">4 Pillars × 3 Levels of LLM-personalized story-based lessons with real-time health score
+            tracking.</div>
+        </div>
+        <div class="fcard">
+          <div class="fi"></div>
+          <div class="fn">AI Mentor</div>
+          <div class="fd">Context-aware chatbot that knows your profile, assessment history, learning progress &
+            investments.</div>
+        </div>
+        <div class="fcard">
+          <div class="fi"></div>
+          <div class="fn">AI Podcasts</div>
+          <div class="fd">Auto-generated two-host audio podcasts per lesson using Groq LLM + MS Edge Neural TTS.</div>
+        </div>
+        <div class="fcard">
+          <div class="fi"></div>
+          <div class="fn">Investment Hub</div>
+          <div class="fd">Real-time commodity prices, mutual fund NAVs, portfolio tracker & AI credit card
+            recommendations.</div>
+        </div>
+        <div class="fcard">
+          <div class="fi"></div>
+          <div class="fn">Govt. Schemes</div>
+          <div class="fd">AI-matched government schemes (PM-KISAN, Jan Dhan, Sukanya Samriddhi, PMSBY) by user profile.
+          </div>
+        </div>
+        <div class="fcard">
+          <div class="fi"></div>
+          <div class="fn">FinGame RPG</div>
+          <div class="fd">Story-driven financial simulation RPG where choices teach budgeting, saving & investing
+            through consequences.</div>
+        </div>
+        <div class="fcard">
+          <div class="fi"></div>
+          <div class="fn">Gamification</div>
+          <div class="fd">XP points, level-up system, financial health scores, login streaks & revision mode to drive
+            retention.</div>
+        </div>
+      </div>
+
+      <div class="brow">
+        <div class="box ben">
+          <div class="htitle">
+            <div class="dot gr"></div>Target Beneficiaries
+          </div>
+          <div class="chips">
+            <span class="chip">‍ Small & Marginal Farmers — Bihar, UP</span>
+            <span class="chip"> Daily Wage Workers & Shop Owners</span>
+            <span class="chip"> Women Self-Help Group Members</span>
+            <span class="chip"> First-Gen Bank Account Holders</span>
+            <span class="chip">‍‍ Dairy & Poultry Rearers</span>
+            <span class="chip"> Semi-Urban Low-Income Households</span>
+            <span class="chip"> Youth entering the financial system</span>
+            <span class="chip"> Senior Citizens navigating digital banking</span>
+          </div>
+        </div>
+
+        <div class="tech-box">
+          <div class="tech-t"> Technology Stack</div>
+          <div class="tg">
+            <div class="ti">
+              <div class="tn">FastAPI</div>
+              <div class="tr">Backend API</div>
+            </div>
+            <div class="ti">
+              <div class="tn">React + Vite</div>
+              <div class="tr">Frontend SPA</div>
+            </div>
+            <div class="ti">
+              <div class="tn">Groq Llama 3.3</div>
+              <div class="tr">AI / LLM Engine</div>
+            </div>
+            <div class="ti">
+              <div class="tn">SQLite / ORM</div>
+              <div class="tr">Offline-Ready DB</div>
+            </div>
+            <div class="ti">
+              <div class="tn">MS Edge TTS</div>
+              <div class="tr">Audio Podcasts</div>
+            </div>
+            <div class="ti">
+              <div class="tn">JWT Auth</div>
+              <div class="tr">Secure Login</div>
+            </div>
+            <div class="ti">
+              <div class="tn">i18n (Hi/En)</div>
+              <div class="tr">Multilingual UI</div>
+            </div>
+            <div class="ti">
+              <div class="tn">Context API</div>
+              <div class="tr">State Management</div>
+            </div>
+            <div class="ti">
+              <div class="tn">PWA-Ready</div>
+              <div class="tr">Mobile-First</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="box ui-box">
+        <div class="htitle">
+          <div class="dot pu"></div>User Interface — Platform Screens
+        </div>
+        <div class="uscreens">
+          <div class="uscr">
+            <div class="uhdr" style="background:linear-gradient(135deg,#1E40AF,#3730A3);"> Smart Assessment</div>
+            <div class="ubody">
+              <div class="urow"><b>Phase 1:</b> Profile — income, occupation, family</div>
+              <div class="urow"><b>Phase 2:</b> 8 adaptive MCQs, auto-difficulty</div>
+              <div class="urow"><b>Result:</b> Literacy score + personalized roadmap</div>
+              <div class="urow"><b>Bilingual:</b> Hindi & English, fully toggleable</div>
+            </div>
+          </div>
+          <div class="uscr">
+            <div class="uhdr" style="background:linear-gradient(135deg,#065F46,#047857);"> FinLearning Portal</div>
+            <div class="ubody">
+              <div class="urow"><b>4 Pillars:</b> Savings · Credit · Investments · Biz</div>
+              <div class="urow"><b>Health Score:</b> Real-time financial health tracking</div>
+              <div class="urow"><b>Stories:</b> LLM-personalized lesson narratives</div>
+              <div class="urow"><b>Scenarios:</b> Real-life decision-making challenges</div>
+            </div>
+          </div>
+          <div class="uscr">
+            <div class="uhdr" style="background:linear-gradient(135deg,#7C3AED,#5B21B6);"> AI Mentor Chat</div>
+            <div class="ubody">
+              <div class="urow"><b>Context:</b> Knows income, progress & goals</div>
+              <div class="urow"><b>Advice:</b> Actionable, income-appropriate tips</div>
+              <div class="urow"><b>Language:</b> Responds in Hindi or English</div>
+              <div class="urow"><b>Suggestions:</b> Smart follow-up prompts</div>
+            </div>
+          </div>
+          <div class="uscr">
+            <div class="uhdr" style="background:linear-gradient(135deg,#B45309,#D97706);"> Main Dashboard</div>
+            <div class="ubody">
+              <div class="urow"><b>Credit Cards:</b> AI-matched recommendations</div>
+              <div class="urow"><b>Govt Schemes:</b> Eligible schemes auto-surfaced</div>
+              <div class="urow"><b>Markets:</b> Gold, Silver, Mutual Fund NAVs</div>
+              <div class="urow"><b>Portfolio:</b> Investments & total returns</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col-r">
+
+      <div class="sdgbox">
+        <div class="rtitle dk"> UN SDG Alignment</div>
+        <div class="sdgw">
+          <div class="st" style="background:#E5243B;"><span></span>
+            <div class="sn">1</div>
+          </div>
+          <div class="st" style="background:#DDA63A;"><span></span>
+            <div class="sn">2</div>
+          </div>
+          <div class="st" style="background:#4C9F38;"><span></span>
+            <div class="sn">3</div>
+          </div>
+          <div class="st" style="background:#C5192D;"><span></span>
+            <div class="sn">4</div>
+          </div>
+          <div class="st" style="background:#FF3A21;"><span></span>
+            <div class="sn">5</div>
+          </div>
+          <div class="st" style="background:#26BDE2;"><span></span>
+            <div class="sn">6</div>
+          </div>
+          <div class="st" style="background:#FCC30B;"><span></span>
+            <div class="sn">7</div>
+          </div>
+          <div class="st" style="background:#A21942;"><span></span>
+            <div class="sn">8</div>
+          </div>
+          <div class="st" style="background:#FD6925;"><span></span>
+            <div class="sn">9</div>
+          </div>
+          <div class="st" style="background:#DD1367;"><span></span>
+            <div class="sn">10</div>
+          </div>
+          <div class="st" style="background:#FD9D24;"><span></span>
+            <div class="sn">11</div>
+          </div>
+          <div class="st" style="background:#BF8B2E;"><span></span>
+            <div class="sn">12</div>
+          </div>
+          <div class="st" style="background:#3F7E44;"><span></span>
+            <div class="sn">13</div>
+          </div>
+          <div class="st" style="background:#0A97D9;"><span></span>
+            <div class="sn">14</div>
+          </div>
+          <div class="st" style="background:#56C02B;"><span></span>
+            <div class="sn">15</div>
+          </div>
+          <div class="st" style="background:#00689D;"><span></span>
+            <div class="sn">16</div>
+          </div>
+          <div class="st" style="background:#19486A;"><span></span>
+            <div class="sn">17</div>
+          </div>
+        </div>
+        <div class="sdghl">
+          <div class="sdgi">
+            <div class="sdgem"></div>
+            <div>
+              <div class="sdglb">SDG 1 — No Poverty</div>
+              <div class="sdgsb">Financial literacy reduces economic vulnerability</div>
+            </div>
+          </div>
+          <div class="sdgi">
+            <div class="sdgem"></div>
+            <div>
+              <div class="sdglb">SDG 4 — Quality Education</div>
+              <div class="sdgsb">Free, inclusive financial education for all</div>
+            </div>
+          </div>
+          <div class="sdgi">
+            <div class="sdgem"></div>
+            <div>
+              <div class="sdglb">SDG 5 — Gender Equality</div>
+              <div class="sdgsb">Empowering women with financial autonomy</div>
+            </div>
+          </div>
+          <div class="sdgi">
+            <div class="sdgem"></div>
+            <div>
+              <div class="sdglb">SDG 8 — Decent Work & Growth</div>
+              <div class="sdgsb">Support for small business & digital finance</div>
+            </div>
+          </div>
+          <div class="sdgi">
+            <div class="sdgem"></div>
+            <div>
+              <div class="sdglb">SDG 10 — Reduced Inequalities</div>
+              <div class="sdgsb">Bridging urban-rural financial knowledge gap</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="impbox">
+        <div class="rtitle go"> Expected Impact</div>
+        <div class="impg">
+          <div class="impm">
+            <div class="impv">5L+</div>
+            <div class="impl">Target users in Year 1 across India</div>
+          </div>
+          <div class="impm">
+            <div class="impv">40%</div>
+            <div class="impl">Increase in financial literacy scores</div>
+          </div>
+          <div class="impm">
+            <div class="impv">3×</div>
+            <div class="impl">Govt. scheme discovery rate improvement</div>
+          </div>
+          <div class="impm">
+            <div class="impv">₹ ↑</div>
+            <div class="impl">Better savings & investment decisions</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charbox">
+        <div class="rtitle dk"> Key Characteristics</div>
+        <div class="chrl">
+          <div class="chri"><span class="chric"></span>User-Centric &amp; Inclusive Design for rural India</div>
+          <div class="chri"><span class="chric"></span>LLM-Powered Personalization via Groq Llama 3.3</div>
+          <div class="chri"><span class="chric"></span>Hindi-First, Bilingual Interface throughout</div>
+          <div class="chri"><span class="chric"></span>Offline-Ready SQLite — low connectivity support</div>
+          <div class="chri"><span class="chric"></span>Gamified XP, streaks, levels &amp; revision mode</div>
+          <div class="chri"><span class="chric"></span>AI Audio Podcasts for low-literacy users</div>
+          <div class="chri"><span class="chric"></span>Impact-Aligned &amp; SDG-Focused Platform</div>
+          <div class="chri"><span class="chric"></span>Mobile-First, Scalable, Modular Architecture</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="ft"><span>FINSAKHI</span> — Financial Literacy for Bharat · Hackathon 2026 Submission</div>
+      <div class="ft">AI · FinTech · EdTech · Rural Inclusion · SDG-Aligned</div>
+      <div class="ft">Stack: <span>FastAPI · React · Groq LLM · SQLite · TTS</span></div>
+    </div>
+
+</body>
+
+</html>

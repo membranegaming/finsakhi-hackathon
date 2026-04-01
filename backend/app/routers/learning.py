@@ -209,7 +209,7 @@ Return ONLY the personalized story text, nothing else."""
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
-        print(f"⚠️ Groq personalization failed: {e}")
+        print(f" Groq personalization failed: {e}")
         return None
 
 
@@ -351,8 +351,8 @@ def get_lesson_content(lesson_id: int, user_id: int, language: str = "en", db: S
     # Check revision mode
     revision_warning = None
     if health.revision_mode:
-        revision_warning = "⚠️ You've had a few wrong answers. Take your time, re-read carefully!" if language == "en" \
-            else "⚠️ कुछ गलत जवाब हुए हैं। समय लें, ध्यान से पढ़ें!"
+        revision_warning = " You've had a few wrong answers. Take your time, re-read carefully!" if language == "en" \
+            else " कुछ गलत जवाब हुए हैं। समय लें, ध्यान से पढ़ें!"
 
     # Get user context for personalization
     user_ctx = _get_user_context(db, user_id)
@@ -423,7 +423,7 @@ def get_lesson_content(lesson_id: int, user_id: int, language: str = "en", db: S
         "revision_warning": revision_warning,
         "already_completed": progress.completed if progress else False,
         "podcasts": available_podcasts,
-        "podcast_hint": "🎧 Listen to this lesson as a podcast! Use /api/podcasts/generate to create audio in your language." if not available_podcasts else f"🎧 {len(available_podcasts)} podcast(s) available — tap to listen!"
+        "podcast_hint": " Listen to this lesson as a podcast! Use /api/podcasts/generate to create audio in your language." if not available_podcasts else f" {len(available_podcasts)} podcast(s) available — tap to listen!"
     }
 
 
@@ -486,13 +486,13 @@ def answer_scenario(lesson_id: int, req: ScenarioAnswerRequest, db: Session = De
 
     # Build feedback
     if is_correct:
-        feedback = "✅ Great choice! That's the safe and smart option." if language == "en" \
-            else "✅ बढ़िया! यह सुरक्षित और समझदार विकल्प है।"
+        feedback = " Great choice! That's the safe and smart option." if language == "en" \
+            else " बढ़िया! यह सुरक्षित और समझदार विकल्प है।"
     else:
         correct_idx = next((i for i, o in enumerate(options) if o.get("correct")), None)
         correct_text = options[correct_idx]["text"] if correct_idx is not None else ""
-        feedback_en = f"❌ Not the best choice. The better option was: {correct_text}"
-        feedback_hi = f"❌ सही विकल्प नहीं। बेहतर विकल्प था: {correct_text}"
+        feedback_en = f" Not the best choice. The better option was: {correct_text}"
+        feedback_hi = f" सही विकल्प नहीं। बेहतर विकल्प था: {correct_text}"
         feedback = feedback_hi if language == "hi" else feedback_en
 
     return {
@@ -560,7 +560,7 @@ def complete_lesson(lesson_id: int, req: LessonCompleteRequest, db: Session = De
     _check_level_unlock(db, req.user_id, health)
 
     return {
-        "message": "Lesson completed! 🎉",
+        "message": "Lesson completed! ",
         "lesson_id": lesson_id,
         "xp_awarded": xp_gained,
         "tool_bonus": 10 if req.tool_used else 0,
@@ -651,15 +651,15 @@ def get_financial_health(user_id: int, db: Session = Depends(get_db)):
 
     # Determine health label
     if health.health_score >= 80:
-        label, emoji = "Excellent", "🌟"
+        label, emoji = "Excellent", ""
     elif health.health_score >= 60:
-        label, emoji = "Good", "💪"
+        label, emoji = "Good", ""
     elif health.health_score >= 40:
-        label, emoji = "Fair", "📈"
+        label, emoji = "Fair", ""
     elif health.health_score >= 20:
-        label, emoji = "Needs Work", "⚠️"
+        label, emoji = "Needs Work", ""
     else:
-        label, emoji = "Just Starting", "🌱"
+        label, emoji = "Just Starting", ""
 
     return {
         "user_id": user_id,
@@ -693,7 +693,7 @@ def _get_health_tips(health: UserFinancialHealth) -> list:
     if health.health_score >= 70 and not health.advanced_unlocked:
         tips.append("You're close to unlocking advanced content! Keep going!")
     if not tips:
-        tips.append("Great progress! Keep learning and growing! 🚀")
+        tips.append("Great progress! Keep learning and growing! ")
     return tips
 
 
@@ -742,5 +742,5 @@ def get_next_lesson(user_id: int, language: str = "en", db: Session = Depends(ge
 
     return {
         "has_next": False,
-        "message": "🎉 You've completed all available lessons! New content coming soon."
+        "message": " You've completed all available lessons! New content coming soon."
     }

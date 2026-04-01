@@ -49,6 +49,6 @@ if data.get("status") == "ready":
         size_kb = round(os.path.getsize(audio_path) / 1024, 1)
         print(f"\nAudio file: {size_kb} KB")
     
-    print("\n✅ SUCCESS — Two-host neural podcast generated!")
+    print("\n SUCCESS — Two-host neural podcast generated!")
 else:
-    print(f"\n❌ FAILED: {data.get('error', 'Unknown error')}")
+    print(f"\n FAILED: {data.get('error', 'Unknown error')}")

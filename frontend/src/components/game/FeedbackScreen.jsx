@@ -1,4 +1,5 @@
 import React from 'react';
+import Icons from '../ui/Icons';
 
 const FeedbackScreen = ({ isCorrect, advice, nextScenarioName, onContinue, language = 'en' }) => {
     const langKey = language === 'hi' ? 'hindi' : 'english';
@@ -26,7 +27,7 @@ const FeedbackScreen = ({ isCorrect, advice, nextScenarioName, onContinue, langu
         <div className="game-feedback-screen">
             <div className="game-feedback-container">
                 <div className={`game-feedback-icon ${isCorrect ? 'correct' : 'warning'}`}>
-                    {isCorrect ? '✓' : '⚠'}
+                    {isCorrect ? <Icons.Check size={48} color="#4CAF50" /> : <Icons.Warning size={48} color="#FF9800" />}
                 </div>
                 <h2 className={`game-feedback-title ${isCorrect ? 'correct' : 'warning'}`}>
                     {isCorrect ? t.goodChoice : t.needsImprovement}

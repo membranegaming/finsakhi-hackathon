@@ -26,7 +26,7 @@ TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 TWILIO_VERIFY_SERVICE_SID = os.getenv("TWILIO_VERIFY_SERVICE_SID")
 
 # Debug logging
-print(f"🔧 Twilio Config:")
+print(f" Twilio Config:")
 print(f"   Account SID: {TWILIO_ACCOUNT_SID[:10]}..." if TWILIO_ACCOUNT_SID else "   Account SID: Not set")
 print(f"   Auth Token: {'Set' if TWILIO_AUTH_TOKEN else 'Not set'}")
 print(f"   Service SID: {TWILIO_VERIFY_SERVICE_SID[:10]}..." if TWILIO_VERIFY_SERVICE_SID else "   Service SID: Not set")
@@ -36,11 +36,11 @@ twilio_client = None
 if TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN:
     try:
         twilio_client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-        print(f"✅ Twilio client initialized successfully")
+        print(f" Twilio client initialized successfully")
     except Exception as e:
-        print(f"❌ Twilio client initialization failed: {e}")
+        print(f" Twilio client initialization failed: {e}")
 else:
-    print(f"⚠️  Twilio client not initialized - missing credentials")
+    print(f"  Twilio client not initialized - missing credentials")
 
 # Pydantic models
 class SendOTPRequest(BaseModel):
@@ -99,25 +99,25 @@ def send_otp(data: SendOTPRequest, db: Session = Depends(get_db)):
                 "valid_for": "10 minutes"
             }
         except Exception as e:
-            # Log the error and return demo mode response
+            # Log the error and fall through to demo mode response
             print(f"Twilio Error: {str(e)}")
-            # Fall through to demo mode below
-    else:
-        # Demo mode - generate and store OTP locally
-        otp = generate_otp()
-        otp_expiry = datetime.utcnow() + timedelta(minutes=10)
-        
-        user.otp = otp
-        user.otp_expiry = otp_expiry
-        db.commit()
-        
-        return {
-            "success": True,
-            "message": "OTP generated (Demo mode - Twilio not configured)",
-            "phone": data.phone,
-            "otp": otp,  # Only shown in demo mode
-            "note": "In production, OTP will be sent via SMS"
-        }
+            pass
+
+    # Demo mode - generate and store OTP locally
+    otp = generate_otp()
+    otp_expiry = datetime.utcnow() + timedelta(minutes=10)
+    
+    user.otp = otp
+    user.otp_expiry = otp_expiry
+    db.commit()
+    
+    return {
+        "success": True,
+        "message": "OTP generated (Demo mode - Twilio not configured)",
+        "phone": data.phone,
+        "otp": otp,  # Only shown in demo mode
+        "note": "In production, OTP will be sent via SMS"
+    }
 
 @router.post("/verify-otp")
 def verify_otp(data: VerifyOTPRequest, db: Session = Depends(get_db)):

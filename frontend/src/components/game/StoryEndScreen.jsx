@@ -1,4 +1,5 @@
 import React from 'react';
+import Icons from '../ui/Icons';
 
 const StoryEndScreen = ({ pathName, finalStats, epilogue, lessonsLearned, isGoodEnding = true, onTryAnother, onExit, language = 'en' }) => {
     const langKey = language === 'hi' ? 'hindi' : 'english';
@@ -37,7 +38,7 @@ const StoryEndScreen = ({ pathName, finalStats, epilogue, lessonsLearned, isGood
             <div className="game-end-screen-container">
                 <div className="game-end-header">
                     <div className={`game-end-icon ${isGoodEnding ? 'success' : 'neutral'}`}>
-                        {isGoodEnding ? '🎉' : '📊'}
+                        {isGoodEnding ? <Icons.Celebrate size={56} color="#4CAF50" /> : <Icons.Chart size={56} />}
                     </div>
                     <h1 className="game-end-title">{t.journeyComplete}</h1>
                     <h2 className="game-end-path-name">{pathName} {t.path}</h2>
@@ -55,21 +56,21 @@ const StoryEndScreen = ({ pathName, finalStats, epilogue, lessonsLearned, isGood
                         <h3 className="game-section-title">{t.finalStats}</h3>
                         <div className="game-stats-grid">
                             <div className="game-stat-card savings">
-                                <div className="game-stat-card-icon">💰</div>
+                                <div className="game-stat-card-icon"><Icons.Money size={32} /></div>
                                 <div className="game-stat-card-info">
                                     <div className="game-stat-card-label">{t.savings}</div>
                                     <div className="game-stat-card-value">₹{finalStats?.savings?.toLocaleString() || 0}</div>
                                 </div>
                             </div>
                             <div className="game-stat-card debt">
-                                <div className="game-stat-card-icon">📊</div>
+                                <div className="game-stat-card-icon"><Icons.Chart size={32} /></div>
                                 <div className="game-stat-card-info">
                                     <div className="game-stat-card-label">{t.debt}</div>
                                     <div className="game-stat-card-value">₹{finalStats?.debt?.toLocaleString() || 0}</div>
                                 </div>
                             </div>
                             <div className="game-stat-card confidence">
-                                <div className="game-stat-card-icon">⭐</div>
+                                <div className="game-stat-card-icon"><Icons.Star size={32} filled color="#f39c12" /></div>
                                 <div className="game-stat-card-info">
                                     <div className="game-stat-card-label">{t.confidence}</div>
                                     <div className="game-stat-card-value">{finalStats?.confidence || 50}%</div>
@@ -84,7 +85,7 @@ const StoryEndScreen = ({ pathName, finalStats, epilogue, lessonsLearned, isGood
                             <ul className="game-lessons-list">
                                 {lessonsLearned.map((lesson, index) => (
                                     <li key={index} className="game-lesson-item">
-                                        <span className="game-lesson-icon">✓</span>
+                                        <span className="game-lesson-icon"><Icons.Check size={16} color="#4CAF50" /></span>
                                         {lesson}
                                     </li>
                                 ))}
@@ -95,11 +96,11 @@ const StoryEndScreen = ({ pathName, finalStats, epilogue, lessonsLearned, isGood
 
                 <div className="game-end-actions">
                     <button className="game-action-btn game-another-path-btn" onClick={onTryAnother}>
-                        <span className="game-btn-icon">🌟</span>
+                        <span className="game-btn-icon"><Icons.Star size={20} filled color="#fff" /></span>
                         <span className="game-btn-text">{t.tryAnother}</span>
                     </button>
                     <button className="game-action-btn game-exit-btn" onClick={onExit}>
-                        <span className="game-btn-icon">🏠</span>
+                        <span className="game-btn-icon"><Icons.Home size={20} /></span>
                         <span className="game-btn-text">{t.exit}</span>
                     </button>
                 </div>

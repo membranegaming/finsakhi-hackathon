@@ -82,7 +82,7 @@ export default function Mentor({ userId: propUserId }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem 0', flexShrink: 0 }}>
         <div>
           <h1 style={{ fontSize: '1.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            🤖 {language === 'hi' ? 'AI वित्तीय सलाहकार' : 'AI Financial Mentor'}
+            {language === 'hi' ? 'AI वित्तीय सलाहकार' : 'AI Financial Mentor'}
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', marginTop: '0.15rem' }}>
             {language === 'hi' ? 'आपकी वित्तीय प्रोफ़ाइल के आधार पर व्यक्तिगत सलाह' : 'Personalized advice based on your financial profile'}
@@ -91,7 +91,7 @@ export default function Mentor({ userId: propUserId }) {
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button onClick={() => setShowHistory(!showHistory)}
             style={{ padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid var(--border-subtle)', background: 'var(--card-bg)', cursor: 'pointer', fontSize: '0.8rem', color: 'var(--text-primary)' }}>
-            📜 {language === 'hi' ? 'इतिहास' : 'History'}
+            {language === 'hi' ? 'इतिहास' : 'History'}
           </button>
           <button onClick={startNewChat}
             style={{ padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid var(--border-subtle)', background: 'var(--accent-primary)', color: '#fff', cursor: 'pointer', fontSize: '0.8rem' }}>
@@ -120,7 +120,9 @@ export default function Mentor({ userId: propUserId }) {
       <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '0.5rem 0', minHeight: 0 }}>
         {messages.length === 0 ? (
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>💬</div>
+            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'var(--accent-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.75rem' }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
             <p style={{ fontSize: '1rem', marginBottom: '1.25rem' }}>
               {language === 'hi' ? 'नमस्ते! मुझसे कुछ भी पूछें।' : 'Hi! Ask me anything about finance.'}
             </p>
@@ -152,7 +154,7 @@ export default function Mentor({ userId: propUserId }) {
         {sending && (
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <div style={{ padding: '0.75rem 1rem', borderRadius: '16px', background: 'var(--card-bg)', border: '1px solid var(--border-subtle)', color: 'var(--text-secondary)' }}>
-              ⏳ {language === 'hi' ? 'सोच रहा हूँ...' : 'Thinking...'}
+              {language === 'hi' ? 'सोच रहा हूँ...' : 'Thinking...'}
             </div>
           </div>
         )}
@@ -182,7 +184,7 @@ export default function Mentor({ userId: propUserId }) {
           style={{ flex: 1, padding: '0.75rem 1rem', borderRadius: '12px', border: '1px solid var(--border-subtle)', background: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '0.9rem' }} />
         <button onClick={() => sendMessage()} disabled={sending || !input.trim()}
           style={{ padding: '0.75rem 1.25rem', borderRadius: '12px', background: 'var(--accent-primary)', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.9rem' }}>
-          ➤
+          {language === 'hi' ? 'भेजें' : 'Send'}
         </button>
       </div>
     </div>

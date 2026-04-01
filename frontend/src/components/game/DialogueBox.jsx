@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Icons from '../ui/Icons';
 
 const DialogueBox = ({ speaker, text, onContinue, isComplete, language = 'en' }) => {
     const [displayedText, setDisplayedText] = useState('');
@@ -6,8 +7,8 @@ const DialogueBox = ({ speaker, text, onContinue, isComplete, language = 'en' })
     const [canSkip, setCanSkip] = useState(false);
     const isHindi = language === 'hi';
     const continueText = isHindi ? 'जारी रखने के लिए क्लिक करें →' : 'Click to continue →';
-    const skipText = isHindi ? 'स्किप करें ⏩' : 'Click to skip ⏩';
-    const completeText = isHindi ? '✓ पूर्ण' : '✓ Complete';
+    const skipText = isHindi ? 'स्किप करें ' : 'Click to skip ';
+    const completeText = isHindi ? <span style={{display:'flex',alignItems:'center',gap:'0.25rem'}}><Icons.Check size={14} /> पूर्ण</span> : <span style={{display:'flex',alignItems:'center',gap:'0.25rem'}}><Icons.Check size={14} /> Complete</span>;
 
     useEffect(() => {
         setDisplayedText('');

@@ -127,7 +127,7 @@ export default function Assessment({ onComplete, userId }) {
 
   // Completed view
   if (phase === "completed" && result) {
-    const levelEmoji = result.literacy_level === "advanced" ? "🌟" : result.literacy_level === "intermediate" ? "📈" : "🌱";
+    const levelLabel = result.literacy_level === "advanced" ? "Advanced" : result.literacy_level === "intermediate" ? "Intermediate" : "Beginner";
     return (
       <div className="assessment-wrapper">
         <div className="assessment-controls-bar"><LanguageToggle /><ThemeToggle /></div>
@@ -137,7 +137,7 @@ export default function Assessment({ onComplete, userId }) {
         </div>
         <div className="assessment-content">
           <div className="assessment-card" style={{ textAlign: 'center', padding: '2.5rem' }}>
-            <div style={{ fontSize: '3.5rem', marginBottom: '0.5rem' }}>{levelEmoji}</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>{levelLabel}</div>
             <h2 style={{ margin: '0.5rem 0' }}>
               {language === 'hi' ? 'मूल्यांकन पूर्ण!' : 'Assessment Complete!'}
             </h2>
@@ -190,7 +190,7 @@ export default function Assessment({ onComplete, userId }) {
               style={{ marginTop: '1rem', maxWidth: '300px', margin: '1rem auto 0' }}
               onClick={() => onComplete(result.literacy_level)}
             >
-              {language === 'hi' ? 'सीखना शुरू करें' : 'Start Learning'} 📚 →
+              {language === 'hi' ? 'सीखना शुरू करें' : 'Start Learning'}  →
             </button>
           </div>
         </div>
@@ -246,8 +246,8 @@ export default function Assessment({ onComplete, userId }) {
             </div>
             <div className="step-phase-label">
               {phase === "profile"
-                ? (language === 'hi' ? `📋 प्रोफ़ाइल (${currentStep + 1}/${TOTAL_PROFILE_STEPS})` : `📋 Profile (${currentStep + 1}/${TOTAL_PROFILE_STEPS})`)
-                : (language === 'hi' ? `📝 प्रश्न (${mcqNumber}/${TOTAL_MCQ})` : `📝 Quiz (${mcqNumber}/${TOTAL_MCQ})`)}
+                ? (language === 'hi' ? ` प्रोफ़ाइल (${currentStep + 1}/${TOTAL_PROFILE_STEPS})` : ` Profile (${currentStep + 1}/${TOTAL_PROFILE_STEPS})`)
+                : (language === 'hi' ? ` प्रश्न (${mcqNumber}/${TOTAL_MCQ})` : ` Quiz (${mcqNumber}/${TOTAL_MCQ})`)}
             </div>
           </div>
 
@@ -268,8 +268,8 @@ export default function Assessment({ onComplete, userId }) {
                 textAlign: 'center', fontSize: '1rem'
               }}>
                 {feedback.isCorrect
-                  ? (language === 'hi' ? '✅ सही उत्तर!' : '✅ Correct!')
-                  : (language === 'hi' ? `❌ गलत! सही उत्तर: ${options[feedback.correctIdx]}` : `❌ Wrong! Correct: ${options[feedback.correctIdx]}`)}
+                  ? (language === 'hi' ? 'Correct! सही उत्तर!' : 'Correct!')
+                  : (language === 'hi' ? `गलत! सही उत्तर: ${options[feedback.correctIdx]}` : `Wrong! Correct: ${options[feedback.correctIdx]}`)}
               </div>
             )}
 

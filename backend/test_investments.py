@@ -11,9 +11,9 @@ def test(label, url):
         r = requests.get(url, timeout=30)
         data = r.json()
         print(json.dumps(data, indent=2, default=str)[:1500])
-        print(f"\n  ✅ Status: {r.status_code}")
+        print(f"\n   Status: {r.status_code}")
     except Exception as e:
-        print(f"  ❌ FAILED: {e}")
+        print(f"   FAILED: {e}")
 
 # Test 1: All commodities
 test("Commodities (Gold, Silver, Oil)", f"{BASE}/api/investments/commodities")
@@ -45,4 +45,4 @@ test("Investment Dashboard", f"{BASE}/api/investments/dashboard")
 print(f"\n{'='*50}")
 print("  ALL TESTS DONE!")
 print(f"{'='*50}")
-print(f"\n  📘 Swagger UI: {BASE}/docs")
+print(f"\n   Swagger UI: {BASE}/docs")

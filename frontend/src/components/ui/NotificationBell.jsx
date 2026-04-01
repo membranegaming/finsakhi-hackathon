@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import Icons from './Icons';
 import './NotificationBell.css';
 
 function NotificationBell() {
@@ -110,9 +111,9 @@ function NotificationBell() {
                     onClick={() => handleNotificationClick(notification)}
                   >
                     <div className={`notification-icon ${notification.type}`}>
-                      {notification.type === 'success' && '🎉'}
-                      {notification.type === 'info' && 'ℹ️'}
-                      {notification.type === 'message' && '💬'}
+                      {notification.type === 'success' && <Icons.Celebrate size={20} />}
+                      {notification.type === 'info' && <Icons.Info size={20} />}
+                      {notification.type === 'message' && ''}
                     </div>
                     <div className="notification-content">
                       <h4>{notification.title}</h4>
@@ -133,9 +134,9 @@ function NotificationBell() {
         <div className="notification-popup">
           <div className="popup-content">
             <div className={`popup-icon ${popupNotification.type}`}>
-              {popupNotification.type === 'success' && '🎉'}
-              {popupNotification.type === 'info' && 'ℹ️'}
-              {popupNotification.type === 'message' && '💬'}
+              {popupNotification.type === 'success' && <Icons.Celebrate size={24} />}
+              {popupNotification.type === 'info' && <Icons.Info size={24} />}
+              {popupNotification.type === 'message' && ''}
             </div>
             <div className="popup-text">
               <h4>{popupNotification.title}</h4>

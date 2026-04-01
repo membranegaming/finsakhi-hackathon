@@ -29,13 +29,35 @@ export default function Dashboard({ onLogout, initialSection }) {
     if (userId) loadDashboardData();
   }, [userId, language]);
 
+  useEffect(() => {
+    if (!userId || currentSection !== 'dashboard') return;
+
+    let cancelled = false;
+    const refreshCommodities = async () => {
+      try {
+        const res = await investmentAPI.getCommodities({ live: true });
+        if (!cancelled) setCommodities(res?.commodities || res || []);
+      } catch (e) {
+        if (!cancelled) console.error('Commodity refresh error', e);
+      }
+    };
+
+    refreshCommodities();
+    const intervalId = setInterval(refreshCommodities, 15000);
+
+    return () => {
+      cancelled = true;
+      clearInterval(intervalId);
+    };
+  }, [userId, currentSection]);
+
   const loadDashboardData = async () => {
     setLoading(true);
     try {
       const [cardsRes, schemesRes, comRes, mfRes] = await Promise.allSettled([
         recommendationsAPI.getCreditCards(userId, language).catch(() => recommendationsAPI.getAllCards()),
         recommendationsAPI.getGovtSchemes(userId, language).catch(() => recommendationsAPI.getAllSchemes()),
-        investmentAPI.getCommodities(),
+        investmentAPI.getCommodities({ live: true }),
         investmentAPI.getPopularMutualFunds(),
       ]);
       if (cardsRes.status === 'fulfilled') setCreditCards(cardsRes.value?.cards || cardsRes.value || []);
@@ -87,7 +109,7 @@ export default function Dashboard({ onLogout, initialSection }) {
           {/* ── Credit Cards ── */}
           <section>
             <h2 style={{ fontSize: '1.15rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              💳 {language === 'hi' ? 'अनुशंसित क्रेडिट कार्ड' : 'Recommended Credit Cards'}
+               {language === 'hi' ? 'अनुशंसित क्रेडिट कार्ड' : 'Recommended Credit Cards'}
               <button onClick={() => setCurrentSection('schemes')} style={{ marginLeft: 'auto', fontSize: '0.75rem', background: 'none', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '0.25rem 0.6rem', cursor: 'pointer', color: 'var(--accent-primary)' }}>
                 {language === 'hi' ? 'सभी देखें →' : 'View All →'}
               </button>
@@ -111,7 +133,7 @@ export default function Dashboard({ onLogout, initialSection }) {
                   {card.apply_url && (
                     <a href={card.apply_url} target="_blank" rel="noopener noreferrer"
                       style={{ display: 'inline-block', marginTop: '0.25rem', padding: '0.45rem 1rem', background: 'var(--accent-primary)', color: '#fff', borderRadius: '10px', textDecoration: 'none', fontSize: '0.8rem', textAlign: 'center' }}>
-                      {language === 'hi' ? 'अभी आवेदन करें ↗' : 'Apply Now ↗'}
+                      {language === 'hi' ? 'अभी आवेदन करें ' : 'Apply Now '}
                     </a>
                   )}
                 </div>
@@ -127,7 +149,7 @@ export default function Dashboard({ onLogout, initialSection }) {
           {/* ── Government Schemes ── */}
           <section>
             <h2 style={{ fontSize: '1.15rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              🏛️ {language === 'hi' ? 'सरकारी योजनाएँ' : 'Government Schemes'}
+               {language === 'hi' ? 'सरकारी योजनाएँ' : 'Government Schemes'}
               <button onClick={() => setCurrentSection('schemes')} style={{ marginLeft: 'auto', fontSize: '0.75rem', background: 'none', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '0.25rem 0.6rem', cursor: 'pointer', color: 'var(--accent-primary)' }}>
                 {language === 'hi' ? 'सभी देखें →' : 'View All →'}
               </button>
@@ -157,7 +179,7 @@ export default function Dashboard({ onLogout, initialSection }) {
                   {scheme.apply_url && (
                     <a href={scheme.apply_url} target="_blank" rel="noopener noreferrer"
                       style={{ display: 'inline-block', marginTop: '0.25rem', padding: '0.45rem 1rem', background: '#2ecc71', color: '#fff', borderRadius: '10px', textDecoration: 'none', fontSize: '0.8rem', textAlign: 'center' }}>
-                      {language === 'hi' ? 'अभी आवेदन करें ↗' : 'Apply Now ↗'}
+                      {language === 'hi' ? 'अभी आवेदन करें ' : 'Apply Now '}
                     </a>
                   )}
                 </div>
@@ -173,7 +195,7 @@ export default function Dashboard({ onLogout, initialSection }) {
           {/* ── Mutual Funds ── */}
           <section>
             <h2 style={{ fontSize: '1.15rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              📊 {language === 'hi' ? 'लोकप्रिय म्यूचुअल फंड' : 'Popular Mutual Funds'}
+               {language === 'hi' ? 'लोकप्रिय म्यूचुअल फंड' : 'Popular Mutual Funds'}
               <button onClick={() => setCurrentSection('investments')} style={{ marginLeft: 'auto', fontSize: '0.75rem', background: 'none', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '0.25rem 0.6rem', cursor: 'pointer', color: 'var(--accent-primary)' }}>
                 {language === 'hi' ? 'और देखें →' : 'Explore More →'}
               </button>
@@ -202,7 +224,7 @@ export default function Dashboard({ onLogout, initialSection }) {
           {/* ── Commodities ── */}
           <section>
             <h2 style={{ fontSize: '1.15rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              🥇 {language === 'hi' ? 'कमोडिटी बाज़ार' : 'Commodity Market'}
+               {language === 'hi' ? 'कमोडिटी बाज़ार' : 'Commodity Market'}
               <button onClick={() => setCurrentSection('investments')} style={{ marginLeft: 'auto', fontSize: '0.75rem', background: 'none', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '0.25rem 0.6rem', cursor: 'pointer', color: 'var(--accent-primary)' }}>
                 {language === 'hi' ? 'और देखें →' : 'Explore More →'}
               </button>
@@ -211,18 +233,19 @@ export default function Dashboard({ onLogout, initialSection }) {
               {commodities.slice(0, 4).map((c, i) => {
                 const price = c.price_inr || c.price || c.current_price || 0;
                 const name = c.name || c.commodity || '';
+                const changePercent = c.change_pct ?? c.change_percent;
                 return (
                   <div key={i} style={{ ...cardStyle, textAlign: 'center' }}>
-                    <div style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>
-                      {name === 'gold' ? '🥇' : name === 'silver' ? '🥈' : name === 'crude_oil' ? '🛢️' : name === 'natural_gas' ? '🔥' : '📦'}
+                    <div style={{ fontSize: '0.7rem', fontWeight: 700, marginBottom: '0.25rem', letterSpacing: '0.05em', background: 'var(--accent-primary)', color: '#fff', width: '32px', height: '32px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 0.25rem' }}>
+                      {name === 'gold' ? 'AU' : name === 'silver' ? 'AG' : name === 'crude_oil' ? 'OIL' : name === 'natural_gas' ? 'GAS' : name.substring(0,2).toUpperCase()}
                     </div>
                     <div style={{ fontWeight: 600, fontSize: '0.9rem', textTransform: 'capitalize', marginBottom: '0.25rem' }}>
                       {name.replace(/_/g, ' ')}
                     </div>
                     <div style={{ fontWeight: 'bold', fontSize: '1.2rem', color: 'var(--accent-primary)' }}>{fmt(price)}</div>
-                    {c.change_percent !== undefined && (
-                      <div style={{ fontSize: '0.8rem', fontWeight: 600, color: c.change_percent >= 0 ? '#2ecc71' : '#e74c3c', marginTop: '0.25rem' }}>
-                        {c.change_percent >= 0 ? '▲' : '▼'} {Math.abs(c.change_percent).toFixed(2)}%
+                    {changePercent !== undefined && (
+                      <div style={{ fontSize: '0.8rem', fontWeight: 600, color: changePercent >= 0 ? '#2ecc71' : '#e74c3c', marginTop: '0.25rem' }}>
+                        {changePercent >= 0 ? '▲' : '▼'} {Math.abs(changePercent).toFixed(2)}%
                       </div>
                     )}
                     {c.unit && <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>per {c.unit}</div>}

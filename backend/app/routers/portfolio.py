@@ -4,7 +4,7 @@ Allows users to simulate buying/selling commodities and mutual funds
 with a virtual balance of ₹1,00,000.
 Uses existing Portfolio and Investment DB tables.
 """
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Query
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.models.database import get_db, Portfolio, Investment, User
@@ -20,7 +20,7 @@ VIRTUAL_STARTING_BALANCE = 100000.0  # ₹1,00,000
 
 # ── Price cache ──────────────────────────────────────────
 _cache = {}
-_TTL = 300
+_TTL = 0  # Always fetch fresh — no caching
 
 def _cached(key):
     if key in _cache:
@@ -58,42 +58,52 @@ COMMODITY_TICKERS = {
     "crude_oil": "CL=F",
 }
 
-def _get_usd_inr() -> float:
-    cached = _cached("usd_inr")
-    if cached:
-        return cached
+def _get_usd_inr(force_refresh: bool = False) -> float:
+    if not force_refresh:
+        cached = _cached("usd_inr")
+        if cached:
+            return cached
     try:
         t = yf.Ticker("INR=X")
-        h = t.history(period="1d")
+        h = t.history(period="1d", interval="1m")
+        if h.empty:
+            h = t.history(period="1d")
         rate = float(h["Close"].iloc[-1]) if not h.empty else 83.0
         _set_cache("usd_inr", rate)
         return rate
     except Exception:
         return 83.0
 
-def _get_commodity_price_inr(symbol: str) -> Optional[float]:
-    cached = _cached(f"price_{symbol}")
-    if cached:
-        return cached
+def _get_commodity_price_inr(symbol: str, force_refresh: bool = False) -> Optional[float]:
+    if not force_refresh:
+        cached = _cached(f"price_{symbol}")
+        if cached:
+            return cached
     ticker_str = COMMODITY_TICKERS.get(symbol)
     if not ticker_str:
         return None
     try:
         t = yf.Ticker(ticker_str)
-        h = t.history(period="2d")
+        h = t.history(period="1d", interval="1m")
+        if h.empty:
+            h = t.history(period="2d")
         if h.empty:
             return None
-        usd_inr = _get_usd_inr()
+        usd_inr = _get_usd_inr(force_refresh=force_refresh)
         price = float(h["Close"].iloc[-1]) * usd_inr
+        if symbol in ["gold", "silver"]:
+            price /= 31.1034768
+        
         _set_cache(f"price_{symbol}", price)
         return round(price, 2)
     except Exception:
         return None
 
-def _get_mf_nav(scheme_code: str) -> Optional[float]:
-    cached = _cached(f"nav_{scheme_code}")
-    if cached:
-        return cached
+def _get_mf_nav(scheme_code: str, force_refresh: bool = False) -> Optional[float]:
+    if not force_refresh:
+        cached = _cached(f"nav_{scheme_code}")
+        if cached:
+            return cached
     try:
         resp = requests.get(f"https://api.mfapi.in/mf/{scheme_code}", timeout=10)
         if resp.status_code != 200:
@@ -107,11 +117,11 @@ def _get_mf_nav(scheme_code: str) -> Optional[float]:
     except Exception:
         return None
 
-def _get_current_price(asset_type: str, asset_symbol: str) -> Optional[float]:
+def _get_current_price(asset_type: str, asset_symbol: str, force_refresh: bool = False) -> Optional[float]:
     if asset_type == "commodity":
-        return _get_commodity_price_inr(asset_symbol)
+        return _get_commodity_price_inr(asset_symbol, force_refresh=force_refresh)
     elif asset_type == "mutual_fund":
-        return _get_mf_nav(asset_symbol)
+        return _get_mf_nav(asset_symbol, force_refresh=force_refresh)
     return None
 
 def _ensure_portfolio(db: Session, user_id: int) -> Portfolio:
@@ -132,7 +142,11 @@ def _ensure_portfolio(db: Session, user_id: int) -> Portfolio:
 # ── Endpoints ────────────────────────────────────────────
 
 @router.get("/{user_id}")
-def get_portfolio(user_id: int, db: Session = Depends(get_db)):
+def get_portfolio(
+    user_id: int,
+    live: bool = Query(False, description="If true, bypass cache and fetch latest available prices"),
+    db: Session = Depends(get_db),
+):
     """Get user's portfolio with holdings, P&L, and virtual balance."""
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -150,7 +164,7 @@ def get_portfolio(user_id: int, db: Session = Depends(get_db)):
             continue
         # Determine asset type from symbol
         asset_type = "commodity" if inv.asset_symbol in COMMODITY_TICKERS else "mutual_fund"
-        current_price = _get_current_price(asset_type, inv.asset_symbol)
+        current_price = _get_current_price(asset_type, inv.asset_symbol, force_refresh=live)
 
         if current_price is None:
             current_price = inv.buy_price  # fallback
@@ -200,7 +214,7 @@ def buy_asset(req: BuyRequest, db: Session = Depends(get_db)):
         raise HTTPException(404, "User not found")
 
     # Get current price
-    current_price = _get_current_price(req.asset_type, req.asset_symbol)
+    current_price = _get_current_price(req.asset_type, req.asset_symbol, force_refresh=True)
     if current_price is None:
         raise HTTPException(400, "Could not fetch price for this asset. Try again later.")
 
@@ -280,7 +294,7 @@ def sell_asset(req: SellRequest, db: Session = Depends(get_db)):
         raise HTTPException(400, f"Cannot sell {req.quantity} — you only hold {inv.quantity}")
 
     asset_type = "commodity" if inv.asset_symbol in COMMODITY_TICKERS else "mutual_fund"
-    current_price = _get_current_price(asset_type, inv.asset_symbol)
+    current_price = _get_current_price(asset_type, inv.asset_symbol, force_refresh=True)
     if current_price is None:
         current_price = inv.buy_price
 

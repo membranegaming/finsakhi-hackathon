@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../contexts/AppContext';
 import { useGameState } from '../store/useGameState';
+import Icons from '../components/ui/Icons';
 import DialogueScene from '../components/game/DialogueScene';
 import ChoiceButton from '../components/game/ChoiceButton';
 import SceneBackground from '../components/game/SceneBackground';
@@ -51,7 +52,7 @@ export default function FinGame({ userId, onNavigate }) {
     };
     const t = translations[langKey];
 
-    const pathIcons = { farming: '🌾', business: '🏪', wage: '👷' };
+    const pathIcons = { farming: 'FAR', business: 'BIZ', wage: 'WRK' };
     const pathColors = { farming: '#4CAF50', business: '#FF9800', wage: '#2196F3' };
 
     // Load paths on mount
@@ -104,10 +105,10 @@ export default function FinGame({ userId, onNavigate }) {
             : state.currentPath === 'business' ? 'Small Business / Self Employment'
             : 'Daily Wage / Job';
 
-        const epilogueParts = narrative.split('🎓 Key Lessons Learned:');
-        const epilogue = epilogueParts[0].replace(/💰 Final Stats:.*$/s, '').trim();
-        const lessonsMatch = narrative.match(/✓[^\n]+/g);
-        const lessonsLearned = lessonsMatch ? lessonsMatch.map(l => l.replace('✓', '').trim()) : [];
+        const epilogueParts = narrative.split(' Key Lessons Learned:');
+        const epilogue = epilogueParts[0].replace(/ Final Stats:.*$/s, '').trim();
+        const lessonsMatch = narrative.match(/^\-\s+[^\n]+/gm);
+        const lessonsLearned = lessonsMatch ? lessonsMatch.map(l => l.replace(/^\-\s+/, '').trim()) : [];
         const isGoodEnding = n.id.includes('good') || n.id.includes('success') || n.id.includes('growth');
 
         return { pathName, finalStats: state.stats, epilogue, lessonsLearned, isGoodEnding };
@@ -217,7 +218,15 @@ export default function FinGame({ userId, onNavigate }) {
                             style={{ '--path-color': pathColors[path.path_id] || '#6c63ff' }}
                         >
                             <div className="game-path-box-content">
-                                <div className="game-path-icon">{pathIcons[path.path_id] || '🎯'}</div>
+                                <div className="game-path-icon" style={{ width: '64px', height: '64px', borderRadius: '50%', background: pathColors[path.path_id] || '#6c63ff', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
+                                    {path.path_id === 'farming' ?
+                                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> :
+                                     path.path_id === 'business' ?
+                                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> :
+                                     path.path_id === 'wage' ?
+                                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> :
+                                      <Icons.Target size={32} color="#fff" />}
+                                </div>
                                 <h2 className="game-path-name">{path.title}</h2>
                                 <p className="game-path-description">{path.description}</p>
                             </div>

@@ -1,0 +1,68 @@
+flowchart TD
+    %% Define Styles
+    classDef frontend fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff,font-weight:bold
+    classDef backend fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff,font-weight:bold
+    classDef database fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#fff,font-weight:bold
+    classDef external fill:#8b5cf6,stroke:#5b21b6,stroke-width:2px,color:#fff,font-weight:bold
+    classDef user fill:#64748b,stroke:#334155,stroke-width:2px,color:#fff,font-weight:bold
+
+    %% End Users
+    User((End User\nWeb Browser)):::user
+
+    %% Frontend Stack
+    subgraph Frontend [Frontend Client React + Vite]
+        UI[User Interface\nDashboards / UI]:::frontend
+        API_Svc[API Service Layer\nHTTP Fetching]:::frontend
+        State[Global State\nContext API / AuthStore]:::frontend
+        i18n[Localizer\nEng / Hindi Mapping]:::frontend
+        
+        UI <--> State
+        State <--> i18n
+        UI <--> API_Svc
+    end
+
+    %% Backend Stack
+    subgraph Backend [Backend Service FastAPI + Python]
+        Gateway{FastAPI \nRouter Layer}:::backend
+        
+        %% Core Micro-Modules
+        AuthMod[Auth & Security\nTwilio OTP + JWT]:::backend
+        InvMod[Investments & Portfolio\nTrading Engine]:::backend
+        LearnMod[Learning Engine\nGames & Podcast Gen]:::backend
+        AIMod[AI Orchestrator\nLLM Personalization]:::backend
+
+        %% ORM
+        ORM[(SQLAlchemy ORM)]:::backend
+
+        Gateway <--> AuthMod
+        Gateway <--> InvMod
+        Gateway <--> LearnMod
+        Gateway <--> AIMod
+        
+        AuthMod <--> ORM
+        InvMod <--> ORM
+        LearnMod <--> ORM
+        AIMod <--> ORM
+    end
+
+    %% Database Level
+    DB[(SQLite Database\nUsers, Portfolios, History)]:::database
+    ORM <--> DB
+
+    %% External APIs
+    subgraph ExternalServices [Third Party APIs]
+        Twilio[Twilio Verify API\nSMS OTP]:::external
+        Groq[Groq Inference API\nLlama 3 / Mixtral]:::external
+        Yahoo[Yahoo Finance\nLive USD/INR & Commodities]:::external
+        MFAPI[MFAPI.in\nDirect Mutual Fund NAVs]:::external
+    end
+
+    %% Connections across stacks
+    User <-->|HTTPS UI Interactivity| UI
+    API_Svc <-->|REST API JSON| Gateway
+
+    %% Backend to External APIs
+    AuthMod -->|Validate Number| Twilio
+    AIMod -->|Ask Questions / Build Persona| Groq
+    InvMod -->|T-0 Pricing Data| Yahoo
+    InvMod -->|End-of-Day NAV| MFAPI

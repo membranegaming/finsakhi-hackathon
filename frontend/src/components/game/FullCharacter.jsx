@@ -38,7 +38,7 @@ const FullCharacter = ({ character, position, emotion = 'neutral', isSpeaking = 
                     <circle cx="150" cy="240" r="8" fill={colors.accent} />
                 </svg>
             </div>
-            {isSpeaking && <div className="game-speaking-indicator"><span>💭</span></div>}
+            {isSpeaking && <div className="game-speaking-indicator"><span></span></div>}
         </div>
     );
 };

@@ -14,20 +14,35 @@ export default function Investment({ userId }) {
   const [tab, setTab] = useState("commodities"); // "commodities" | "mutualfunds"
   const [error, setError] = useState("");
 
-  useEffect(() => { loadData(); }, []);
+  useEffect(() => {
+    let cancelled = false;
 
-  const loadData = async () => {
-    setLoading(true);
-    try {
-      const [comRes, mfRes] = await Promise.allSettled([
-        investmentAPI.getCommodities(),
-        investmentAPI.getPopularMutualFunds(),
-      ]);
-      if (comRes.status === 'fulfilled') setCommodities(comRes.value?.commodities || comRes.value || []);
-      if (mfRes.status === 'fulfilled') setMutualFunds(mfRes.value?.funds || mfRes.value || []);
-    } catch (e) { setError(e.message); }
-    setLoading(false);
-  };
+    const loadData = async (silent = false) => {
+      if (!silent) setLoading(true);
+      try {
+        const [comRes, mfRes] = await Promise.allSettled([
+          investmentAPI.getCommodities({ live: true }),
+          investmentAPI.getPopularMutualFunds(),
+        ]);
+
+        if (cancelled) return;
+        if (comRes.status === 'fulfilled') setCommodities(comRes.value?.commodities || comRes.value || []);
+        if (mfRes.status === 'fulfilled') setMutualFunds(mfRes.value?.funds || mfRes.value || []);
+      } catch (e) {
+        if (!cancelled) setError(e.message);
+      } finally {
+        if (!cancelled && !silent) setLoading(false);
+      }
+    };
+
+    loadData(false);
+    const intervalId = setInterval(() => loadData(true), 15000);
+
+    return () => {
+      cancelled = true;
+      clearInterval(intervalId);
+    };
+  }, []);
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
@@ -47,11 +62,14 @@ export default function Investment({ userId }) {
   return (
     <div style={{ padding: '1rem' }}>
       <div style={{ marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>
-          📈 {language === 'hi' ? 'निवेश' : 'Investments'}
+        <h1 style={{ fontSize: '1.5rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          {language === 'hi' ? 'निवेश' : 'Investments'}
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
           {language === 'hi' ? 'लाइव कमोडिटी दरें और म्यूचुअल फंड' : 'Live commodity prices & mutual fund data'}
+        </p>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', marginTop: '0.35rem' }}>
+          {language === 'hi' ? 'कमोडिटी कीमतें हर 15 सेकंड में अपडेट होती हैं' : 'Commodity prices refresh every 15 seconds'}
         </p>
       </div>
 
@@ -60,12 +78,12 @@ export default function Investment({ userId }) {
         <button onClick={() => setTab("commodities")}
           style={{ padding: '0.5rem 1.25rem', borderRadius: '10px', border: '1px solid var(--border-subtle)', cursor: 'pointer',
             background: tab === 'commodities' ? 'var(--accent-primary)' : 'var(--card-bg)', color: tab === 'commodities' ? '#fff' : 'var(--text-primary)', fontSize: '0.85rem' }}>
-          🥇 {language === 'hi' ? 'कमोडिटी' : 'Commodities'}
+          {language === 'hi' ? 'कमोडिटी' : 'Commodities'}
         </button>
         <button onClick={() => setTab("mutualfunds")}
           style={{ padding: '0.5rem 1.25rem', borderRadius: '10px', border: '1px solid var(--border-subtle)', cursor: 'pointer',
             background: tab === 'mutualfunds' ? 'var(--accent-primary)' : 'var(--card-bg)', color: tab === 'mutualfunds' ? '#fff' : 'var(--text-primary)', fontSize: '0.85rem' }}>
-          📊 {language === 'hi' ? 'म्यूचुअल फंड' : 'Mutual Funds'}
+          {language === 'hi' ? 'म्यूचुअल फंड' : 'Mutual Funds'}
         </button>
       </div>
 
@@ -80,8 +98,10 @@ export default function Investment({ userId }) {
             <div key={i} style={{ background: 'var(--card-bg)', borderRadius: '16px', padding: '1.25rem', border: '1px solid var(--border-subtle)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                  <h3 style={{ fontSize: '1rem', marginBottom: '0.25rem' }}>
-                    {(c.commodity || c.name || '').toLowerCase() === 'gold' ? '🥇' : (c.commodity || c.name || '').toLowerCase() === 'silver' ? '🥈' : (c.commodity || c.name || '').toLowerCase() === 'crude_oil' ? '🛢️' : '🔥'} {c.name || c.commodity}
+                  <h3 style={{ fontSize: '1rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 700, background: 'var(--accent-primary)', color: '#fff', padding: '2px 5px', borderRadius: '4px', letterSpacing: '0.04em' }}>
+                      {(c.commodity || c.name || '').toLowerCase() === 'gold' ? 'AU' : (c.commodity || c.name || '').toLowerCase() === 'silver' ? 'AG' : (c.commodity || c.name || '').toLowerCase() === 'crude_oil' ? 'OIL' : 'RAW'}
+                    </span> {c.name || c.commodity}
                   </h3>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>{c.symbol || ''}</p>
                 </div>
@@ -114,7 +134,7 @@ export default function Investment({ userId }) {
               style={{ flex: 1, padding: '0.7rem 1rem', borderRadius: '10px', border: '1px solid var(--border-subtle)', background: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '0.9rem' }} />
             <button onClick={handleSearch} disabled={searching}
               style={{ padding: '0.7rem 1.25rem', borderRadius: '10px', background: 'var(--accent-primary)', color: '#fff', border: 'none', cursor: 'pointer', fontSize: '0.9rem' }}>
-              {searching ? '...' : '🔍'}
+              {searching ? '...' : 'Search'}
             </button>
           </div>
 

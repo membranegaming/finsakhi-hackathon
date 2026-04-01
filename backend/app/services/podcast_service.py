@@ -3,7 +3,7 @@ FinSakhi Podcast Service — Realistic Two-Host Multilingual Audio Learning
 ==========================================================================
 Generates realistic two-host podcast episodes for each lesson:
 
-  1. Groq LLM → writes a natural dialogue between Host (Priya ♀) and Co-host (Arjun ♂)
+  1. Groq LLM → writes a natural dialogue between Host (Priya ) and Co-host (Arjun )
   2. Microsoft Edge Neural TTS → high-quality, natural-sounding Indian voices
      - Dedicated female voice for Priya (Host)
      - Dedicated male voice for Arjun (Co-host)
@@ -255,7 +255,7 @@ Return ONLY the dialogue lines starting with PRIYA: or ARJUN: — nothing else. 
         return script
 
     except Exception as e:
-        print(f"⚠️ Groq podcast script generation failed: {e}")
+        print(f" Groq podcast script generation failed: {e}")
         return (
             f"PRIYA: Namaste! Welcome to FinSakhi Radio. Today's topic: {title}.\n"
             f"ARJUN: Oh, this is something I really need to know about!\n"
@@ -369,7 +369,7 @@ async def _generate_dialogue_audio(
 
     except Exception as e:
         error_msg = f"Edge-TTS generation failed: {str(e)}\n{traceback.format_exc()}"
-        print(f"⚠️ {error_msg}")
+        print(f" {error_msg}")
         return False, None, error_msg
 
     finally:
@@ -406,7 +406,7 @@ def _text_to_audio(
 
     except Exception as e:
         error_msg = f"Podcast audio failed: {str(e)}\n{traceback.format_exc()}"
-        print(f"⚠️ {error_msg}")
+        print(f" {error_msg}")
         return False, None, error_msg
 
 

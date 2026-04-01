@@ -48,7 +48,7 @@ Base.metadata.create_all(bind=engine)
 @app.get("/")
 def read_root():
     return {
-        "message": "FinSakhi API is running! 🌾",
+        "message": "FinSakhi API is running! ",
         "status": "healthy",
         "database": "SQLite (offline-ready)"
     }

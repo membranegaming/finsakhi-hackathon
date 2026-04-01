@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useApp } from '../contexts/AppContext';
 import { useAuth } from '../store/authStore.jsx';
 import { portfolioAPI, investmentAPI } from '../services/api';
+import Icons from '../components/ui/Icons';
 import CandleLoader from '../components/ui/CandleLoader';
 
 export default function Portfolio({ userId: propUserId }) {
@@ -22,21 +23,26 @@ export default function Portfolio({ userId: propUserId }) {
   const [sellModal, setSellModal] = useState(null);
   const [sellQty, setSellQty] = useState('');
 
-  useEffect(() => { if (userId) loadAll(); }, [userId]);
+  useEffect(() => {
+    if (!userId) return;
+    loadAll(false);
+    const intervalId = setInterval(() => loadAll(true), 15000);
+    return () => clearInterval(intervalId);
+  }, [userId]);
 
-  const loadAll = async () => {
-    setLoading(true);
+  const loadAll = async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
       const [pRes, cRes, mRes] = await Promise.allSettled([
-        portfolioAPI.getPortfolio(userId),
-        investmentAPI.getCommodities(),
+        portfolioAPI.getPortfolio(userId, { live: true }),
+        investmentAPI.getCommodities({ live: true }),
         investmentAPI.getPopularMutualFunds(),
       ]);
       if (pRes.status === 'fulfilled') setPortfolio(pRes.value);
       if (cRes.status === 'fulfilled') setCommodities(cRes.value?.commodities || cRes.value || []);
       if (mRes.status === 'fulfilled') setMutualFunds(mRes.value?.funds || mRes.value || []);
     } catch (e) { console.error(e); }
-    setLoading(false);
+    if (!silent) setLoading(false);
   };
 
   const fmt = (v) => `₹${Number(v).toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
@@ -83,13 +89,16 @@ export default function Portfolio({ userId: propUserId }) {
     <div style={{ padding: '1rem' }}>
       {/* Header */}
       <div style={{ marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>
-          💼 {language === 'hi' ? 'वर्चुअल ट्रेडिंग' : 'Virtual Trading'}
+        <h1 style={{ fontSize: '1.5rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          {language === 'hi' ? 'वर्चुअल ट्रेडिंग' : 'Virtual Trading'}
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
           {language === 'hi'
             ? '₹1,00,000 वर्चुअल बैलेंस से निवेश सीखें'
             : 'Learn to invest with ₹1,00,000 virtual balance'}
+        </p>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', marginTop: '0.35rem' }}>
+          {language === 'hi' ? 'मार्केट कीमतें हर 15 सेकंड में अपडेट होती हैं' : 'Market prices refresh every 15 seconds'}
         </p>
       </div>
 
@@ -122,11 +131,11 @@ export default function Portfolio({ userId: propUserId }) {
 
           {/* ── Tabs ── */}
           <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem' }}>
-            <button onClick={() => setTab('holdings')} style={{ ...btnBase, background: tab === 'holdings' ? 'var(--accent-primary)' : 'var(--card-bg)', color: tab === 'holdings' ? '#fff' : 'var(--text-primary)' }}>
-              📊 {language === 'hi' ? 'होल्डिंग्स' : 'Holdings'}
+            <button onClick={() => setTab('holdings')} style={{ ...btnBase, background: tab === 'holdings' ? 'var(--accent-primary)' : 'var(--card-bg)', color: tab === 'holdings' ? '#fff' : 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Icons.Chart size={16} /> {language === 'hi' ? 'होल्डिंग्स' : 'Holdings'}
             </button>
-            <button onClick={() => setTab('buy')} style={{ ...btnBase, background: tab === 'buy' ? 'var(--accent-primary)' : 'var(--card-bg)', color: tab === 'buy' ? '#fff' : 'var(--text-primary)' }}>
-              🛒 {language === 'hi' ? 'खरीदें' : 'Buy'}
+            <button onClick={() => setTab('buy')} style={{ ...btnBase, background: tab === 'buy' ? 'var(--accent-primary)' : 'var(--card-bg)', color: tab === 'buy' ? '#fff' : 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Icons.ShoppingCart size={16} /> {language === 'hi' ? 'खरीदें' : 'Buy'}
             </button>
           </div>
 
@@ -167,7 +176,9 @@ export default function Portfolio({ userId: propUserId }) {
                 </div>
               ) : (
                 <div style={{ ...cardStyle, textAlign: 'center', padding: '2.5rem', color: 'var(--text-secondary)' }}>
-                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📭</div>
+                  <div style={{ marginBottom: '0.75rem', opacity: 0.5 }}>
+                    <Icons.Chart size={40} />
+                  </div>
                   <p>{language === 'hi' ? 'कोई होल्डिंग नहीं। Buy टैब से शुरू करें!' : 'No holdings yet. Start buying from the Buy tab!'}</p>
                 </div>
               )}
@@ -177,10 +188,10 @@ export default function Portfolio({ userId: propUserId }) {
             <div>
               <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
                 <button onClick={() => setBuyTab('commodity')} style={{ ...btnBase, background: buyTab === 'commodity' ? 'var(--accent-primary)' : 'var(--card-bg)', color: buyTab === 'commodity' ? '#fff' : 'var(--text-primary)' }}>
-                  🥇 {language === 'hi' ? 'कमोडिटी' : 'Commodities'}
+                  {language === 'hi' ? 'कमोडिटी' : 'Commodities'}
                 </button>
                 <button onClick={() => setBuyTab('mutual_fund')} style={{ ...btnBase, background: buyTab === 'mutual_fund' ? 'var(--accent-primary)' : 'var(--card-bg)', color: buyTab === 'mutual_fund' ? '#fff' : 'var(--text-primary)' }}>
-                  📊 {language === 'hi' ? 'म्यूचुअल फंड' : 'Mutual Funds'}
+                  {language === 'hi' ? 'म्यूचुअल फंड' : 'Mutual Funds'}
                 </button>
               </div>
 
@@ -201,11 +212,11 @@ export default function Portfolio({ userId: propUserId }) {
                       = {buyQty ? fmt(Number(buyQty) * selectedAsset.price) : '₹0'}
                     </span>
                     <button onClick={handleBuy} disabled={acting || !buyQty}
-                      style={{ ...btnBase, background: 'var(--accent-primary)', color: '#fff', border: 'none', opacity: acting ? 0.6 : 1 }}>
-                      {acting ? '...' : language === 'hi' ? '✓ खरीदें' : '✓ Buy'}
+                      style={{ ...btnBase, background: 'var(--accent-primary)', color: '#fff', border: 'none', opacity: acting ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      {acting ? '...' : <><Icons.Check size={14} /> {language === 'hi' ? 'खरीदें' : 'Buy'}</>}
                     </button>
                     <button onClick={() => { setSelectedAsset(null); setBuyQty(''); }}
-                      style={{ ...btnBase, background: 'transparent', color: 'var(--text-secondary)' }}>✕</button>
+                      style={{ ...btnBase, background: 'transparent', color: 'var(--text-secondary)' }}>x</button>
                   </div>
                 </div>
               )}
@@ -215,11 +226,18 @@ export default function Portfolio({ userId: propUserId }) {
                 {buyTab === 'commodity' ? commodities.map((c, i) => {
                   const price = c.price_inr || c.price || c.current_price || 0;
                   const sym = c.commodity || c.name?.toLowerCase().replace(/\s/g, '_') || '';
+                  const getCommodityIcon = () => {
+                    const name = (c.name || c.commodity || '').toLowerCase();
+                    if (name === 'gold') return <Icons.Gold size={18} color="#FFD700" />;
+                    if (name === 'silver') return <Icons.Silver size={18} color="#C0C0C0" />;
+                    return <Icons.Oil size={18} />;
+                  };
                   return (
                     <div key={i} style={{ ...cardStyle, display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', transition: 'border-color 0.2s' }}
                       onClick={() => setSelectedAsset({ type: 'commodity', symbol: sym, name: c.name || c.commodity, price })}>
-                      <div>
-                        <span style={{ fontWeight: 600 }}>{c.name === 'gold' || c.commodity === 'gold' ? '🥇' : c.name === 'silver' || c.commodity === 'silver' ? '🥈' : '🛢️'} {c.name || c.commodity}</span>
+                      <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                        <span>{getCommodityIcon()}</span>
+                        <span style={{ fontWeight: 600 }}>{c.name || c.commodity}</span>
                         {c.change_pct !== undefined && (
                           <span style={{ marginLeft: '0.5rem', fontSize: '0.8rem', color: c.change_pct >= 0 ? '#2ecc71' : '#e74c3c' }}>
                             {c.change_pct >= 0 ? '▲' : '▼'} {Math.abs(c.change_pct).toFixed(2)}%
@@ -276,7 +294,7 @@ export default function Portfolio({ userId: propUserId }) {
                   </button>
                   <button onClick={handleSell} disabled={acting}
                     style={{ ...btnBase, background: '#e74c3c', color: '#fff', border: 'none', opacity: acting ? 0.6 : 1 }}>
-                    {acting ? '...' : language === 'hi' ? '✓ बेचें' : '✓ Sell'}
+                    {acting ? '...' : language === 'hi' ? 'बेचें' : 'Sell'}
                   </button>
                 </div>
               </div>

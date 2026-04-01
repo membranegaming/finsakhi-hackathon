@@ -10,49 +10,49 @@
         "raj": {
             "name": { "english": "Raj", "hindi": "Raj" },
             "role": { "english": "Farmer", "hindi": "किसान" },
-            "avatar": "👨‍🌾",
+            "avatar": "‍",
             "description": { "english": "A young farmer trying to make ends meet", "hindi": "एक युवा किसान जो गुज़ारा करने की कोशिश कर रहा है" },
             "personality": { "english": "Hardworking and cautious", "hindi": "मेहनती और सतर्क" }
         },
         "priya": {
             "name": { "english": "Priya", "hindi": "Priya" },
             "role": { "english": "Business Owner", "hindi": "व्यापारी" },
-            "avatar": "👩‍💼",
+            "avatar": "‍",
             "description": { "english": "An ambitious entrepreneur running a small shop", "hindi": "एक महत्वाकांक्षी उद्यमी जो एक छोटी दुकान चलाती है" },
             "personality": { "english": "Bold and strategic", "hindi": "साहसी और रणनीतिक" }
         },
         "amit": {
             "name": { "english": "Amit", "hindi": "Amit" },
             "role": { "english": "Daily Wage Worker", "hindi": "दिहाड़ी मज़दूर" },
-            "avatar": "👷",
+            "avatar": "",
             "description": { "english": "A construction worker with big dreams", "hindi": "बड़े सपने देखने वाला एक निर्माण मज़दूर" },
             "personality": { "english": "Optimistic and resilient", "hindi": "आशावादी और हिम्मती" }
         },
         "mentor": {
             "name": { "english": "Sharma Ji", "hindi": "Sharma Ji" },
             "role": { "english": "Financial Advisor", "hindi": "वित्तीय सलाहकार" },
-            "avatar": "👴",
+            "avatar": "",
             "description": { "english": "A wise elder who gives financial advice", "hindi": "एक समझदार बुज़ुर्ग जो पैसों की सलाह देते हैं" },
             "personality": { "english": "Wise and patient", "hindi": "बुद्धिमान और धैर्यवान" }
         },
         "friend": {
             "name": { "english": "Rohan", "hindi": "Rohan" },
             "role": { "english": "Friend", "hindi": "दोस्त" },
-            "avatar": "🧑",
+            "avatar": "",
             "description": { "english": "Your childhood friend", "hindi": "तुम्हारा बचपन का दोस्त" },
             "personality": { "english": "Supportive but sometimes impulsive", "hindi": "सहयोगी लेकिन कभी-कभी जल्दबाज़" }
         },
         "banker": {
             "name": { "english": "Ms. Kapoor", "hindi": "Ms. Kapoor" },
             "role": { "english": "Bank Officer", "hindi": "बैंक अधिकारी" },
-            "avatar": "👩‍💻",
+            "avatar": "‍",
             "description": { "english": "A helpful bank officer", "hindi": "एक मददगार बैंक अधिकारी" },
             "personality": { "english": "Professional and informative", "hindi": "पेशेवर और जानकार" }
         },
         "moneylender": {
             "name": { "english": "Lala", "hindi": "Lala" },
             "role": { "english": "Moneylender", "hindi": "साहूकार" },
-            "avatar": "😈",
+            "avatar": "",
             "description": { "english": "A local moneylender with high interest rates", "hindi": "एक स्थानीय साहूकार जो ऊँचा ब्याज लेता है" },
             "personality": { "english": "Cunning and opportunistic", "hindi": "चालाक और मौकापरस्त" }
         }
@@ -135,23 +135,23 @@
                 {
                     "node_id": "farm_end_good", "sequence": 6, "checkpoint": false, "speaker": "raj",
                     "narrative": {
-                        "english": "Six months later...\n\nI can't believe how much has changed! By creating a budget and tracking every rupee, I was able to save enough to buy better seeds and even a small irrigation pump. When the weak monsoon came, I was prepared.\n\nMy neighbors struggled, but I had planned ahead. I learned that financial planning isn't about being rich - it's about being smart with what you have. Today, my farm is thriving, and I'm teaching other farmers in my village about budgeting.\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Budget planning helps you prepare for uncertainties\n✓ Small savings add up to big opportunities\n✓ Financial literacy empowers entire communities\n✓ Planning beats luck every time",
-                        "hindi": "छह महीने बाद...\n\nमुझे विश्वास नहीं हो रहा कि कितना कुछ बदल गया! बजट बनाकर और हर रुपये का हिसाब रखकर, मैंने अच्छे बीज और एक छोटा सिंचाई पंप खरीदने लायक बचत कर ली। जब कमज़ोर मानसून आया, तो मैं तैयार था।\n\nमेरे पड़ोसियों को मुश्किल हुई, लेकिन मैंने पहले से योजना बना ली थी। मैंने सीखा कि आर्थिक योजना अमीर होने के बारे में नहीं है - यह अपने पास जो है उसे समझदारी से इस्तेमाल करने के बारे में है। आज मेरा खेत फल-फूल रहा है, और मैं अपने गाँव के दूसरे किसानों को बजट बनाना सिखा रहा हूँ।\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ बजट बनाना अनिश्चितताओं के लिए तैयार करता है\n✓ छोटी-छोटी बचत बड़े मौके बनाती है\n✓ आर्थिक समझ पूरे समुदाय को सशक्त बनाती है\n✓ योजना हमेशा किस्मत से बेहतर होती है"
+                        "english": "Six months later...\n\nI can't believe how much has changed! By creating a budget and tracking every rupee, I was able to save enough to buy better seeds and even a small irrigation pump. When the weak monsoon came, I was prepared.\n\nMy neighbors struggled, but I had planned ahead. I learned that financial planning isn't about being rich - it's about being smart with what you have. Today, my farm is thriving, and I'm teaching other farmers in my village about budgeting.\n\n Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n Key Lessons Learned:\n- Budget planning helps you prepare for uncertainties\n- Small savings add up to big opportunities\n- Financial literacy empowers entire communities\n- Planning beats luck every time",
+                        "hindi": "छह महीने बाद...\n\nमुझे विश्वास नहीं हो रहा कि कितना कुछ बदल गया! बजट बनाकर और हर रुपये का हिसाब रखकर, मैंने अच्छे बीज और एक छोटा सिंचाई पंप खरीदने लायक बचत कर ली। जब कमज़ोर मानसून आया, तो मैं तैयार था।\n\nमेरे पड़ोसियों को मुश्किल हुई, लेकिन मैंने पहले से योजना बना ली थी। मैंने सीखा कि आर्थिक योजना अमीर होने के बारे में नहीं है - यह अपने पास जो है उसे समझदारी से इस्तेमाल करने के बारे में है। आज मेरा खेत फल-फूल रहा है, और मैं अपने गाँव के दूसरे किसानों को बजट बनाना सिखा रहा हूँ।\n\n अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n मुख्य सीख:\n- बजट बनाना अनिश्चितताओं के लिए तैयार करता है\n- छोटी-छोटी बचत बड़े मौके बनाती है\n- आर्थिक समझ पूरे समुदाय को सशक्त बनाती है\n- योजना हमेशा किस्मत से बेहतर होती है"
                     },
                     "choices": [
-                        { "id": "farm_end_restart", "text": { "english": "🔄 Start a New Journey", "hindi": "🔄 नई यात्रा शुरू करो" }, "next_node": "farm_1", "impact": {}, "risk": 0 },
-                        { "id": "farm_end_explore", "text": { "english": "🌟 Try a Different Path", "hindi": "🌟 कोई और रास्ता आज़माओ" }, "next_node": null, "impact": {}, "risk": 0 }
+                        { "id": "farm_end_restart", "text": { "english": " Start a New Journey", "hindi": " नई यात्रा शुरू करो" }, "next_node": "farm_1", "impact": {}, "risk": 0 },
+                        { "id": "farm_end_explore", "text": { "english": " Try a Different Path", "hindi": " कोई और रास्ता आज़माओ" }, "next_node": null, "impact": {}, "risk": 0 }
                     ]
                 },
                 {
                     "node_id": "farm_end_okay", "sequence": 6, "checkpoint": false, "speaker": "raj",
                     "narrative": {
-                        "english": "Six months later...\n\nThe weak monsoon hit harder than I expected. Without a proper budget, I spent money on things I didn't really need. When the crops failed, I had to take a small loan to survive.\n\nI'm managing, but I realize now that Sharma Ji was right - planning matters. I've started keeping track of my expenses now, even if it's late. It's a tough lesson, but an important one.\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Hope is not a financial strategy\n✓ Planning ahead prevents crisis later\n✓ It's never too late to start budgeting\n✓ Small mistakes teach big lessons",
-                        "hindi": "छह महीने बाद...\n\nकमज़ोर मानसून ने उम्मीद से ज़्यादा मार दी। बिना बजट के, मैंने ऐसी चीज़ों पर पैसे खर्च कर दिए जिनकी असल में ज़रूरत नहीं थी। जब फसल बर्बाद हो गई, तो गुज़ारे के लिए छोटा कर्ज़ लेना पड़ा।\n\nकाम चल रहा है, लेकिन अब समझ आ रहा है कि शर्मा जी सही कह रहे थे - योजना बनाना ज़रूरी है। मैंने अब अपने खर्चों का हिसाब रखना शुरू कर दिया है, भले ही देर से। कड़वा सबक है, लेकिन ज़रूरी है।\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ उम्मीद कोई आर्थिक रणनीति नहीं है\n✓ पहले से योजना बनाना बाद की मुसीबत रोकता है\n✓ बजट बनाने में कभी देर नहीं होती\n✓ छोटी गलतियाँ बड़े सबक सिखाती हैं"
+                        "english": "Six months later...\n\nThe weak monsoon hit harder than I expected. Without a proper budget, I spent money on things I didn't really need. When the crops failed, I had to take a small loan to survive.\n\nI'm managing, but I realize now that Sharma Ji was right - planning matters. I've started keeping track of my expenses now, even if it's late. It's a tough lesson, but an important one.\n\n Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n Key Lessons Learned:\n- Hope is not a financial strategy\n- Planning ahead prevents crisis later\n- It's never too late to start budgeting\n- Small mistakes teach big lessons",
+                        "hindi": "छह महीने बाद...\n\nकमज़ोर मानसून ने उम्मीद से ज़्यादा मार दी। बिना बजट के, मैंने ऐसी चीज़ों पर पैसे खर्च कर दिए जिनकी असल में ज़रूरत नहीं थी। जब फसल बर्बाद हो गई, तो गुज़ारे के लिए छोटा कर्ज़ लेना पड़ा।\n\nकाम चल रहा है, लेकिन अब समझ आ रहा है कि शर्मा जी सही कह रहे थे - योजना बनाना ज़रूरी है। मैंने अब अपने खर्चों का हिसाब रखना शुरू कर दिया है, भले ही देर से। कड़वा सबक है, लेकिन ज़रूरी है।\n\n अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n मुख्य सीख:\n- उम्मीद कोई आर्थिक रणनीति नहीं है\n- पहले से योजना बनाना बाद की मुसीबत रोकता है\n- बजट बनाने में कभी देर नहीं होती\n- छोटी गलतियाँ बड़े सबक सिखाती हैं"
                     },
                     "choices": [
-                        { "id": "farm_okay_restart", "text": { "english": "🔄 Try Again with Better Choices", "hindi": "🔄 बेहतर फ़ैसलों के साथ फिर से कोशिश करो" }, "next_node": "farm_1", "impact": {}, "risk": 0 },
-                        { "id": "farm_okay_explore", "text": { "english": "🌟 Explore a Different Life Path", "hindi": "🌟 ज़िंदगी का कोई और रास्ता अपनाओ" }, "next_node": null, "impact": {}, "risk": 0 }
+                        { "id": "farm_okay_restart", "text": { "english": " Try Again with Better Choices", "hindi": " बेहतर फ़ैसलों के साथ फिर से कोशिश करो" }, "next_node": "farm_1", "impact": {}, "risk": 0 },
+                        { "id": "farm_okay_explore", "text": { "english": " Explore a Different Life Path", "hindi": " ज़िंदगी का कोई और रास्ता अपनाओ" }, "next_node": null, "impact": {}, "risk": 0 }
                     ]
                 }
             ]
@@ -231,23 +231,23 @@
                 {
                     "node_id": "biz_end_success", "sequence": 6, "checkpoint": false, "speaker": "priya",
                     "narrative": {
-                        "english": "One year later...\n\nMy shop has grown beyond my wildest dreams! By tracking every expense and income, I discovered I was losing money on items that weren't selling. I adjusted my inventory, negotiated better deals with suppliers, and even opened a second location!\n\nThe financial discipline I learned didn't just help my business - it changed my entire life. I now help other women entrepreneurs in my community start their own businesses. Knowledge truly is power!\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Track every rupee - knowledge is profit\n✓ Financial records reveal hidden opportunities\n✓ Discipline today creates freedom tomorrow\n✓ Success is built on smart decisions, not luck\n✓ Empowering others multiplies your impact",
-                        "hindi": "एक साल बाद...\n\nमेरी दुकान ने सोच से भी ज़्यादा तरक्की की! हर खर्चे और आमदनी का हिसाब रखकर, मुझे पता चला कि जो सामान बिक नहीं रहा था उसमें मेरा पैसा डूब रहा था। मैंने अपना स्टॉक ठीक किया, सप्लायरों से बेहतर सौदे किए, और एक दूसरी दुकान भी खोल ली!\n\nमैंने जो आर्थिक अनुशासन सीखा, उसने सिर्फ़ मेरे व्यापार में ही नहीं - मेरी पूरी ज़िंदगी बदल दी। अब मैं अपने समुदाय की दूसरी महिला उद्यमियों को अपना कारोबार शुरू करने में मदद करती हूँ। ज्ञान सच में शक्ति है!\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ हर रुपये का हिसाब रखो - जानकारी ही मुनाफ़ा है\n✓ आर्थिक रिकॉर्ड छिपे हुए मौके दिखाते हैं\n✓ आज का अनुशासन कल की आज़ादी बनाता है\n✓ कामयाबी समझदारी से बनती है, किस्मत से नहीं\n✓ दूसरों को सशक्त करना आपके प्रभाव को बढ़ाता है"
+                        "english": "One year later...\n\nMy shop has grown beyond my wildest dreams! By tracking every expense and income, I discovered I was losing money on items that weren't selling. I adjusted my inventory, negotiated better deals with suppliers, and even opened a second location!\n\nThe financial discipline I learned didn't just help my business - it changed my entire life. I now help other women entrepreneurs in my community start their own businesses. Knowledge truly is power!\n\n Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n Key Lessons Learned:\n- Track every rupee - knowledge is profit\n- Financial records reveal hidden opportunities\n- Discipline today creates freedom tomorrow\n- Success is built on smart decisions, not luck\n- Empowering others multiplies your impact",
+                        "hindi": "एक साल बाद...\n\nमेरी दुकान ने सोच से भी ज़्यादा तरक्की की! हर खर्चे और आमदनी का हिसाब रखकर, मुझे पता चला कि जो सामान बिक नहीं रहा था उसमें मेरा पैसा डूब रहा था। मैंने अपना स्टॉक ठीक किया, सप्लायरों से बेहतर सौदे किए, और एक दूसरी दुकान भी खोल ली!\n\nमैंने जो आर्थिक अनुशासन सीखा, उसने सिर्फ़ मेरे व्यापार में ही नहीं - मेरी पूरी ज़िंदगी बदल दी। अब मैं अपने समुदाय की दूसरी महिला उद्यमियों को अपना कारोबार शुरू करने में मदद करती हूँ। ज्ञान सच में शक्ति है!\n\n अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n मुख्य सीख:\n- हर रुपये का हिसाब रखो - जानकारी ही मुनाफ़ा है\n- आर्थिक रिकॉर्ड छिपे हुए मौके दिखाते हैं\n- आज का अनुशासन कल की आज़ादी बनाता है\n- कामयाबी समझदारी से बनती है, किस्मत से नहीं\n- दूसरों को सशक्त करना आपके प्रभाव को बढ़ाता है"
                     },
                     "choices": [
-                        { "id": "biz_success_restart", "text": { "english": "🔄 Start a New Business Journey", "hindi": "🔄 नई व्यापार यात्रा शुरू करो" }, "next_node": "biz_1", "impact": {}, "risk": 0 },
-                        { "id": "biz_success_explore", "text": { "english": "🌟 Experience a Different Life", "hindi": "🌟 एक अलग ज़िंदगी का अनुभव करो" }, "next_node": null, "impact": {}, "risk": 0 }
+                        { "id": "biz_success_restart", "text": { "english": " Start a New Business Journey", "hindi": " नई व्यापार यात्रा शुरू करो" }, "next_node": "biz_1", "impact": {}, "risk": 0 },
+                        { "id": "biz_success_explore", "text": { "english": " Experience a Different Life", "hindi": " एक अलग ज़िंदगी का अनुभव करो" }, "next_node": null, "impact": {}, "risk": 0 }
                     ]
                 },
                 {
                     "node_id": "biz_end_struggle", "sequence": 6, "checkpoint": false, "speaker": "priya",
                     "narrative": {
-                        "english": "One year later...\n\nMy business is still running, but it's been a struggle. Without proper records, I couldn't figure out why I was always short on cash. I missed tax deadlines, paid penalties, and lost track of who owed me money.\n\nI had to take a small loan just to keep the doors open. I'm learning the hard way that being busy isn't the same as being successful. I've finally started keeping proper books - I just wish I'd listened to Sharma Ji earlier.\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Being busy doesn't mean being profitable\n✓ Financial records are not optional for business\n✓ Small oversights lead to big problems\n✓ It's never too late to start doing things right\n✓ Pride can be expensive - ask for help",
-                        "hindi": "एक साल बाद...\n\nमेरा व्यापार चल तो रहा है, लेकिन मुश्किल से। बिना सही हिसाब-किताब के, मुझे समझ नहीं आया कि पैसों की तंगी क्यों रहती थी। टैक्स की तारीख़ निकल गई, जुर्माना भरना पड़ा, और किसका कितना उधार बाकी है यह भी याद नहीं रहा।\n\nदुकान चालू रखने के लिए मुझे छोटा लोन लेना पड़ा। मुझे कठिन तरीके से सीखना पड़ रहा है कि व्यस्त होना कामयाब होने जैसा नहीं है। मैंने आखिरकार सही हिसाब रखना शुरू कर दिया - काश शर्मा जी की बात पहले मान ली होती।\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ व्यस्त होने का मतलब मुनाफ़ा होना नहीं है\n✓ व्यापार में हिसाब-किताब रखना वैकल्पिक नहीं है\n✓ छोटी-छोटी अनदेखी बड़ी समस्या बनती है\n✓ सही काम शुरू करने में कभी देर नहीं होती\n✓ घमंड महँगा पड़ता है - मदद माँगने में शर्म मत करो"
+                        "english": "One year later...\n\nMy business is still running, but it's been a struggle. Without proper records, I couldn't figure out why I was always short on cash. I missed tax deadlines, paid penalties, and lost track of who owed me money.\n\nI had to take a small loan just to keep the doors open. I'm learning the hard way that being busy isn't the same as being successful. I've finally started keeping proper books - I just wish I'd listened to Sharma Ji earlier.\n\n Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n Key Lessons Learned:\n- Being busy doesn't mean being profitable\n- Financial records are not optional for business\n- Small oversights lead to big problems\n- It's never too late to start doing things right\n- Pride can be expensive - ask for help",
+                        "hindi": "एक साल बाद...\n\nमेरा व्यापार चल तो रहा है, लेकिन मुश्किल से। बिना सही हिसाब-किताब के, मुझे समझ नहीं आया कि पैसों की तंगी क्यों रहती थी। टैक्स की तारीख़ निकल गई, जुर्माना भरना पड़ा, और किसका कितना उधार बाकी है यह भी याद नहीं रहा।\n\nदुकान चालू रखने के लिए मुझे छोटा लोन लेना पड़ा। मुझे कठिन तरीके से सीखना पड़ रहा है कि व्यस्त होना कामयाब होने जैसा नहीं है। मैंने आखिरकार सही हिसाब रखना शुरू कर दिया - काश शर्मा जी की बात पहले मान ली होती।\n\n अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n मुख्य सीख:\n- व्यस्त होने का मतलब मुनाफ़ा होना नहीं है\n- व्यापार में हिसाब-किताब रखना वैकल्पिक नहीं है\n- छोटी-छोटी अनदेखी बड़ी समस्या बनती है\n- सही काम शुरू करने में कभी देर नहीं होती\n- घमंड महँगा पड़ता है - मदद माँगने में शर्म मत करो"
                     },
                     "choices": [
-                        { "id": "biz_struggle_restart", "text": { "english": "🔄 Start Over with Better Habits", "hindi": "🔄 बेहतर आदतों के साथ नए सिरे से शुरू करो" }, "next_node": "biz_1", "impact": {}, "risk": 0 },
-                        { "id": "biz_struggle_explore", "text": { "english": "🌟 Try a Different Career Path", "hindi": "🌟 कोई और करियर आज़माओ" }, "next_node": null, "impact": {}, "risk": 0 }
+                        { "id": "biz_struggle_restart", "text": { "english": " Start Over with Better Habits", "hindi": " बेहतर आदतों के साथ नए सिरे से शुरू करो" }, "next_node": "biz_1", "impact": {}, "risk": 0 },
+                        { "id": "biz_struggle_explore", "text": { "english": " Try a Different Career Path", "hindi": " कोई और करियर आज़माओ" }, "next_node": null, "impact": {}, "risk": 0 }
                     ]
                 }
             ]
@@ -327,23 +327,23 @@
                 {
                     "node_id": "wage_end_growth", "sequence": 6, "checkpoint": false, "speaker": "amit",
                     "narrative": {
-                        "english": "Eight months later...\n\nCreating that budget was the best decision I ever made! I realized I was spending ₹500 every month on things I didn't need. I cut those expenses and started saving consistently.\n\nWith my savings, I enrolled in a skill development course. Now I'm a certified electrician, earning double what I made before! I even started a small emergency fund. My family feels secure for the first time.\n\nHard work is important, but smart planning makes hard work pay off. I'm teaching my younger brother about budgeting now - I want him to learn this earlier than I did!\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ Budget reveals where your money really goes\n✓ Small savings enable big opportunities\n✓ Skills + Planning = Financial growth\n✓ Emergency funds provide peace of mind\n✓ Financial literacy breaks poverty cycles",
-                        "hindi": "आठ महीने बाद...\n\nबजट बनाना मेरी ज़िंदगी का सबसे अच्छा फ़ैसला था! मुझे पता चला कि मैं हर महीने ₹500 ऐसी चीज़ों पर खर्च कर रहा था जिनकी ज़रूरत नहीं थी। मैंने वो खर्चे काटे और लगातार बचत शुरू की।\n\nअपनी बचत से, मैंने स्किल डेवलपमेंट कोर्स में दाख़िला लिया। अब मैं सर्टिफ़ाइड इलेक्ट्रीशियन हूँ, पहले से दोगुनी कमाई कर रहा हूँ! मैंने एक छोटा इमरजेंसी फ़ंड भी बनाया है। मेरा परिवार पहली बार सुरक्षित महसूस कर रहा है।\n\nमेहनत ज़रूरी है, लेकिन समझदारी से योजना बनाना मेहनत को सफल बनाता है। अब मैं अपने छोटे भाई को बजट बनाना सिखा रहा हूँ - मैं चाहता हूँ कि वो यह मुझसे पहले सीख जाए!\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ बजट बताता है कि पैसा असल में कहाँ जाता है\n✓ छोटी बचत बड़े मौके देती है\n✓ हुनर + योजना = आर्थिक तरक्की\n✓ इमरजेंसी फ़ंड मन की शांति देता है\n✓ आर्थिक समझ गरीबी के चक्र को तोड़ती है"
+                        "english": "Eight months later...\n\nCreating that budget was the best decision I ever made! I realized I was spending ₹500 every month on things I didn't need. I cut those expenses and started saving consistently.\n\nWith my savings, I enrolled in a skill development course. Now I'm a certified electrician, earning double what I made before! I even started a small emergency fund. My family feels secure for the first time.\n\nHard work is important, but smart planning makes hard work pay off. I'm teaching my younger brother about budgeting now - I want him to learn this earlier than I did!\n\n Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n Key Lessons Learned:\n- Budget reveals where your money really goes\n- Small savings enable big opportunities\n- Skills + Planning = Financial growth\n- Emergency funds provide peace of mind\n- Financial literacy breaks poverty cycles",
+                        "hindi": "आठ महीने बाद...\n\nबजट बनाना मेरी ज़िंदगी का सबसे अच्छा फ़ैसला था! मुझे पता चला कि मैं हर महीने ₹500 ऐसी चीज़ों पर खर्च कर रहा था जिनकी ज़रूरत नहीं थी। मैंने वो खर्चे काटे और लगातार बचत शुरू की।\n\nअपनी बचत से, मैंने स्किल डेवलपमेंट कोर्स में दाख़िला लिया। अब मैं सर्टिफ़ाइड इलेक्ट्रीशियन हूँ, पहले से दोगुनी कमाई कर रहा हूँ! मैंने एक छोटा इमरजेंसी फ़ंड भी बनाया है। मेरा परिवार पहली बार सुरक्षित महसूस कर रहा है।\n\nमेहनत ज़रूरी है, लेकिन समझदारी से योजना बनाना मेहनत को सफल बनाता है। अब मैं अपने छोटे भाई को बजट बनाना सिखा रहा हूँ - मैं चाहता हूँ कि वो यह मुझसे पहले सीख जाए!\n\n अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n मुख्य सीख:\n- बजट बताता है कि पैसा असल में कहाँ जाता है\n- छोटी बचत बड़े मौके देती है\n- हुनर + योजना = आर्थिक तरक्की\n- इमरजेंसी फ़ंड मन की शांति देता है\n- आर्थिक समझ गरीबी के चक्र को तोड़ती है"
                     },
                     "choices": [
-                        { "id": "wage_growth_restart", "text": { "english": "🔄 Begin Another Journey", "hindi": "🔄 एक और यात्रा शुरू करो" }, "next_node": "wage_1", "impact": {}, "risk": 0 },
-                        { "id": "wage_growth_explore", "text": { "english": "🌟 Explore Other Life Paths", "hindi": "🌟 ज़िंदगी के और रास्ते खोजो" }, "next_node": null, "impact": {}, "risk": 0 }
+                        { "id": "wage_growth_restart", "text": { "english": " Begin Another Journey", "hindi": " एक और यात्रा शुरू करो" }, "next_node": "wage_1", "impact": {}, "risk": 0 },
+                        { "id": "wage_growth_explore", "text": { "english": " Explore Other Life Paths", "hindi": " ज़िंदगी के और रास्ते खोजो" }, "next_node": null, "impact": {}, "risk": 0 }
                     ]
                 },
                 {
                     "node_id": "wage_end_cycle", "sequence": 6, "checkpoint": false, "speaker": "amit",
                     "narrative": {
-                        "english": "Eight months later...\n\nI'm still working the same job, earning the same wages. Every month feels like a struggle - I work hard, but somehow I'm always short on money by the end of the month.\n\nI had to borrow from friends twice this year for emergencies. I feel stuck in a cycle. I know Sharma Ji was right about planning, but I kept putting it off, thinking I was too busy.\n\nNow I realize - I wasn't too busy to plan, I was too busy NOT to plan. I'm starting now, even though I wish I'd started earlier. Better late than never, right?\n\n💰 Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n🎓 Key Lessons Learned:\n✓ 'Too busy' is often an excuse, not a reason\n✓ Without planning, hard work alone isn't enough\n✓ Financial stress affects every part of life\n✓ It's never too late to start planning\n✓ Small changes today prevent big problems tomorrow",
-                        "hindi": "आठ महीने बाद...\n\nमैं अभी भी वही काम कर रहा हूँ, वही मज़दूरी कमा रहा हूँ। हर महीना संघर्ष जैसा लगता है - मेहनत बहुत करता हूँ, लेकिन महीने के आख़िर में पैसे कम पड़ ही जाते हैं।\n\nइस साल दो बार दोस्तों से मुश्किल में पैसे उधार लेने पड़े। लगता है जैसे एक चक्र में फँसा हुआ हूँ। मुझे पता है शर्मा जी योजना बनाने के बारे में सही कह रहे थे, लेकिन मैं टालता रहा, सोचता रहा कि फ़ुर्सत नहीं है।\n\nअब समझ आ रहा है - मुझे योजना बनाने की फ़ुर्सत नहीं थी ऐसा नहीं था, बल्कि योजना न बनाना ही सबसे बड़ी गलती थी। अब शुरू कर रहा हूँ, भले ही काश पहले शुरू किया होता। देर आए दुरुस्त आए, है ना?\n\n💰 अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n🎓 मुख्य सीख:\n✓ 'फ़ुर्सत नहीं है' अक्सर बहाना होता है, कारण नहीं\n✓ बिना योजना के सिर्फ़ मेहनत काफ़ी नहीं\n✓ पैसों की चिंता ज़िंदगी के हर हिस्से को प्रभावित करती है\n✓ योजना बनाने में कभी देर नहीं होती\n✓ आज के छोटे बदलाव कल की बड़ी मुसीबतें रोकते हैं"
+                        "english": "Eight months later...\n\nI'm still working the same job, earning the same wages. Every month feels like a struggle - I work hard, but somehow I'm always short on money by the end of the month.\n\nI had to borrow from friends twice this year for emergencies. I feel stuck in a cycle. I know Sharma Ji was right about planning, but I kept putting it off, thinking I was too busy.\n\nNow I realize - I wasn't too busy to plan, I was too busy NOT to plan. I'm starting now, even though I wish I'd started earlier. Better late than never, right?\n\n Final Stats: Savings ₹{savings}, Debt ₹{debt}, Confidence {confidence}%\n\n Key Lessons Learned:\n- 'Too busy' is often an excuse, not a reason\n- Without planning, hard work alone isn't enough\n- Financial stress affects every part of life\n- It's never too late to start planning\n- Small changes today prevent big problems tomorrow",
+                        "hindi": "आठ महीने बाद...\n\nमैं अभी भी वही काम कर रहा हूँ, वही मज़दूरी कमा रहा हूँ। हर महीना संघर्ष जैसा लगता है - मेहनत बहुत करता हूँ, लेकिन महीने के आख़िर में पैसे कम पड़ ही जाते हैं।\n\nइस साल दो बार दोस्तों से मुश्किल में पैसे उधार लेने पड़े। लगता है जैसे एक चक्र में फँसा हुआ हूँ। मुझे पता है शर्मा जी योजना बनाने के बारे में सही कह रहे थे, लेकिन मैं टालता रहा, सोचता रहा कि फ़ुर्सत नहीं है।\n\nअब समझ आ रहा है - मुझे योजना बनाने की फ़ुर्सत नहीं थी ऐसा नहीं था, बल्कि योजना न बनाना ही सबसे बड़ी गलती थी। अब शुरू कर रहा हूँ, भले ही काश पहले शुरू किया होता। देर आए दुरुस्त आए, है ना?\n\n अंतिम आँकड़े: बचत ₹{savings}, कर्ज़ ₹{debt}, आत्मविश्वास {confidence}%\n\n मुख्य सीख:\n- 'फ़ुर्सत नहीं है' अक्सर बहाना होता है, कारण नहीं\n- बिना योजना के सिर्फ़ मेहनत काफ़ी नहीं\n- पैसों की चिंता ज़िंदगी के हर हिस्से को प्रभावित करती है\n- योजना बनाने में कभी देर नहीं होती\n- आज के छोटे बदलाव कल की बड़ी मुसीबतें रोकते हैं"
                     },
                     "choices": [
-                        { "id": "wage_cycle_restart", "text": { "english": "🔄 Try Again with Better Planning", "hindi": "🔄 बेहतर योजना के साथ फिर से कोशिश करो" }, "next_node": "wage_1", "impact": {}, "risk": 0 },
-                        { "id": "wage_cycle_explore", "text": { "english": "🌟 Experience a Different Story", "hindi": "🌟 एक अलग कहानी का अनुभव करो" }, "next_node": null, "impact": {}, "risk": 0 }
+                        { "id": "wage_cycle_restart", "text": { "english": " Try Again with Better Planning", "hindi": " बेहतर योजना के साथ फिर से कोशिश करो" }, "next_node": "wage_1", "impact": {}, "risk": 0 },
+                        { "id": "wage_cycle_explore", "text": { "english": " Experience a Different Story", "hindi": " एक अलग कहानी का अनुभव करो" }, "next_node": null, "impact": {}, "risk": 0 }
                     ]
                 }
             ]

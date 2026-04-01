@@ -27,12 +27,12 @@ function generateFinancialData(userId) {
   });
 
   const categoryNames = [
-    { en: 'Groceries', hi: 'किराना', icon: '🛒' },
-    { en: 'Rent', hi: 'किराया', icon: '🏠' },
-    { en: 'Transport', hi: 'यातायात', icon: '🚌' },
-    { en: 'Health', hi: 'स्वास्थ्य', icon: '🏥' },
-    { en: 'Education', hi: 'शिक्षा', icon: '📚' },
-    { en: 'Entertainment', hi: 'मनोरंजन', icon: '🎬' },
+    { en: 'Groceries', hi: 'किराना', icon: 'GRC' },
+    { en: 'Rent', hi: 'किराया', icon: 'RNT' },
+    { en: 'Transport', hi: 'यातायात', icon: 'TRP' },
+    { en: 'Health', hi: 'स्वास्थ्य', icon: 'HLT' },
+    { en: 'Education', hi: 'शिक्षा', icon: 'EDU' },
+    { en: 'Entertainment', hi: 'मनोरंजन', icon: 'ENT' },
   ];
   const colors = ['#FF8C00', '#FFA500', '#8B4513', '#D4A574', '#E67E00', '#A0522D'];
   const totalExpense = monthly.reduce((s, m) => s + m.expense, 0);
@@ -155,7 +155,10 @@ export default function Analytics({ userId: propUserId }) {
               {finData.categories.map((cat, i) => (
                 <div className="category-item" key={i}>
                   <div className="category-info">
-                    <span className="category-name">{cat.icon} {language === 'hi' ? cat.hi : cat.en}</span>
+                    <span className="category-name">
+                    <span style={{ fontSize: '0.6rem', fontWeight: 700, background: cat.color, color: '#fff', padding: '1px 4px', borderRadius: '3px', letterSpacing: '0.03em', marginRight: '0.35rem' }}>{cat.icon}</span>
+                    {language === 'hi' ? cat.hi : cat.en}
+                  </span>
                     <span className="category-amount">{fmt(cat.amount)}</span>
                   </div>
                   <div className="category-bar-wrapper">
@@ -193,7 +196,7 @@ export default function Analytics({ userId: propUserId }) {
               </div>
               {healthData?.revision_mode && (
                 <div className="metric">
-                  <span style={{ color: '#e74c3c' }}>⚠️ {language === 'hi' ? 'रिवीजन मोड' : 'Revision Mode'}</span>
+                  <span style={{ color: '#e74c3c' }}>{language === 'hi' ? 'रिवीजन मोड' : 'Revision Mode'}</span>
                   <strong style={{ color: '#e74c3c' }}>Active</strong>
                 </div>
               )}
@@ -231,11 +234,11 @@ export default function Analytics({ userId: propUserId }) {
               <div style={{ display: 'grid', gap: '0.4rem' }}>
                 {progress.map((p, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0' }}>
-                    <span style={{ color: p.completed ? '#2ecc71' : 'var(--text-secondary)' }}>{p.completed ? '✓' : '○'}</span>
+                    <span style={{ color: p.completed ? '#2ecc71' : 'var(--text-secondary)' }}>{p.completed ? '[OK]' : '[ ]'}</span>
                     <span style={{ flex: 1, fontSize: '0.85rem' }}>{p.lesson_title || `Lesson ${p.lesson_id}`}</span>
                     {p.scenario_correct !== null && (
                       <span style={{ fontSize: '0.75rem', color: p.scenario_correct ? '#2ecc71' : '#e74c3c' }}>
-                        {p.scenario_correct ? '🎯' : '✗'}
+                      {p.scenario_correct ? '✓' : '✗'}
                       </span>
                     )}
                     {p.xp_earned > 0 && (

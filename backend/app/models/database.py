@@ -333,8 +333,8 @@ class GameHistoryLog(Base):
 def init_db():
     """Call this to create all tables"""
     Base.metadata.create_all(bind=engine)
-    print("✅ All tables created in SQLite!")
-    print(f"📁 Database location: {DATABASE_PATH}")
+    print(" All tables created in SQLite!")
+    print(f" Database location: {DATABASE_PATH}")
 
 if __name__ == "__main__":
     init_db()

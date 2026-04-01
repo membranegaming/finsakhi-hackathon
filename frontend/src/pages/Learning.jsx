@@ -7,7 +7,8 @@ import CandleLoader from "../components/ui/CandleLoader";
 // Each entry maps a keyword (found in lesson title) to a relevant YouTube video
 const LESSON_VIDEOS = {
   // Savings — Beginner
-  "saving starts small":       { videoId: "jJAijGmFDng", label_en: "Why Saving Money is Important", label_hi: "बचत क्यों ज़रूरी है" },
+  "saving starts small":       { videoId: "ina4O6XidUE", label_en: "Why Saving Money is Important", label_hi: "बचत क्यों ज़रूरी है" },
+  "why save money":            { videoId: "ina4O6XidUE", label_en: "Why Save Money", label_hi: "पैसे क्यों बचाएं?" },
   "home vs bank":              { videoId: "yCOMnvIkVv0", label_en: "Bank Account vs Keeping Cash at Home", label_hi: "बैंक बनाम घर में नकदी" },
   // Savings — Intermediate
   "emergency fund":            { videoId: "RG2eKJdzJU4", label_en: "How to Build an Emergency Fund", label_hi: "इमरजेंसी फंड कैसे बनाएं" },
@@ -205,7 +206,7 @@ export default function Learning({ userId }) {
                 border: '1px solid var(--border-subtle)',
               }}>
                 <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span>🎬</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
                   <span>{language === 'hi' ? 'वीडियो से सीखें' : 'Watch & Learn'}</span>
                 </h3>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
@@ -240,7 +241,7 @@ export default function Learning({ userId }) {
           {/* Key takeaway */}
           {lessonContent.takeaway && (
             <div style={{ marginTop: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '12px', padding: '1rem' }}>
-              <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>💡 {language === 'hi' ? 'मुख्य बातें' : 'Key Takeaway'}</h3>
+              <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{language === 'hi' ? 'मुख्य बातें' : 'Key Takeaway'}</h3>
               <p style={{ lineHeight: 1.8 }}>{lessonContent.takeaway}</p>
             </div>
           )}
@@ -248,7 +249,7 @@ export default function Learning({ userId }) {
           {/* Tool suggestion */}
           {lessonContent.tool_suggestion && (
             <div style={{ marginTop: '1rem', background: 'var(--bg-secondary)', borderRadius: '12px', padding: '1rem' }}>
-              <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>🛠️ {language === 'hi' ? 'सुझाया गया टूल' : 'Suggested Tool'}</h3>
+              <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{language === 'hi' ? 'सुझाया गया टूल' : 'Suggested Tool'}</h3>
               <p style={{ lineHeight: 1.8 }}>{lessonContent.tool_suggestion}</p>
             </div>
           )}
@@ -256,20 +257,20 @@ export default function Learning({ userId }) {
           {/* XP reward */}
           {lessonContent.xp_reward && (
             <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: 600 }}>
-              🌟 +{lessonContent.xp_reward} XP
+              +{lessonContent.xp_reward} XP
             </div>
           )}
 
           {/* Scenario question */}
           {!scenario && !scenarioFeedback && (
             <button onClick={loadScenario} style={{ marginTop: '1.5rem', padding: '0.7rem 1.5rem', background: 'var(--accent-primary)', color: '#fff', border: 'none', borderRadius: '10px', cursor: 'pointer', fontSize: '0.9rem' }}>
-              🧩 {language === 'hi' ? 'परिदृश्य प्रश्न हल करें' : 'Try Scenario Question'}
+              {language === 'hi' ? 'परिदृश्य प्रश्न हल करें' : 'Try Scenario Question'}
             </button>
           )}
 
           {scenario && !scenarioFeedback && (
             <div style={{ marginTop: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '12px', padding: '1.25rem' }}>
-              <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem' }}>🧩 {scenario.question}</h3>
+              <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem' }}>{scenario.question}</h3>
               <div style={{ display: 'grid', gap: '0.5rem' }}>
                 {(scenario.options || []).map((opt, i) => (
                   <button key={i} onClick={() => answerScenario(i)}
@@ -286,7 +287,7 @@ export default function Learning({ userId }) {
               background: scenarioFeedback.is_correct ? 'rgba(46,204,113,0.1)' : 'rgba(231,76,60,0.1)',
               border: `1px solid ${scenarioFeedback.is_correct ? '#2ecc71' : '#e74c3c'}` }}>
               <p style={{ fontWeight: 600, marginBottom: '0.5rem' }}>
-                {scenarioFeedback.is_correct ? '✅' : '❌'} {scenarioFeedback.explanation || (scenarioFeedback.is_correct ? 'Correct!' : 'Incorrect')}
+                {scenarioFeedback.is_correct ? '[+]' : '[-]'} {scenarioFeedback.explanation || (scenarioFeedback.is_correct ? 'Correct!' : 'Incorrect')}
               </p>
               {scenarioFeedback.health_impact && (
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
@@ -299,7 +300,7 @@ export default function Learning({ userId }) {
           {/* Podcast Player */}
           {podcastData && podcastData.length > 0 && (
             <div style={{ marginTop: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '12px', padding: '1.25rem' }}>
-              <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem' }}>🎧 {language === 'hi' ? 'पॉडकास्ट सुनें' : 'Listen to Podcast'}</h3>
+              <h3 style={{ fontSize: '1rem', marginBottom: '0.75rem' }}>{language === 'hi' ? 'पॉडकास्ट सुनें' : 'Listen to Podcast'}</h3>
               {podcastData.map((pod) => (
                 <div key={pod.podcast_id || pod.language} style={{ marginBottom: '0.75rem' }}>
                   <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
@@ -320,11 +321,11 @@ export default function Learning({ userId }) {
           <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
             <button onClick={completeLesson}
               style={{ padding: '0.7rem 1.5rem', background: '#2ecc71', color: '#fff', border: 'none', borderRadius: '10px', cursor: 'pointer', fontSize: '0.9rem' }}>
-              ✓ {language === 'hi' ? 'पाठ पूर्ण करें' : 'Complete Lesson'}
+              {language === 'hi' ? 'पाठ पूर्ण करें' : 'Complete Lesson'}
             </button>
             <button onClick={() => generatePodcast(selectedLesson)} disabled={podcastLoading}
               style={{ padding: '0.7rem 1.5rem', background: podcastLoading ? '#999' : 'var(--bg-secondary)', border: '1px solid var(--border-subtle)', borderRadius: '10px', cursor: podcastLoading ? 'wait' : 'pointer', fontSize: '0.9rem', color: 'var(--text-primary)' }}>
-              🎧 {podcastLoading ? (language === 'hi' ? 'बन रहा है...' : 'Generating...') : (language === 'hi' ? 'पॉडकास्ट बनाएं' : 'Generate Podcast')}
+              {podcastLoading ? (language === 'hi' ? 'बन रहा है...' : 'Generating...') : (language === 'hi' ? 'पॉडकास्ट बनाएं' : 'Generate Podcast')}
             </button>
           </div>
         </div>
@@ -366,21 +367,21 @@ export default function Learning({ userId }) {
               }}>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                  <span style={{ fontSize: '1.1rem' }}>
-                    {lesson.completed ? '✅' : lesson.locked ? '🔒' : '📖'}
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: lesson.completed ? '#2ecc71' : lesson.locked ? 'var(--text-secondary)' : 'var(--accent-primary)', minWidth: '16px' }}>
+                    {lesson.completed ? '✓' : lesson.locked ? '—' : '›'}
                   </span>
                   <span style={{ fontWeight: 600, fontSize: '0.95rem' }}>{lesson.title}</span>
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  {lesson.xp_reward > 0 && <span>⭐ {lesson.xp_reward} XP</span>}
-                  {lesson.has_scenario && <span>🧩 Scenario</span>}
-                  {lesson.has_podcast && <span>🎧 Podcast</span>}
-                  {lesson.has_tool && <span>🔧 {lesson.tool_name || 'Tool'}</span>}
-                  {getVideoForLesson(lesson.title) && <span>🎬 Video</span>}
+                  {lesson.xp_reward > 0 && <span>{lesson.xp_reward} XP</span>}
+                  {lesson.has_scenario && <span>Scenario</span>}
+                  {lesson.has_podcast && <span>Podcast</span>}
+                  {lesson.has_tool && <span>{lesson.tool_name || 'Tool'}</span>}
+                  {getVideoForLesson(lesson.title) && <span>Video</span>}
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                {lesson.scenario_correct === true && <span style={{ color: '#2ecc71', fontSize: '0.8rem' }}>🎯</span>}
+                {lesson.scenario_correct === true && <span style={{ color: '#2ecc71', fontSize: '0.8rem', fontWeight: 700 }}>✓</span>}
                 {lesson.scenario_correct === false && <span style={{ color: '#e74c3c', fontSize: '0.8rem' }}>✗</span>}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2">
                   <polyline points="9 18 15 12 9 6"></polyline>
@@ -404,7 +405,7 @@ export default function Learning({ userId }) {
     <div style={{ padding: '1rem' }}>
       <div style={{ marginBottom: '1.5rem' }}>
         <h1 style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>
-          📚 {language === 'hi' ? 'सीखने की यात्रा' : 'Learning Journey'}
+          {language === 'hi' ? 'सीखने की यात्रा' : 'Learning Journey'}
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
           {language === 'hi' ? '4 स्तंभ × 3 स्तर — व्यक्तिगत वित्तीय शिक्षा' : '4 Pillars × 3 Levels — Personalized Financial Education'}
@@ -420,9 +421,11 @@ export default function Learning({ userId }) {
           {modules.map((pillar, pIdx) => (
             <div key={pIdx} style={{ background: 'var(--card-bg)', borderRadius: '16px', padding: '1.25rem', border: '1px solid var(--border-subtle)' }}>
               <h2 style={{ fontSize: '1.1rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                {pillar.pillar === 'savings' ? '💰' : pillar.pillar === 'credit' ? '💳' : pillar.pillar === 'investments' ? '📈' : pillar.pillar === 'small_business' ? '🏪' : '🛡️'}
+                <span style={{ fontWeight: 700, fontSize: '0.7rem', background: 'var(--accent-primary)', color: '#fff', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  {pillar.pillar === 'savings' ? 'SAV' : pillar.pillar === 'credit' ? 'CRD' : pillar.pillar === 'investments' ? 'INV' : pillar.pillar === 'small_business' ? 'BIZ' : '...'}
+                </span>
                 <span style={{ textTransform: 'capitalize' }}>{(pillar.pillar || pillar.name || '').replace(/_/g, ' ')}</span>
-                {pillar.locked && <span style={{ fontSize: '0.7rem', background: '#e74c3c', color: '#fff', padding: '2px 8px', borderRadius: '8px' }}>🔒</span>}
+                {pillar.locked && <span style={{ fontSize: '0.7rem', background: '#e74c3c', color: '#fff', padding: '2px 8px', borderRadius: '8px' }}>Locked</span>}
               </h2>
 
               <div style={{ display: 'grid', gap: '0.5rem' }}>
@@ -433,10 +436,10 @@ export default function Learning({ userId }) {
                         <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{mod.title || mod.name}</span>
                         {mod.level && <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginLeft: '0.5rem' }}>({mod.level})</span>}
                         {mod.description && <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>{mod.description}</div>}
-                        {mod.lock_reason && <div style={{ fontSize: '0.7rem', color: '#e74c3c', marginTop: '0.15rem' }}>🔒 {mod.lock_reason}</div>}
+                        {mod.lock_reason && <div style={{ fontSize: '0.7rem', color: '#e74c3c', marginTop: '0.15rem' }}>{mod.lock_reason}</div>}
                       </div>
                       <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                        {mod.completed_lessons > 0 && mod.completed_lessons >= mod.total_lessons && <span style={{ color: '#2ecc71', fontSize: '0.85rem' }}>✓</span>}
+                        {mod.completed_lessons > 0 && mod.completed_lessons >= mod.total_lessons && <span style={{ color: '#2ecc71', fontSize: '0.85rem' }}>Done</span>}
                         <button onClick={() => openModule(mod.module_id || mod.id, mod.title || mod.name)}
                           disabled={mod.is_locked || mod.locked}
                           style={{ padding: '0.3rem 0.75rem', fontSize: '0.75rem', background: mod.completed_lessons > 0 && mod.completed_lessons >= mod.total_lessons ? '#2ecc71' : 'var(--accent-primary)', color: '#fff', border: 'none', borderRadius: '8px', cursor: (mod.is_locked || mod.locked) ? 'not-allowed' : 'pointer', opacity: (mod.is_locked || mod.locked) ? 0.5 : 1 }}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Icons from '../ui/Icons';
 
 const GameStatsBar = ({ stats, language = 'en' }) => {
     const savings = stats?.savings ?? 0;
@@ -29,21 +30,21 @@ const GameStatsBar = ({ stats, language = 'en' }) => {
         <div className="game-stats-bar">
             <div className="game-stats-container">
                 <div className="game-stat-item game-stat-savings">
-                    <div className="game-stat-icon">💰</div>
+                    <div className="game-stat-icon"><Icons.Money size={20} /></div>
                     <div className="game-stat-content">
                         <div className="game-stat-label">{labels.savings}</div>
                         <div className="game-stat-value">₹{savings.toLocaleString()}</div>
                     </div>
                 </div>
                 <div className={`game-stat-item game-stat-debt ${getDebtStatus(debt)}`}>
-                    <div className="game-stat-icon">📊</div>
+                    <div className="game-stat-icon"><Icons.Chart size={20} /></div>
                     <div className="game-stat-content">
                         <div className="game-stat-label">{labels.debt}</div>
                         <div className="game-stat-value">₹{debt.toLocaleString()}</div>
                     </div>
                 </div>
                 <div className="game-stat-item game-stat-confidence">
-                    <div className="game-stat-icon">⭐</div>
+                    <div className="game-stat-icon"><Icons.Star size={20} filled color="#f39c12" /></div>
                     <div className="game-stat-content">
                         <div className="game-stat-label">{labels.confidence}</div>
                         <div className="game-stat-value" style={{ color: getConfidenceColor(confidence) }}>

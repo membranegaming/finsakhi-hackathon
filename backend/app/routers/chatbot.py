@@ -30,9 +30,9 @@ router = APIRouter(prefix="/api/chat", tags=["Chatbot"])
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 groq_client = Groq(api_key=GROQ_API_KEY) if GROQ_API_KEY else None
 if groq_client:
-    print("✅ Groq API configured for chatbot")
+    print(" Groq API configured for chatbot")
 else:
-    print("⚠️ GROQ_API_KEY not set — chatbot will return errors")
+    print(" GROQ_API_KEY not set — chatbot will return errors")
 
 # Max conversation history turns to send to LLM (to stay within token limits)
 MAX_HISTORY_TURNS = 12  # 12 messages ≈ 6 back-and-forth turns
@@ -463,7 +463,7 @@ def _generate_suggestions(user_context: dict, language: str = "en") -> list:
 @router.post("/send", response_model=None)
 async def send_message(data: ChatRequest, db: Session = Depends(get_db)):
     """
-    💬 Send a message to FinSakhi chatbot.
+     Send a message to FinSakhi chatbot.
 
     The chatbot has access to the user's FULL context:
     financial profile, assessment scores, learning progress,
@@ -520,7 +520,7 @@ async def send_message(data: ChatRequest, db: Session = Depends(get_db)):
         )
         reply = response.choices[0].message.content.strip()
     except Exception as e:
-        print(f"⚠️ Groq chatbot error: {e}")
+        print(f" Groq chatbot error: {e}")
         # Friendly fallback
         reply = (
             "माफ़ कीजिए, अभी मुझसे बात नहीं हो पा रही। कृपया थोड़ी देर बाद कोशिश करें।"
@@ -561,7 +561,7 @@ async def get_user_conversations(
     db: Session = Depends(get_db),
 ):
     """
-    📋 List all conversations for a user (most recent first).
+     List all conversations for a user (most recent first).
     Returns conversation_id, message count, timestamps, and preview.
     """
     user = db.query(User).filter(User.id == user_id).first()
@@ -621,7 +621,7 @@ async def get_conversation_messages(
     db: Session = Depends(get_db),
 ):
     """
-    💬 Get all messages in a specific conversation.
+     Get all messages in a specific conversation.
     Returns the full chat history in chronological order.
     """
     messages = (
@@ -660,7 +660,7 @@ async def delete_conversation(
     conversation_id: str,
     db: Session = Depends(get_db),
 ):
-    """🗑️ Delete a conversation and all its messages."""
+    """ Delete a conversation and all its messages."""
     deleted = (
         db.query(ChatMessage)
         .filter(
@@ -680,7 +680,7 @@ async def delete_conversation(
 @router.get("/context/{user_id}")
 async def get_user_context_debug(user_id: int, db: Session = Depends(get_db)):
     """
-    🔍 Debug endpoint: see the full context the chatbot uses for a user.
+     Debug endpoint: see the full context the chatbot uses for a user.
     Useful during development to verify what the LLM "knows" about the user.
     """
     ctx = _build_full_user_context(user_id, db)

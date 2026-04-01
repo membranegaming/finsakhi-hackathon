@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import logo from '../../../logo.jpeg';
 import './Sidebar.css';
 
 function Sidebar({ onNavigate, activePage = 'dashboard', mobileOpen = false }) {
@@ -88,7 +89,7 @@ function Sidebar({ onNavigate, activePage = 'dashboard', mobileOpen = false }) {
     },
     {
       id: 'fingame',
-      label: 'FinGame 🎮',
+      label: 'FinGame',
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="2" y="6" width="20" height="12" rx="2"></rect>
@@ -106,12 +107,9 @@ function Sidebar({ onNavigate, activePage = 'dashboard', mobileOpen = false }) {
       <div className="sidebar-header">
         <div className="logo">
           <div className="logo-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
-            </svg>
+            <img src={logo} alt="FinSakhi" width="36" height="36" />
           </div>
-          <span className="logo-text">FinLearn</span>
+          <span className="logo-text">FinSakhi</span>
         </div>
       </div>
 

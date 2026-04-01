@@ -84,11 +84,11 @@ export const learningAPI = {
 
 // ─── Investments ──────────────────────────────────────────
 export const investmentAPI = {
-  getCommodities: () =>
-    get('/investments/commodities'),
+  getCommodities: ({ live = false } = {}) =>
+    get(`/investments/commodities${live ? '?live=true' : ''}`),
 
-  getCommodity: (commodity) =>
-    get(`/investments/commodities/${commodity}`),
+  getCommodity: (commodity, { live = false } = {}) =>
+    get(`/investments/commodities/${commodity}${live ? '?live=true' : ''}`),
 
   getCommodityHistory: (commodity, period = '1mo') =>
     get(`/investments/commodities/${commodity}/history?period=${period}`),
@@ -108,8 +108,8 @@ export const investmentAPI = {
 
 // ─── Portfolio (Virtual Trading) ──────────────────────────
 export const portfolioAPI = {
-  getPortfolio: (userId) =>
-    get(`/portfolio/${userId}`),
+  getPortfolio: (userId, { live = false } = {}) =>
+    get(`/portfolio/${userId}${live ? '?live=true' : ''}`),
 
   buy: (userId, assetType, assetSymbol, assetName, quantity, language = 'en') =>
     post('/portfolio/buy', { user_id: userId, asset_type: assetType, asset_symbol: assetSymbol, asset_name: assetName, quantity, language }),
